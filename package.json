@@ -75,7 +75,6 @@
         "not ie <= 11",
         "not op_mini all"
     ],
-    "proxy": "http://localhost:8080",
     "jest": {
         "collectCoverageFrom": [
             "src/**/*.{js,jsx,ts,tsx}",
@@ -121,5 +120,6 @@
         "presets": [
             "react-app"
         ]
-    }
+    },
+    "proxy": "http://localhost:8080"
 }
