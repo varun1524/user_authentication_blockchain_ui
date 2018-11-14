@@ -1,10 +1,9 @@
 import {actionTypes} from "./actionTypes";
 
-export function login_success(data, message) {
+export function login_success(data) {
     return {
         type: actionTypes.LOGIN_SUCCESS,
-        data,
-        message,
+        data
     }
 }
 
