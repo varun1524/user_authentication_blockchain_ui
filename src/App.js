@@ -5,6 +5,8 @@ import Landing from './components/Landing';
 import SignUp from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
+import InsertUserData from './components/InsertUserData'
+
 
 class App extends Component {
     render() {
@@ -19,6 +21,10 @@ class App extends Component {
                         />
                         <Route path= "/login" render = {() => (
                             <Login
+                                />)}
+                        />
+                        <Route path= "/insertUserData" render = {() => (
+                            <InsertUserData
                             />)}
                         />
                         <Route path= "/home" render = {() => (

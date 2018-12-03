@@ -23,7 +23,7 @@ class Landing extends Component {
 
     }
 
-    redirectLogin = ((path)=>{
+    redirectPage = ((path)=>{
         this.props.history.push(path);
     });
 
@@ -31,7 +31,9 @@ class Landing extends Component {
         return (
             <div className="HelloWorld">
                 <div>
-                    <button onClick={(()=>{this.redirectLogin("/login")})}>Login</button>
+                    <button onClick={(()=>{this.redirectPage("/login")})}>Login</button>
+                    <br/>
+                    <button onClick={(()=>{this.redirectPage("/insertUserData")})}>Insert User data</button>
                 </div>
                 <h1><img src={Logo} alt="Logo"/></h1>
                 <header className="HelloWorld-header">
