@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {login_success} from "../actions/login";
+import {insert_dbdata_success} from "../actions/insertData";
 
 class Home extends Component {
 
@@ -11,14 +11,14 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        console.log("HomePage: ", this.props.user);
+        console.log("HomePage: ", this.props.userDbData);
     }
 
     render() {
 
         return (
             <div className="home">
-                <h1>Welcome {this.props.user.first_name} {this.props.user.last_name}</h1>
+                <h1>Welcome {this.props.userDbData.given_name} {this.props.userDbData.last_name}</h1>
             </div>
         );
     }
@@ -26,12 +26,12 @@ class Home extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user: reducer_state.user
+        userDbData: reducer_state.userDbData
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({login_success: login_success}, dispatch)
+    return bindActionCreators({insert_dbdata_success: insert_dbdata_success}, dispatch)
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

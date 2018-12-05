@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {doLogin} from './../api/authAPI';
 import {doInsertData} from './../api/orgAPI'
 import {Link, withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {login_success} from "../actions/login";
+import {insert_dbdata_success} from "../actions/insertData";
 
 class InsertUserDataForm extends Component {
 
@@ -99,15 +99,19 @@ class InsertUserDataForm extends Component {
             };
 
         doInsertData(payload).then((response) => {
+                console.log(response)
+                console.log(typeof response)
                 console.log(response.status);
                 if (response.status === 200) {
-                    response.json().then((data) => {
-                        console.log(data);
-                        this.props.login_success(data);
-                        this.props.history.push("/home");
-                    });
+                    //response.json().then((data) => {
+                        console.log(response.data);
+                        this.props.insert_dbdata_success(payload);
+                        alert("Data for "+this.state.given_name+" "+this.state.last_name+" successfully inserted")
+                        //this.props.history.push("/home");
+                    }
+                    //);
 
-                }
+                //}
                 else if (response.status === 404) {
                     this.setState({
                         ...this.state,
@@ -235,7 +239,7 @@ class InsertUserDataForm extends Component {
                                            })
                                        }}
                                 />
-
+                                <span id="lastNameErr"/>
                             </div>
                         </div>
                     </div>
@@ -250,7 +254,9 @@ class InsertUserDataForm extends Component {
                                                dob : event.target.value
                                            })
                                        }}
-                                /> </div>
+                                />
+                                <span id="DOBErr"/>
+                            </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
@@ -266,7 +272,7 @@ class InsertUserDataForm extends Component {
                                     <option value="">Male</option>
                                     <option value="">Female</option>
                                 </select>
-
+                                <span id="genderErr"/>
                             </div>
                         </div>
 
@@ -284,7 +290,7 @@ class InsertUserDataForm extends Component {
                                            })
                                        }}
                                 />
-
+                                <span id="emailErr"/>
                             </div>
                         </div>
 
@@ -302,6 +308,7 @@ class InsertUserDataForm extends Component {
                                     <option value="">---Select One---</option>
                                     <option value="">American</option>
                                 </select>
+                                <span id="ethnicityErr"/>
                             </div>
                         </div>
 
@@ -675,12 +682,12 @@ class InsertUserDataForm extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user: reducer_state.user
+        user_db_data: reducer_state.user_db_data
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({login_success: login_success}, dispatch)
+    return bindActionCreators({insert_dbdata_success: insert_dbdata_success}, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InsertUserData));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InsertUserDataForm));
