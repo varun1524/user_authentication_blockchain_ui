@@ -5,6 +5,9 @@ import Landing from './components/Landing';
 import SignUp from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
+import CreateUser from "./components/CreateUser";
+import CreateBlockUser from "./components/CreateBlockUser";
+import ViewBlock from "./components/ViewBlock";
 
 class App extends Component {
     render() {
@@ -17,12 +20,20 @@ class App extends Component {
                             <SignUp
                             />)}
                         />
-                        <Route path= "/login" render = {() => (
-                            <Login
+                        <Route path= "/CreateBlockUser" render = {() => (
+                            <CreateBlockUser
                             />)}
                         />
                         <Route path= "/home" render = {() => (
                             <Home
+                            />)}
+                        />
+                        <Route path= "/CreateUser" render = {() => (
+                            <CreateUser
+                            />)}
+                        />
+                        <Route path= "/ViewBlock" render = {() => (
+                            <ViewBlock
                             />)}
                         />
                     </Switch>
