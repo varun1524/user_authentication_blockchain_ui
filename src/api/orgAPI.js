@@ -30,8 +30,8 @@ export const doInsertBlockData = (payload) =>
         credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => {
-        let resp = {status : 200, data : {msg : "inserted"}}
-        //return res;
+        //let resp = {status : 200, data : {msg : "inserted"}}
+        return res;
     }).catch(error => {
         console.log("This is error");
         console.log(error);

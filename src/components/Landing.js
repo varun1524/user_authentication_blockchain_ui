@@ -136,15 +136,15 @@ class Landing extends Component {
                 console.log(typeof response)
                 console.log(response.status);
                 if (response.status === 200) {
-                    //response.json().then((data) => {
+                    response.json().then((data) => {
                     console.log(response.data);
                     this.props.insert_dbdata_success(payload);
                     alert("Data for " + this.state.given_name + " " + this.state.last_name + " successfully inserted")
                     //this.props.history.push("/home");
                 }
-                //);
+                );
 
-                //}
+                }
                 else if (response.status === 404) {
                     this.setState({
                         ...this.state,
