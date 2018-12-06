@@ -40,11 +40,7 @@ class CreateBlockUser extends Component {
                             <i className="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <span>Users</span>
-                            <i className="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            <span>New</span>
+                            <span>Insert Record</span>
                         </li>
                     </ul>
 
@@ -57,7 +53,7 @@ class CreateBlockUser extends Component {
                             <div className="portlet box blue">
                                 <div className="portlet-title">
                                     <div className="caption">
-                                        <i className="fa fa-gift"></i>Create New User
+                                        <i className="fa fa-gift"></i>Insert Block Record
                                     </div>
 
                                 </div>

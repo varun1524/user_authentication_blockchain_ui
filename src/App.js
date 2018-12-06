@@ -20,7 +20,7 @@ class App extends Component {
                             <SignUp
                             />)}
                         />
-                        <Route path= "/CreateBlockUser" render = {() => (
+                        <Route path= "/createblock" render = {() => (
                             <CreateBlockUser
                             />)}
                         />
@@ -28,7 +28,7 @@ class App extends Component {
                             <Home
                             />)}
                         />
-                        <Route path= "/CreateUser" render = {() => (
+                        <Route path= "/createuser" render = {() => (
                             <CreateUser
                             />)}
                         />
