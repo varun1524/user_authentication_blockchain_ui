@@ -6,6 +6,7 @@ const allReducers = combineReducers({
     //insert reducer name here to combine
     user : getUser,
     userDbData : userDbData,
+    user_blockdata : user_blockdata,
 
 });
 
