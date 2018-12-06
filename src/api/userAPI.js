@@ -1,9 +1,7 @@
-const headers = {
-    'Accept': 'application/json'
-};
+import {headers, node_api, py_api} from './apiUtil';
 
 export const validateSession = () =>
-    fetch(`/user/validateSession`, {
+    fetch(`${py_api}/user/validateSession`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -19,7 +17,7 @@ export const validateSession = () =>
     });
 
 export const doLogout = () =>
-    fetch(`/user/logout`, {
+    fetch(`${py_api}/user/logout`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -35,7 +33,7 @@ export const doLogout = () =>
     });
 
 export const doSignUp = (payload) =>
-    fetch (`/user/signup`,
+    fetch (`${py_api}/user/signup`,
         {
             method: 'POST',
             headers: {
@@ -52,7 +50,7 @@ export const doSignUp = (payload) =>
     });
 
 export const doLogin = (payload) =>
-    fetch(`/user/login`, {
+    fetch(`${py_api}/user/login`, {
         method: 'POST',
         headers: {
             ...headers,

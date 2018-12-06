@@ -1,6 +1,4 @@
-const headers = {
-    'Accept': 'application/json'
-};
+import {headers, node_api, py_api} from './apiUtil';
 
 export const validateSession = () =>
     fetch(`/user/validateSession`, {

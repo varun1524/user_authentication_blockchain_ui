@@ -1,9 +1,7 @@
-const headers = {
-    'Accept': 'application/json'
-};
+import {headers, node_api, py_api} from './apiUtil';
 
 export const doInsertData = (payload) =>
-    fetch(`/user/insertData`, {
+    fetch(`${py_api}/user/insertData`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -21,7 +19,7 @@ export const doInsertData = (payload) =>
     });
 
 export const doInsertBlockData = (payload) =>
-    fetch(`/user/insertData`, {
+    fetch(`${node_api}/user/insertData`, {
         method: 'POST',
         headers: {
             ...headers,
