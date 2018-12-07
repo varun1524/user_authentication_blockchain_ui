@@ -1,7 +1,7 @@
 import {headers, node_api, py_api} from './apiUtil';
 
 export const doInsertData = (payload) =>
-    fetch(`${py_api}/user/insertData`, {
+    fetch(`${py_api}/api/v1/create_user`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -19,7 +19,7 @@ export const doInsertData = (payload) =>
     });
 
 export const doInsertBlockData = (payload) =>
-    fetch(`${node_api}/user/insertData`, {
+    fetch(`${node_api}/user/insertdata`, {
         method: 'POST',
         headers: {
             ...headers,

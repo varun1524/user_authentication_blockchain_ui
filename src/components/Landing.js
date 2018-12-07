@@ -117,17 +117,8 @@ class Landing extends Component {
                 'given_name': this.state.given_name,
                 'last_name': this.state.last_name,
                 'dob': this.state.dob,
-                'gender': this.state.gender,
-                'email': this.state.email,
-                'ethnicity': this.state.ethnicity,
-                'line1': this.state.line1,
-                'apt': this.state.apt,
-                'city': this.state.city,
-                'st': this.state.st,
-                'country': this.state.country,
-                'zip': this.state.zip,
-                'citizen_country': this.state.citizen_country,
-                'phone': this.state.phone
+
+                'email': this.state.email
 
             };
 
