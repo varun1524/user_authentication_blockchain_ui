@@ -38,7 +38,7 @@ class Landing extends Component {
         // showAlert("SHowed Successful", "info", this);
         document.getElementById('emailErr').innerHTML = '';
         console.log('1',this.state.email);
-        console.log('1',this.state.password);
+        console.log('2',this.state.password);
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
@@ -94,17 +94,34 @@ class Landing extends Component {
     });
 
     render() {
+        console.log("Rendering signin in landing page");
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
         return (
             <div className="gray-bg">
             <div className="middle-box text-center loginscreen animated fadeInDown">
                 <h1><img src={Logo} alt="Logo"/></h1>
 
                 <div className="form-group">
-                    <input type="email" className="form-control" placeholder="Username" required="" />
+                    <input type="email" className="form-control" placeholder="Username" required=""
+                           onChange={(event) => {
+                               this.setState({
+                                   ...this.state,
+                                   emailColor : re.test(this.state.email) ? 'black' : 'Red',
+                                   email: event.target.value
+                               })
+                           }}
+                    />
                     <span id="emailErr"/>
                 </div>
                 <div className="form-group">
-                    <input type="password" className="form-control" placeholder="Password" required="" />
+                    <input type="password" className="form-control" placeholder="Password" required=""
+                           onChange={(event) => {
+                               this.setState({
+                                   ...this.state,
+                                   password: event.target.value
+                               })
+                           }}
+                    />
                     <span id="passwordErr"/>
                 </div>
                 <button type="submit" className="btn btn-primary block full-width m-b" onClick={()=>{this.handleLogin()}}>Login</button>
@@ -123,4 +140,14 @@ class Landing extends Component {
     }
 }
 
-export default withRouter(Landing);
+function mapStateToProps(reducer_state) {
+    return {
+        user: reducer_state.user
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({login_success: login_success}, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Landing));
