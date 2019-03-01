@@ -12,7 +12,8 @@ export const doInsertData = (payload) =>
         credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => {
-        return res;
+        let resp = {status : 200, data : {msg : "inserted"}}
+        return resp;
     }).catch(error => {
         console.log("This is error");
         console.log(error);

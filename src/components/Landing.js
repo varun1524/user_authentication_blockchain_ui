@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Logo from './../assets/images/UABT_logo.png';
 import {withRouter} from 'react-router-dom';
+import './../assets/stylesheets/bootstrap.min.css';
+import './../assets/stylesheets/style.css';
+import './../assets/stylesheets/animate.css';
 
 class Landing extends Component {
 
@@ -23,22 +26,33 @@ class Landing extends Component {
 
     }
 
-    redirectPage = ((path)=>{
+    redirectLogin = ((path)=>{
         this.props.history.push(path);
     });
 
     render() {
         return (
-            <div className="HelloWorld">
-                <div>
-                    <button onClick={(()=>{this.redirectPage("/login")})}>Login</button>
-                    <br/>
-                    <button onClick={(()=>{this.redirectPage("/insertUserData")})}>Insert User data</button>
-                </div>
+            <div className="gray-bg">
+            <div className="middle-box text-center loginscreen animated fadeInDown">
                 <h1><img src={Logo} alt="Logo"/></h1>
-                <header className="HelloWorld-header">
-                    User Authentication Block-Chain
-                </header>
+
+                <div className="form-group">
+                    <input type="email" className="form-control" placeholder="Username" required="" />
+                </div>
+                <div className="form-group">
+                    <input type="password" className="form-control" placeholder="Password" required="" />
+                </div>
+                <button type="submit" className="btn btn-primary block full-width m-b">Login</button>
+
+                <a href="#">
+                    <small>Forgot password?</small>
+                </a>
+                <p className="text-muted text-center">
+                    <small>Do not have an account?</small>
+                </p>
+                <a className="btn btn-sm btn-white btn-block" href="/signup">Create an account</a>
+
+            </div>
             </div>
         );
     }
