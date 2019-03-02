@@ -4,7 +4,7 @@ import {Link, withRouter} from 'react-router-dom';
 import './../assets/stylesheets/bootstrap.min.css';
 import './../assets/stylesheets/style.css';
 import './../assets/stylesheets/animate.css';
-import {doLogin} from './../api/authAPI';
+import {doLogin} from './../api/userAPI';
 import SignUp from './Signup';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
