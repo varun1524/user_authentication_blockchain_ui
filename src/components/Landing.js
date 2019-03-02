@@ -70,16 +70,10 @@ class Landing extends Component {
                     });
 
                 }
-                else if (response.status === 404) {
+                else if (response.status === 403) {
                     this.setState({
                         ...this.state,
-                        message: "User not registered. Please sign up"
-                    });
-                }
-                else if (response.status === 401) {
-                    this.setState({
-                        ...this.state,
-                        message: "Incorrect Password. Please try again"
+                        message: "Username/Password incorrect. Please try again"
                     });
                 }
                 else {
