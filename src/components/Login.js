@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {doLogin} from './../api/authAPI';
-import SignUp from './Signup';
 import {Link, withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';

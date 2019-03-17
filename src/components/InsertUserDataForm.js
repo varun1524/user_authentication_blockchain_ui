@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import {doLogin} from './../api/authAPI';
 import {doInsertData} from './../api/orgAPI'
 import {Link, withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {login_success} from "../actions/login";
+import {user_addiiton_success} from "../actions/orgnization_user";
 
 class InsertUserDataForm extends Component {
 
@@ -87,15 +86,14 @@ class InsertUserDataForm extends Component {
                 'gender' : this.state.gender,
                 'email' : this.state.email,
                 'ethnicity' : this.state.ethnicity,
-                'line1' : this.state.line1,
-                'apt' : this.state.apt,
+                'address_line_1' : this.state.line1,
+                'address_line_2' : this.state.apt,
                 'city' : this.state.city,
-                'st' : this.state.st,
-                'country' : this.state.country,
+                'state' : this.state.st,
+                'country_of_residence' : this.state.country,
                 'zip' : this.state.zip,
-                'citizen_country' : this.state.citizen_country,
+                'country_of_citizenship' : this.state.citizen_country,
                 'phone' : this.state.phone
-
             };
 
         doInsertData(payload).then((response) => {
@@ -103,7 +101,7 @@ class InsertUserDataForm extends Component {
                 if (response.status === 200) {
                     response.json().then((data) => {
                         console.log(data);
-                        this.props.login_success(data);
+                        this.props.user_addiiton_success(data);
                         this.props.history.push("/home");
                     });
 
@@ -675,12 +673,12 @@ class InsertUserDataForm extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user: reducer_state.user
+        organization_user: reducer_state.organization_user
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({login_success: login_success}, dispatch)
+    return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InsertUserData));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InsertUserDataForm));

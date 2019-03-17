@@ -5,6 +5,8 @@ import Landing from './components/Landing';
 import SignUp from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
+import InsertUserDataForm from './components/InsertUserDataForm'
+
 
 class App extends Component {
     render() {
@@ -12,7 +14,7 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <Switch>
-                        <Route exact path= "/" component={Landing}/>
+                        <Route exact path= "/" component={InsertUserDataForm}/>
                         <Route path= "/signup" render = {() => (
                             <SignUp
                             />)}
