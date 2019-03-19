@@ -6,3 +6,10 @@ export function user_addiiton_success(data) {
         data
     }
 }
+
+export function user_blockdata_addition(data) {
+    return {
+        type: actionTypes.USER_BLOCKDATA_ADDITION,
+        data
+    }
+}

@@ -120,6 +120,7 @@ class Landing extends Component {
                 </div>
                 <button type="submit" className="btn btn-primary block full-width m-b" onClick={()=>{this.handleLogin()}}>Login</button>
 
+
                 <a href="#">
                     <small>Forgot password?</small>
                 </a>

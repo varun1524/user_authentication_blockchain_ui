@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {doInsertData} from './../api/orgAPI'
+import {doCreateUser} from './../api/orgAPI'
 import {Link, withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -96,7 +96,7 @@ class InsertUserDataForm extends Component {
                 'phone' : this.state.phone
             };
 
-        doInsertData(payload).then((response) => {
+        doCreateUser(payload).then((response) => {
                 console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
