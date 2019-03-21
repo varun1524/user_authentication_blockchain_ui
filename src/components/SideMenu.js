@@ -4,23 +4,21 @@ import MetisMenu from 'react-metismenu';
 
 const content=[
     {
-        icon: 'icon-class-name',
-        label: 'Label of Item',
+        id:1,
+        icon: 'home',
+        label: 'Dashboard',
         to: '/page1',
     },
     {
-        icon: 'icon-class-name',
-        label: 'Go to page2',
-        to: '/page2',
-    },
-    {
-        icon: 'icon-class-name',
-        label: 'Second Item',
+        id:2,
+        icon: '',
+        label: 'User',
         content: [
             {
+                parentId:2,
                 icon: 'icon-class-name',
-                label: 'Sub Menu of Second Item',
-                to: '#another-link',
+                label: 'New User',
+                to: '/page2',
             },
         ],
     },
