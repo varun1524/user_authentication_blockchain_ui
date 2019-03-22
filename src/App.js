@@ -5,10 +5,15 @@ import Landing from './components/Landing';
 import SignUp from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
-import CreateUserByOrgUser from './components/CreateUserByOrgUser'
+import InsertUserDataForm from './components/CreateUserByOrgUser'
+import Menu from './components/SideMenu'
 import Page1 from './components/Page1'
 import Page2 from './components/Page2'
-import InsertUserBlockData from './components/InsertUserBlockData'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faIgloo } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faIgloo);
 
 class App extends Component {
     render() {
@@ -16,7 +21,7 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <Switch>
-                        <Route exact path= "/" component={InsertUserBlockData}/>
+                        <Route exact path= "/" component={Page1}/>
                         <Route path= "/signup" render = {() => (
                             <SignUp
                             />)}
@@ -37,15 +42,6 @@ class App extends Component {
                             <Page2
                             />)}
                         />
-                        <Route path= "/insertUserBlock" render = {() => (
-                            <InsertUserBlockData
-                            />)}
-                        />
-                        <Route path= "/createUser" render = {() => (
-                            <CreateUserByOrgUser
-                            />)}
-                        />
-
                     </Switch>
                 </header>
             </div>

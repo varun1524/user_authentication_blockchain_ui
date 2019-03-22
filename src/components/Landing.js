@@ -92,44 +92,43 @@ class Landing extends Component {
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
         return (
             <div className="gray-bg">
-            <div className="middle-box text-center loginscreen animated fadeInDown">
-                <h1><img src={Logo} alt="Logo"/></h1>
+                <div className="middle-box text-center loginscreen animated fadeInDown">
+                    <h1><img src={Logo} alt="Logo"/></h1>
 
-                <div className="form-group">
-                    <input type="email" className="form-control" placeholder="Username" required=""
-                           onChange={(event) => {
-                               this.setState({
-                                   ...this.state,
-                                   emailColor : re.test(this.state.email) ? 'black' : 'Red',
-                                   email: event.target.value
-                               })
-                           }}
-                    />
-                    <span id="emailErr"/>
+                    <div className="form-group">
+                        <input type="email" className="form-control" placeholder="Username" required=""
+                               onChange={(event) => {
+                                   this.setState({
+                                       ...this.state,
+                                       emailColor : re.test(this.state.email) ? 'black' : 'Red',
+                                       email: event.target.value
+                                   })
+                               }}
+                        />
+                        <span id="emailErr"/>
+                    </div>
+                    <div className="form-group">
+                        <input type="password" className="form-control" placeholder="Password" required=""
+                               onChange={(event) => {
+                                   this.setState({
+                                       ...this.state,
+                                       password: event.target.value
+                                   })
+                               }}
+                        />
+                        <span id="passwordErr"/>
+                    </div>
+                    <a type="submit" className="btn btn-primary block full-width m-b" href="/page1">Login</a>
+
+                    <a href="#">
+                        <small>Forgot password?</small>
+                    </a>
+                    <p className="text-muted text-center">
+                        <small>Do not have an account?</small>
+                    </p>
+                    <a className="btn btn-sm btn-white btn-block" href="/signup">Create an account</a>
+
                 </div>
-                <div className="form-group">
-                    <input type="password" className="form-control" placeholder="Password" required=""
-                           onChange={(event) => {
-                               this.setState({
-                                   ...this.state,
-                                   password: event.target.value
-                               })
-                           }}
-                    />
-                    <span id="passwordErr"/>
-                </div>
-                <button type="submit" className="btn btn-primary block full-width m-b" onClick={()=>{this.handleLogin()}}>Login</button>
-
-
-                <a href="#">
-                    <small>Forgot password?</small>
-                </a>
-                <p className="text-muted text-center">
-                    <small>Do not have an account?</small>
-                </p>
-                <a className="btn btn-sm btn-white btn-block" href="/signup">Create an account</a>
-
-            </div>
             </div>
         );
     }

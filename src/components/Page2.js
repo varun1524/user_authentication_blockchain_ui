@@ -3,7 +3,7 @@ import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {doInsertData} from "../api/orgAPI";
+import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 
@@ -97,7 +97,7 @@ class Page2 extends Component {
             'phone' : this.state.phone
         };
 
-        doInsertData(payload).then((response) => {
+        doCreateUser(payload).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
