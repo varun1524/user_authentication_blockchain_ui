@@ -20,6 +20,12 @@ const content=[
                 label: 'New User',
                 to: '/page2',
             },
+            {
+                parentId:2,
+                icon: 'icon-class-name',
+                label: 'Add user',
+                to: '/adduser',
+            },
         ],
     },
 ];

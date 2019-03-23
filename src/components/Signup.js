@@ -92,8 +92,7 @@ class Signup extends Component {
             console.log('No error. All fields are valid. Trying to sign up');
             let payload = {
                 'name': this.state.name,
-                'email': this.state.email,
-                'password': this.state.password,
+                'contact_email': this.state.email,
                 'address_line_1': this.state.address_line_1,
                 'address_line_2': this.state.address_line_2,
                 'city':this.state.city,
@@ -110,9 +109,10 @@ class Signup extends Component {
                 console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
+                        alert("Your request has been submitted. You will get an email when request has been submitted")
                         console.log(data);
                         this.props.signup_success(data);
-                        this.props.history.push("/home");
+                        this.props.history.push("/login");
                     });
 
                 }
@@ -178,19 +178,6 @@ class Signup extends Component {
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" placeholder="Enter password" class="form-control"
-                                           onChange={(event) => {
-                                               this.setState({
-                                                   ...this.state,
-                                                   password : event.target.value
-                                               })
-                                           }}
-                                    /><span id="passwordErr"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label>Address 1</label>
                                     <input type="text" placeholder="Enter address 1" class="form-control"
                                            onChange={(event) => {
@@ -202,9 +189,6 @@ class Signup extends Component {
                                     /><span id="add1Err"/>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Address 2</label>
@@ -219,6 +203,9 @@ class Signup extends Component {
                                     <span id="add2Err"/>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>City</label>
@@ -231,6 +218,20 @@ class Signup extends Component {
                                            }}
                                     />
                                     <span id="cityErr"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <RegionDropdown class="form-control m-b" name="account" value={this.state.state}
+                                                    onChange={(val) => {
+                                                        this.setState({
+                                                            ...this.state,
+                                                            state : val
+                                                        })
+                                                    }}
+                                    >
+                                    </RegionDropdown><span id="stateErr"/>
                                 </div>
                             </div>
                         </div>
@@ -270,16 +271,20 @@ class Signup extends Component {
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>State</label>
-                                    <RegionDropdown class="form-control m-b" name="account" value={this.state.state}
-                                                    onChange={(val) => {
-                                                        this.setState({
-                                                            ...this.state,
-                                                            state : val
-                                                        })
-                                                    }}
+                                    <label>Organization Type</label>
+                                    <select class="form-control m-b" name="account"
+                                            onChange={(event) => {
+                                                this.setState({
+                                                    ...this.state,
+                                                    organization_type : event.target.value
+                                                })
+                                            }}
                                     >
-                                    </RegionDropdown><span id="stateErr"/>
+                                        <option>Educational</option>
+                                        <option>Medical</option>
+                                        <option>IT</option>
+                                        <option>Government</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -326,24 +331,24 @@ class Signup extends Component {
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-md-offset-4">
-                            <div class="form-group">
-                                <label>Organization Type</label>
-                                <select class="form-control m-b" name="account"
-                                        onChange={(event) => {
-                                            this.setState({
-                                                ...this.state,
-                                                organization_type : event.target.value
-                                            })
-                                        }}
-                                >
-                                    <option>Educational</option>
-                                    <option>Medical</option>
-                                    <option>IT</option>
-                                    <option>Government</option>
-                                </select>
-                            </div>
-                        </div>
+                        {/*<div class="col-md-4 col-md-offset-4">*/}
+                            {/*<div class="form-group">*/}
+                                {/*<label>Organization Type</label>*/}
+                                {/*<select class="form-control m-b" name="account"*/}
+                                        {/*onChange={(event) => {*/}
+                                            {/*this.setState({*/}
+                                                {/*...this.state,*/}
+                                                {/*organization_type : event.target.value*/}
+                                            {/*})*/}
+                                        {/*}}*/}
+                                {/*>*/}
+                                    {/*<option>Educational</option>*/}
+                                    {/*<option>Medical</option>*/}
+                                    {/*<option>IT</option>*/}
+                                    {/*<option>Government</option>*/}
+                                {/*</select>*/}
+                            {/*</div>*/}
+                        {/*</div>*/}
 
                         <div class="col-md-4 col-md-offset-4">
 
@@ -367,7 +372,7 @@ class Signup extends Component {
                         <div class="col-md-4 col-md-offset-4">
                             <a class="btn btn-white block m-b" href="/">Login</a>
                             <p class="m-t">
-                                <small>User Authetication using Blockchain &copy; 2018</small>
+                                <small>User Authetication using Blockchain &copy; 2019</small>
                             </p>
                         </div>
 

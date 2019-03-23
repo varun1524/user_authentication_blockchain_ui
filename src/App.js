@@ -12,6 +12,7 @@ import Page2 from './components/Page2'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo } from '@fortawesome/free-solid-svg-icons'
+import AddUser from './components/AddUser'
 
 library.add(faIgloo);
 
@@ -21,7 +22,7 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <Switch>
-                        <Route exact path= "/" component={Page1}/>
+                        <Route exact path= "/" component={Landing}/>
                         <Route path= "/signup" render = {() => (
                             <SignUp
                             />)}
@@ -40,6 +41,10 @@ class App extends Component {
                         />
                         <Route path= "/page2" render = {() => (
                             <Page2
+                            />)}
+                        />
+                        <Route path= "/adduser" render = {() => (
+                            <AddUser
                             />)}
                         />
                     </Switch>
