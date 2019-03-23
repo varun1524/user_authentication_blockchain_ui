@@ -222,23 +222,6 @@ class Signup extends Component {
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>State</label>
-                                    <RegionDropdown class="form-control m-b" name="account" value={this.state.state}
-                                                    onChange={(val) => {
-                                                        this.setState({
-                                                            ...this.state,
-                                                            state : val
-                                                        })
-                                                    }}
-                                    >
-                                    </RegionDropdown><span id="stateErr"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label>Country</label>
                                     <CountryDropdown class="form-control m-b" name="account" value={this.state.country}
                                                      onChange={(val) => {
@@ -249,6 +232,24 @@ class Signup extends Component {
                                                      }}
                                     >
                                     </CountryDropdown><span id="countryErr"/>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <RegionDropdown class="form-control m-b" name="account" country={this.state.country} value={this.state.state}
+                                                    onChange={(val) => {
+                                                        this.setState({
+                                                            ...this.state,
+                                                            state : val
+                                                        })
+                                                    }}
+                                    >
+                                    </RegionDropdown><span id="stateErr"/>
 
                                 </div>
                             </div>
