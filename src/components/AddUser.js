@@ -7,6 +7,9 @@ import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 
+const options = ['Given name','Last name', 'Email', 'Zip', 'City', 'Phone']
+const secondOptions = ['Given name','Last name', 'Email', 'Zip', 'City', 'Phone']
+
 class AddUser extends Component {
     constructor() {
         super();
@@ -26,8 +29,22 @@ class AddUser extends Component {
             citizen_country : "",
             message : "",
             emailColor:"",
-            phone: ""
+            phone: "",
+            selectedDropdown1: '',
+            selectedDropdown2: ''
         }
+        this.onDropdown1Change = this.Dropdown1Change.bind(this);
+        this.onDropdown2Change = this.Dropdown2Change.bind(this);
+    }
+
+    Dropdown1Change(e) {
+        const selectedVal = e.target.value;
+        this.setState({  ...this.state, selectedDropdown1: selectedVal })
+    }
+
+    Dropdown2Change(e) {
+        const selectedVal = e.target.value;
+        this.setState({ ...this.state, selectedDropdown2: selectedVal });
     }
 
     handleDataEntry = (() => {
@@ -164,28 +181,20 @@ class AddUser extends Component {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="control-label">Given Name</label>
-                                                        <input type="text" id="firstName" className="form-control" placeholder="Enter legal name"
-                                                               onChange={(event) => {
-                                                                   this.setState({
-                                                                       ...this.state,
-                                                                       given_name : event.target.value
-                                                                   })
-                                                               }}
-                                                        />
+                                                        <select>
+                                                                {options.map(p => <option>{p}</option>)}
+                                                        </select>
+                                                        <input type="text"/>
                                                         <span id="givenNameErr"/>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="control-label">Last Name</label>
-                                                        <input type="text" id="lastName" className="form-control" placeholder="Enter last name"
-                                                               onChange={(event) => {
-                                                                   this.setState({
-                                                                       ...this.state,
-                                                                       last_name : event.target.value
-                                                                   })
-                                                               }}
-                                                        />
+                                                        <select>
+                                                                {options.map(p => <option>{p}</option>)}
+                                                        </select>
+                                                        <input type="text"/>
                                                     </div>
                                                 </div>
                                             </div>
