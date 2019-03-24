@@ -28,7 +28,7 @@ const validate = values => {
     return errors;
 }
 
-class InsertUserData extends Component {
+class InputForm extends Component {
 
     constructor() {
         super();
@@ -245,4 +245,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'InsertUserData',
     validate
-})(InsertUserData));
+})(InputForm));
