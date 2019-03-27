@@ -13,6 +13,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 import AddUser from './components/AddUser'
+import AddNewUser from './components/AddNewUser'
+import AddNewBranch from './components/AddNewBranch'
 
 library.add(faIgloo);
 
@@ -45,6 +47,14 @@ class App extends Component {
                         />
                         <Route path= "/adduser" render = {() => (
                             <AddUser
+                            />)}
+                        />
+                        <Route path= "/addnewuser" render = {() => (
+                            <AddNewUser
+                            />)}
+                        />
+                        <Route path= "/addnewbranch" render = {() => (
+                            <AddNewBranch
                             />)}
                         />
                     </Switch>
