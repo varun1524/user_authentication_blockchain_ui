@@ -92,7 +92,7 @@ class Signup extends Component {
             console.log('No error. All fields are valid. Trying to sign up');
             let payload = {
                 'name': this.state.name,
-                'contact_email': this.state.email,
+                'email': this.state.email,
                 'address_line_1': this.state.address_line_1,
                 'address_line_2': this.state.address_line_2,
                 'city':this.state.city,
