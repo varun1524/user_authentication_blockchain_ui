@@ -3,20 +3,22 @@ import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {doCreateUser} from "../api/orgAPI";
+import {doCreateBranch} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
-import {user_addiiton_success} from "../actions/orgnization_user";
+import {branch_addiiton_success} from "../actions/organization_admin";
 import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
 
 class AddNewBranch extends Component {
     constructor() {
         super();
         this.state = {
-            given_name : "",
-            last_name : "",
-            dob : "",
-            email : "",
-            user_type: ""
+            address_line_1 : "",
+            address_line_2 : "",
+            city : "",
+            state : "",
+            zip: "",
+            country : "",
+            phone : ""
         }
     }
 
@@ -71,33 +73,36 @@ class AddNewBranch extends Component {
         }
 
         let payload = {
-            'given_name' : this.state.given_name,
-            'last_name' : this.state.last_name,
-            'dob' : this.state.dob,
-            'email' : this.state.email,
-            'user_type' : this.state.user_type
+            'address_line_1' : this.state.address_line_1,
+            'address_line_2' : this.state.address_line_2,
+            'city' : this.state.city,
+            'state' : this.state.state,
+            'country' : this.state.country,
+            'zip': this.state.zip,
+            'phone': this.state.phone
         };
 
-        doCreateUser(payload).then((response) => {
+        doCreateBranch(payload).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data);
-                    this.props.user_addiiton_success(data);
-                    this.props.history.push("/home");
+                    alert("Branch details successfully added")
+                    this.props.branch_addiiton_success(data);
+                    // this.props.history.push("/home");
                 });
 
             }
             else if (response.status === 404) {
                 this.setState({
                     ...this.state,
-                    message: "User not registered. Please sign up"
+                    message: "Service not found"
                 });
             }
             else if (response.status === 401) {
                 this.setState({
                     ...this.state,
-                    message: "Incorrect Password. Please try again"
+                    message: "Branch already exists"
                 });
             }
             else {
@@ -147,7 +152,7 @@ class AddNewBranch extends Component {
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       addressline1 : event.target.value
+                                                                       address_line_1 : event.target.value
                                                                    })
                                                                }}
                                                         /> </div>
@@ -159,7 +164,7 @@ class AddNewBranch extends Component {
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       addressline2 : event.target.value
+                                                                       address_line_2 : event.target.value
                                                                    })
                                                                }}
                                                         /> </div>
@@ -270,7 +275,7 @@ function mapStateToProps(reducer_state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
+    return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
 export default withRouter(AddNewBranch);
