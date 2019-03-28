@@ -66,7 +66,7 @@ class Landing extends Component {
                     response.json().then((data) => {
                         console.log(data);
                         this.props.login_success(data);
-                        this.props.history.push("/home");
+                        this.props.history.push("/dashboard");
                     });
 
                 }
@@ -74,6 +74,7 @@ class Landing extends Component {
                     this.setState({
                         ...this.state,
                         message: "Username/Password incorrect. Please try again"
+                        
                     });
                 }
                 else {
@@ -118,7 +119,7 @@ class Landing extends Component {
                         />
                         <span id="passwordErr"/>
                     </div>
-                    <a type="submit" className="btn btn-primary block full-width m-b" href="/page1">Login</a>
+                    <a type="submit" className="btn btn-primary block full-width m-b" onClick={()=>{this.handleLogin()}}>Login</a>
 
                     <a href="#">
                         <small>Forgot password?</small>

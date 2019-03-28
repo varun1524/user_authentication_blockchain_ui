@@ -15,6 +15,7 @@ import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 import AddUser from './components/AddUser'
 import AddNewUser from './components/AddNewUser'
 import AddNewBranch from './components/AddNewBranch'
+import Dashboard from './components/Dashboard'
 
 library.add(faIgloo);
 
@@ -57,6 +58,11 @@ class App extends Component {
                             <AddNewBranch
                             />)}
                         />
+                        <Route path= "/dashboard" render = {() => (
+                            <Dashboard
+                            />)}
+                        />
+
                     </Switch>
                 </header>
             </div>

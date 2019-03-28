@@ -36,7 +36,7 @@ export default class TopMenu extends Component {
                         <div className="page-top">
                             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="nav navbar-nav username-dropdown-button pull-right">
                                 <DropdownToggle caret color="info">
-                                    Adam <angdown />
+                                    Adam
                                 </DropdownToggle>
                                 <DropdownMenu className="mydropdown">
                                     <li className="mydropdown-content"><a href="">Logout</a></li>

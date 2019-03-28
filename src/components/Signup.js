@@ -56,9 +56,6 @@ class Signup extends Component {
         else if(!re.test(this.state.email)){
             document.getElementById('emailErr').innerHTML='Email is invalid';
         }
-        else if (!this.state.password){
-            document.getElementById('passwordErr').innerText = 'Password is required';
-        }
         else if (!this.state.address_line_1){
             document.getElementById('add1Err').innerText = 'Address Line 1 is required';
         }
@@ -77,7 +74,7 @@ class Signup extends Component {
         else if (!this.state.phone){
             document.getElementById('stateErr').innerText = 'Phone number is required';
         }
-        else if (!this.state.foundation_date){
+        else if (!this.state.founded_date){
             document.getElementById('datefErr').innerText = 'Foundation date is required';
         }
         else{
@@ -101,10 +98,10 @@ class Signup extends Component {
                 'zip':this.state.zip,
                 'phone':this.state.phone,
                 'headquarter' : this.state.headquarter,
-                'founded_date'  : this.state.founded_date,
-                'organization_type': this.state.organization_type
+                'founded_date'  : '1992-08-10 01:15:00',
+                'organization_type': 1
             };
-
+            console.log("-----PAYLOAD-----",payload);
             doSignUp(payload).then((response) => {
                 console.log(response.status);
                 if (response.status === 200) {
@@ -112,14 +109,14 @@ class Signup extends Component {
                         alert("Your request has been submitted. You will get an email when request has been submitted")
                         console.log(data);
                         this.props.signup_success(data);
-                        this.props.history.push("/login");
+                        this.props.history.push("/");
                     });
 
                 }
                 else if (response.status === 403) {
                     this.setState({
                         ...this.state,
-                        message: "Counld not register. Please try again"
+                        message: "Could not register. Please try again"
                     });
                 }
                 else {
@@ -320,7 +317,7 @@ class Signup extends Component {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Date founded</label>
-                                    <input type="text" placeholder="Enter MM/DD/YYYY" class="form-control"
+                                    <input type="date" placeholder="Enter MM/DD/YYYY" class="form-control"
                                            onChange={(event) => {
                                                this.setState({
                                                    ...this.state,

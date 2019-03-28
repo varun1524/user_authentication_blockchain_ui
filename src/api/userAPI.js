@@ -35,7 +35,7 @@ export const doLogout = () =>
     });
 
 export const doSignUp = (payload) =>
-    fetch (`/user/signup`,
+    fetch (`api/v1/signup_organization`,
         {
             method: 'POST',
             headers: {
@@ -52,7 +52,7 @@ export const doSignUp = (payload) =>
     });
 
 export const doLogin = (payload) =>
-    fetch(`/user/login`, {
+    fetch(`api/v1/login`, {
         method: 'POST',
         headers: {
             ...headers,
