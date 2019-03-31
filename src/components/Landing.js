@@ -64,9 +64,14 @@ class Landing extends Component {
                 console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
-                        console.log(data);
-                        this.props.login_success(data);
-                        this.props.history.push("/dashboard");
+                        if(data.message==="success") {
+                            console.log(data);
+                            this.props.login_success(data);
+                            this.props.history.push("/dashboard");
+                        }
+                        else {
+                            alert("Username or Password is incorrect. Please try again!")
+                        }
                     });
 
                 }
@@ -74,7 +79,7 @@ class Landing extends Component {
                     this.setState({
                         ...this.state,
                         message: "Username/Password incorrect. Please try again"
-                        
+
                     });
                 }
                 else {
@@ -89,7 +94,6 @@ class Landing extends Component {
     });
 
     render() {
-        console.log("Rendering signin in landing page");
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
         return (
             <div className="gray-bg">

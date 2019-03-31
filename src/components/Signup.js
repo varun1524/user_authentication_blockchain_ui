@@ -106,7 +106,8 @@ class Signup extends Component {
                 console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
-                        alert("Your request has been submitted. You will get an email when request has been submitted")
+
+                        alert("Your request has been submitted. You will get an email when request has been submitted");
                         console.log(data);
                         this.props.signup_success(data);
                         this.props.history.push("/");
