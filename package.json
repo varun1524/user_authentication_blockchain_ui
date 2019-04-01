@@ -7,13 +7,15 @@
         "element-theme-default": "^1.4.13",
         "react-dev-utils": "^6.1.1",
         "react-redux": "^5.1.0",
-        "redux": "^4.0.1"
+        "redux": "^4.0.1",
+        "@material-ui/icons": "*"
     },
     "dependencies": {
         "@babel/core": "7.1.0",
         "@fortawesome/fontawesome-svg-core": "^1.2.15",
         "@fortawesome/free-solid-svg-icons": "^5.7.2",
         "@fortawesome/react-fontawesome": "^0.1.4",
+        "@material-ui/core": "^3.9.3",
         "@svgr/webpack": "2.4.1",
         "animate.css": "^3.5.2",
         "autoprefixer": "7.1.2",

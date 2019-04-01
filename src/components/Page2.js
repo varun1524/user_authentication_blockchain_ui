@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class Page2 extends Component {
     constructor() {
@@ -146,6 +147,9 @@ class Page2 extends Component {
                                         spin
                                         style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
                                     />
+                                    {/*<span className='DeleteIcon'></span>*/}
+                                    {/*<i className='material-icons'></i>*/}
+                                    <DeleteIcon/>
                                     <a href="/page1">Home </a>
                                 </li>
                             </ul>
@@ -158,6 +162,7 @@ class Page2 extends Component {
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
+                                            <DeleteIcon/>
                                             <h3 className="form-section">Person Info
                                             </h3>
                                             <div className="row">
