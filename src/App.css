@@ -1,3 +1,7 @@
+.padding-10{
+  padding:15px;
+}
+
 html, body {
   height: 100%;
 }
@@ -542,6 +546,18 @@ body, h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
   color: #555;
 }
+
+.myiconcolor{
+  position: fixed;
+  color:#8c8c8c;
+  font-size: 17px !important;
+  top:3px !important;
+
+}
+
+
+
+
 
 
 

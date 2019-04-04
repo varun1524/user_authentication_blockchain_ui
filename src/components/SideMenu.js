@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MetisMenu from 'react-metismenu';
 
+
 const organization_content=[
     {
 
@@ -17,6 +18,11 @@ const organization_content=[
                 icon: 'icon-class-name',
                 label: 'Add New User',
                 to: '/addnewuser',
+            },
+            {
+                icon: 'icon-class-name',
+                label: 'User Search',
+                to: '/usersearch',
             }
             // {
             //     parentId:2,

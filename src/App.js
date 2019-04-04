@@ -16,6 +16,7 @@ import AddUser from './components/AddUser'
 import AddNewUser from './components/AddNewUser'
 import AddNewBranch from './components/AddNewBranch'
 import Dashboard from './components/Dashboard'
+import UserSearch from './components/UserSearch'
 
 library.add(faIgloo);
 
@@ -60,6 +61,10 @@ class App extends Component {
                         />
                         <Route path= "/dashboard" render = {() => (
                             <Dashboard
+                            />)}
+                        />
+                        <Route path= "/usersearch" render = {() => (
+                            <UserSearch
                             />)}
                         />
 
