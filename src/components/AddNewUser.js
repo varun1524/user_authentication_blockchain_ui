@@ -22,9 +22,9 @@ class AddNewUser extends Component {
     handleDataEntry = (() => {
         // showAlert("SHowed Successful", "info", this);
         // document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
-        console.log('3', this.state)
+        //console.log('1',this.state.email);
+        //console.log('2',this.state.password);
+        //console.log('3', this.state)
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
@@ -74,23 +74,32 @@ class AddNewUser extends Component {
             'last_name' : this.state.last_name,
             'dob' : this.state.dob,
             'email' : this.state.email,
-            'user_type' : this.state.user_type
+            'password' : 'abcd',
+            'user_type' : 1
         };
+        console.log("++++ Payload  +++")
+        console.log(payload)
 
         doCreateUser(payload).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data);
-                    this.props.user_addiiton_success(data);
-                    this.props.history.push("/home");
+                    if(data.message==="success") {
+                        console.log(data);
+                        this.props.user_addiiton_success(data);
+                        this.props.history.push("/home");
+                    }
+                    else {
+                        alert("User could not be added. Please try again!")
+                    }
                 });
 
             }
             else if (response.status === 404) {
                 this.setState({
                     ...this.state,
-                    message: "User not registered. Please sign up"
+                    message: "Service not found"
                 });
             }
             else if (response.status === 401) {

@@ -9,7 +9,7 @@ import angdown from 'react-icons/lib/fa/angle-down'
 
 
 
-export default class TopMenu extends Component {
+class TopMenu extends Component {
     constructor(props) {
         super(props);
 
@@ -23,6 +23,12 @@ export default class TopMenu extends Component {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
         });
+    }
+
+    doLogout(){
+        //session destroy
+        window.alert("Logging out")
+        this.props.history.push("/")
     }
 
     render() {
@@ -39,7 +45,7 @@ export default class TopMenu extends Component {
                                     Adam
                                 </DropdownToggle>
                                 <DropdownMenu className="mydropdown">
-                                    <li className="mydropdown-content"><a href="">Logout</a></li>
+                                    <li className="mydropdown-content"><a href="" onClick={()=>this.doLogout()}>Logout</a></li>
 
                                 </DropdownMenu>
                             </Dropdown>
@@ -52,3 +58,5 @@ export default class TopMenu extends Component {
         );
     }
 }
+
+export default withRouter(TopMenu);

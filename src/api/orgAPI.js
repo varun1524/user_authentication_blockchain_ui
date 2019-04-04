@@ -3,7 +3,7 @@ const headers = {
 };
 
 export const doCreateUser = (payload) =>
-    fetch(`/user/createUser`, {
+    fetch(`api/v1//create_user`, {
         method: 'POST',
         headers: {
             ...headers,
