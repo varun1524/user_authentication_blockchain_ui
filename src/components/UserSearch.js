@@ -153,6 +153,7 @@ class UserSearch extends Component {
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
                                         <div className="caption">Search User</div>
+                                        <a className="btn btn-info myaddnewbutton" href="/addnewuser">Add New</a>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
@@ -193,8 +194,8 @@ class UserSearch extends Component {
 
                                             <div className="form-actions right">
                                                 <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry()}}>Get List</button>&nbsp;
-                                                <a className="btn blue" href="/addnewuser">Add New User</a>
+                                                <button type="button" className="btn btn-primary" onClick={()=>{this.handleDataEntry()}}>Get List</button>&nbsp;
+
                                             </div>
                                             <div className="row">
                                                 <h3 className="form-section">Search Results

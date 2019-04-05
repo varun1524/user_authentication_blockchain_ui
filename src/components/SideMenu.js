@@ -18,11 +18,6 @@ const organization_content=[
         content: [
             {
                 icon: 'icon-class-name',
-                label: 'Add New User',
-                to: '/addnewuser',
-            },
-            {
-                icon: 'icon-class-name',
                 label: 'User Search',
                 to: '/usersearch',
             }
@@ -42,8 +37,13 @@ const organization_content=[
         content: [
             {
                 icon: 'icon-class-name',
-                label: 'Add New Branch',
-                to: '/addnewbranch',
+                label: 'Branch',
+                to: '/organizationbranch',
+            },
+            {
+                icon: 'icon-class-name',
+                label: 'Organization Profile',
+                to: '/organizationprofile',
             }
 
         ],

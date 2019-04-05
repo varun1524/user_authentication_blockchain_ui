@@ -17,6 +17,9 @@ import AddNewUser from './components/AddNewUser'
 import AddNewBranch from './components/AddNewBranch'
 import Dashboard from './components/Dashboard'
 import UserSearch from './components/UserSearch'
+import OrganizationProfile from "./components/OrganizationProfile";
+import OrganizationProfileEdit from "./components/OrganizationProfileEdit";
+import OrganizationBranch from "./components/OrganizationBranch";
 
 library.add(faIgloo);
 
@@ -55,6 +58,10 @@ class App extends Component {
                             <AddNewUser
                             />)}
                         />
+                        <Route path= "/organizationbranch" render = {() => (
+                            <OrganizationBranch
+                            />)}
+                        />
                         <Route path= "/addnewbranch" render = {() => (
                             <AddNewBranch
                             />)}
@@ -65,6 +72,14 @@ class App extends Component {
                         />
                         <Route path= "/usersearch" render = {() => (
                             <UserSearch
+                            />)}
+                        />
+                        <Route path= "/organizationprofile" render = {() => (
+                            <OrganizationProfile
+                            />)}
+                        />
+                        <Route path= "/organizationprofileedit" render = {() => (
+                            <OrganizationProfileEdit
                             />)}
                         />
 
