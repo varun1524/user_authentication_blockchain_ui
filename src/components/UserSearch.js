@@ -34,71 +34,25 @@ class UserSearch extends Component {
     constructor() {
         super();
         this.state = {
-            given_name : "",
-            last_name : "",
-            dob : "",
-            email : "",
-            user_type: ""
+            search_by:"",
+            search_value:""
         }
     }
 
     handleDataEntry = (() => {
         // showAlert("SHowed Successful", "info", this);
         // document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
+        console.log('1',this.state.search_by);
+        console.log('2',this.state.search_value);
         console.log('3', this.state)
-        //Validation
-        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
-        // code for validation
-
-        // if(!this.state.given_name){
-        //     document.getElementById('emailErr').innerHTML = 'Username is required';
-        // }
-        // else if (!this.state.password){
-        //     document.getElementById('passwordErr').innerText = 'Password is required';
-        // }
-        // else if(!re.test(this.state.email)){
-        //     document.getElementById('emailErr').innerHTML='Email is invalid';
-        // }
-        // else if (this.state.password.length > 0){
-        //     document.getElementById('passwordErr').innerText = '';
-        //
-        // console.log('inside');
-
-        /*
-        * state data
-        given_name : "",
-        last_name : "",
-        dob : "",
-        gender : "",
-        email : "",
-        ethnicity : "",
-        line1 : "",
-        apt : "",
-        city : "",
-        st : "",
-        country : "",
-        zip : "",
-        citizen_country : "",
-        message : "",
-        emailColor:"",
-        phone: ""
-        *
-        * */
-
-        if(!this.state.given_name){
-            document.getElementById('givenNameErr').innerHTML = 'First name is required';
+        if(!this.state.search_value){
+            window.alert("Please enter search criteria")
         }
 
-        let payload = {
-            'given_name' : this.state.given_name,
-            'last_name' : this.state.last_name,
-            'dob' : this.state.dob,
-            'email' : this.state.email,
-            'user_type' : this.state.user_type
-        };
+        let search_by = this.state.search_by
+        let payload = {}
+        payload[search_by] = this.state.given_name;
 
         doCreateUser(payload).then((response) => {
             console.log(response.status);
@@ -166,12 +120,17 @@ class UserSearch extends Component {
                                                                 onChange={(event) => {
                                                                     this.setState({
                                                                         ...this.state,
-                                                                        ethnicity : event.target.value
+                                                                        search_by : event.target.value
                                                                     })
                                                                 }}
                                                         >
                                                             <option value="">---Select One---</option>
-                                                            <option value=""></option>
+                                                            <option value="given_name">Given Name</option>
+                                                            <option value="last_name">Last Name</option>
+                                                            <option value="email">Email id</option>
+                                                            <option value="zip">Zip</option>
+                                                            <option value="city">City</option>
+                                                            <option value="phone">Phone</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -182,7 +141,7 @@ class UserSearch extends Component {
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       given_name : event.target.value
+                                                                       search_value : event.target.value
                                                                    })
                                                                }}
                                                         />
