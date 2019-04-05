@@ -75,7 +75,7 @@ class AddNewUser extends Component {
             'dob' : this.state.dob,
             'email' : this.state.email,
             'password' : 'abcd',
-            'user_type' : 1
+            'user_type' : 4
         };
         console.log("++++ Payload  +++")
         console.log(payload)

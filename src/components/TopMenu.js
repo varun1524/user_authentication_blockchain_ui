@@ -59,4 +59,11 @@ class TopMenu extends Component {
     }
 }
 
-export default withRouter(TopMenu);
+function mapStateToProps(reducer_state) {
+    console.log("--Reducer state-----", reducer_state.user.data)
+    return {
+        user: reducer_state.user
+    };
+}
+
+export default withRouter(connect(mapStateToProps)(TopMenu));

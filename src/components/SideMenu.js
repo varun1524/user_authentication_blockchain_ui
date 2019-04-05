@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import MetisMenu from 'react-metismenu';
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 
 const organization_content=[
@@ -7,7 +9,7 @@ const organization_content=[
 
         icon: 'home',
         label: 'Dashboard',
-        to: '/page1',
+        to: '/dashboard',
     },
     {
 
@@ -61,8 +63,22 @@ const normal_user = [
     },
 ]
 
-export default class Menu extends Component {
+class Menu extends Component {
     render() {
-        return (<MetisMenu content={organization_content} activeLinkFromLocation />);
+        console.log("current user data")
+        console.log(this.props.user.data)
+        //let curr_type = this.props.user.data.user_type
+        let menu = organization_content
+
+        return (<MetisMenu content={menu} activeLinkFromLocation />);
     }
 }
+
+function mapStateToProps(reducer_state) {
+    console.log("--Reducer state-----", reducer_state.user.data)
+    return {
+        user: reducer_state.user
+    };
+}
+
+export default withRouter(connect(mapStateToProps)(Menu));

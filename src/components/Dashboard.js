@@ -19,6 +19,8 @@ class Dashboard extends Component {
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
                         <h1 className="page-title">Dashboard</h1>
+                        <h2>Given name</h2>
+                        <h2>{this.props.user.data}</h2>
                         <div className="page-bar">
 
                         </div>
@@ -33,13 +35,12 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(reducer_state) {
+    console.log("In dashboard")
+    console.log("reducer", reducer_state)
     return {
         user: reducer_state.user
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({login_success: login_success}, dispatch)
-}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
+export default withRouter(connect(mapStateToProps)(Dashboard));

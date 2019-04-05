@@ -2,6 +2,7 @@ import {actionTypes} from "../actions/actionTypes";
 
 const user_data = {};
 
+// this reducer stores data after the login
 const user = (state = user_data, action)=>
 {
     switch (action.type) {
