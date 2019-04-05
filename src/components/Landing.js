@@ -65,8 +65,8 @@ class Landing extends Component {
                 if (response.status === 200) {
                     response.json().then((data) => {
                         if(data.message==="success") {
-                            console.log(data);
-                            this.props.login_success(data);
+                            console.log("data in login",JSON.parse(data.data));
+                            this.props.login_success(JSON.parse(data.data));
                             this.props.history.push("/dashboard");
                         }
                         else {

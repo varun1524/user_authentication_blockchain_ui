@@ -42,7 +42,7 @@ class TopMenu extends Component {
                         <div className="page-top">
                             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="nav navbar-nav username-dropdown-button pull-right">
                                 <DropdownToggle caret color="info">
-                                    Adam
+                                    {this.props.user.given_name}
                                 </DropdownToggle>
                                 <DropdownMenu className="mydropdown">
                                     <li className="mydropdown-content"><a href="" onClick={()=>this.doLogout()}>Logout</a></li>

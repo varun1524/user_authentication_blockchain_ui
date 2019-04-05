@@ -70,6 +70,7 @@
         "react-fontawesome": "^1.6.1",
         "react-icons": "^2.2.7",
         "react-metismenu": "^1.4.0",
+        "react-metismenu-router-link": "^2.1.0",
         "react-router-dom": "^4.3.1",
         "react-sidemenu": "^1.1.0",
         "reactstrap": "^7.1.0",

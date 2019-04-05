@@ -9,6 +9,10 @@ import {login_success} from "../actions/login";
 
 class Dashboard extends Component {
 
+    handleClick = () => {
+        this.props.history.push("/page2")
+}
+
     render() {
         return (
             <div>
@@ -20,7 +24,8 @@ class Dashboard extends Component {
                     <div className="page-content top-side-padding">
                         <h1 className="page-title">Dashboard</h1>
                         <h2>Given name</h2>
-                        <h2>{this.props.user.data}</h2>
+                        <h2>{this.props.user.given_name}</h2>
+                        <button onClick={()=>this.handleClick()}>Click me</button>
                         <div className="page-bar">
 
                         </div>

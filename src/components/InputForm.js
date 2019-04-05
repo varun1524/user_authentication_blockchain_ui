@@ -242,7 +242,7 @@ function mapDispatchToProps(dispatch) {
 
 //export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InsertUserData));
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
     form: 'InsertUserData',
     validate
 })(InputForm));

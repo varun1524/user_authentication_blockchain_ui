@@ -11,6 +11,7 @@ import Page1 from './components/Page1'
 import Page2 from './components/Page2'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {connect} from 'react-redux';
 import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 import AddUser from './components/AddUser'
 import AddNewUser from './components/AddNewUser'
@@ -90,4 +91,14 @@ class App extends Component {
     }
 }
 
-export default withRouter(App);
+function mapStateToProps(state) {
+    console.log("In APP", state)
+    return {
+        state: state
+    };
+}
+
+
+export default withRouter(connect(mapStateToProps)(App));
+
+

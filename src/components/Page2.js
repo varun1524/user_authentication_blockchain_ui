@@ -7,6 +7,7 @@ import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 import DeleteIcon from '@material-ui/icons/Delete';
+import {connect} from "react-redux";
 
 class Page2 extends Component {
     constructor() {
@@ -642,6 +643,7 @@ class Page2 extends Component {
 }
 
 function mapStateToProps(reducer_state) {
+    console.log("In page2", reducer_state)
     return {
         organization_user: reducer_state.organization_user
     };
@@ -651,4 +653,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
-export default withRouter(Page2);
+export default withRouter(connect(mapStateToProps)(Page2));

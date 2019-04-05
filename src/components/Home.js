@@ -34,4 +34,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({login_success: login_success}, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default withRouter(connect(mapStateToProps)(Home));

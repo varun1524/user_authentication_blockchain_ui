@@ -60,22 +60,13 @@ function Example({ rows }) {
             toolbar={<Toolbar enableFilter={true} />}
             onAddFilter={filter => setFilters(handleFilterChange(filter))}
             onClearFilters={() => setFilters({})}
-            onGridRowsUpdated={this.onGridRowsUpdated}
             enableCellSelect={true}
         />
     );
 }
 
 class OrganizationBranch extends Component {
-    onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
-        this.setState(state => {
-            const rows = state.rows.slice();
-            for (let i = fromRow; i <= toRow; i++) {
-                rows[i] = { ...rows[i], ...updated };
-            }
-            return { rows };
-        });
-    };
+
     constructor() {
         super();
         this.state = {

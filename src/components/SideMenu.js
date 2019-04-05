@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MetisMenu from 'react-metismenu';
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-
+import RouterLink from 'react-metismenu-router-link';
 
 const organization_content=[
     {
@@ -66,11 +66,11 @@ const normal_user = [
 class Menu extends Component {
     render() {
         console.log("current user data")
-        console.log(this.props.user.data)
+        console.log(this.props.user)
         //let curr_type = this.props.user.data.user_type
         let menu = organization_content
 
-        return (<MetisMenu content={menu} activeLinkFromLocation />);
+        return (<MetisMenu content={menu} LinkComponent={RouterLink} />);
     }
 }
 
