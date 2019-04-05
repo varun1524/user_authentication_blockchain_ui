@@ -7,6 +7,8 @@ import {doCreateBranch} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {branch_addiiton_success} from "../actions/organization_admin";
 import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
+import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
+import {Home} from "@material-ui/icons";
 
 class OrganizationProfile extends Component {
     constructor() {
@@ -122,87 +124,39 @@ class OrganizationProfile extends Component {
                 </div>
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
-                        <h1 className="page-title">New Branch</h1>
+                        <h1 className="page-title">Organization Profile</h1>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon='home'
-                                        size='2x'
-                                        spin
-                                        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                                    />
-                                    <a href="/page1">Home </a>
+                                    <Home className="myiconcolor"/>
+                                    <a href="/dashboard">Home </a>
+                                    <KeyboardArrowRight className="myiconcolor"/>
+                                    <a href="/organizationprofile">Organization Profile </a>
                                 </li>
+
                             </ul>
                         </div>
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Create New Branch</div>
+                                        <div className="caption">Details</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Address Line 1</label>
-                                                        <input type="text" className="form-control"
-                                                               onChange={(event) => {
-                                                                   this.setState({
-                                                                       ...this.state,
-                                                                       address_line_1 : event.target.value
-                                                                   })
-                                                               }}
-                                                        /> </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-group">
-                                                        <label>Address Line 2</label>
-                                                        <input type="text" className="form-control"
-                                                               onChange={(event) => {
-                                                                   this.setState({
-                                                                       ...this.state,
-                                                                       address_line_2 : event.target.value
-                                                                   })
-                                                               }}
-                                                        /> </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <div className="form-group">
-                                                        <label>Country</label>
-                                                        <CountryDropdown class="form-control m-b" name="account"
-                                                                         value={this.state.country}
-                                                                         onChange={(val) => {
-                                                                             this.setState({
-                                                                                 ...this.state,
-                                                                                 country: val
-                                                                             })
-                                                                         }}
-                                                        >
-                                                        </CountryDropdown><span id="countryErr"/>
-
+                                                        <label className="control-label">Name: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>State</label>
-                                                        <RegionDropdown class="form-control m-b" name="account"
-                                                                        country={this.state.country}
-                                                                        value={this.state.state}
-                                                                        onChange={(val) => {
-                                                                            this.setState({
-                                                                                ...this.state,
-                                                                                state: val
-                                                                            })
-                                                                        }}
-                                                        >
-                                                        </RegionDropdown><span id="stateErr"/>
-
+                                                        <label className="control-label">Email: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -210,50 +164,85 @@ class OrganizationProfile extends Component {
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>City</label>
-                                                        <input type="text" placeholder="Enter city"
-                                                               className="form-control"
-                                                               onChange={(event) => {
-                                                                   this.setState({
-                                                                       ...this.state,
-                                                                       city: event.target.value
-                                                                   })
-                                                               }}
-                                                        /><span id="cityErr"/>
+                                                        <label className="control-label">Address: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Zip</label>
-                                                        <input type="text" className="form-control"
-                                                               onChange={(event) => {
-                                                                   this.setState({
-                                                                       ...this.state,
-                                                                       zip : event.target.value
-                                                                   })
-                                                               }}
-                                                        /> </div>
+                                                        <label className="control-label">City: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
+                                                    </div>
                                                 </div>
-
                                             </div>
+
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Phone</label>
-                                                        <input type="text" className="form-control"
-                                                               onChange={(event) => {
-                                                                   this.setState({
-                                                                       ...this.state,
-                                                                       phone : event.target.value
-                                                                   })
-                                                               }}
-                                                        /> </div>
+                                                        <label className="control-label">Country: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
+                                                    </div>
                                                 </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">State: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Zip: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Organization Type: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Phone: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Headquarter: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Date Founded: &nbsp;</label>
+                                                        <label ></label>
+                                                        <span id="nameErr"/>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
                                             <div className="form-actions right">
                                                 <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry()}}>Submit</button>
+                                                <a className="btn blue" href="/organizationprofileedit">Edit</a>
                                             </div>
                                         </div>
                                     </div>
@@ -278,4 +267,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
-export default withRouter(AddNewBranch);
+export default withRouter(OrganizationProfile);
