@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
