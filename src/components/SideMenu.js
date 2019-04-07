@@ -3,6 +3,8 @@ import MetisMenu from 'react-metismenu';
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import RouterLink from 'react-metismenu-router-link';
+import history from '../history';
+import {getUserProfile} from "../api/userAPI";
 
 const organization_content=[
     {
@@ -67,8 +69,54 @@ let menu = organization_content
 
 class Menu extends Component {
     componentDidMount() {
+        function isEmpty(obj) {
+            for(var key in obj) {
+                if(obj.hasOwnProperty(key))
+                    return false;
+            }
+            return true;
+        }
         // CAll get_user_info with user_id=current and then we will know who is logged in
         // check whether we have any logged in data in store or not, if not then redirect to login page
+        let obj = this.props.user;
+        if(isEmpty(obj)) {
+            // Object is empty -> user is not logged in
+            // call get_user_info with user="current"
+            let payload = {
+                "user_id" : "current"
+            };
+            console.log("-----IN SIDE MENU-----",payload);
+
+            getUserProfile(payload).then((response) => {
+                console.log(response.status);
+                if (response.status === 200) {
+                    response.json().then((data) => {
+                        console.log(data);
+                        if(data.message==="success") {
+                            console.log("data in user profile",JSON.parse(data.data));
+                            this.props.user_profile_fetch(JSON.parse(data.data));
+                        }
+                        else {
+                            alert("User profile could not be fetched. Please try again!")
+                        }
+                        this.props.user_profile_fetch(data);
+                    });
+                }
+                else if (response.status === 404) {
+                    this.setState({
+                        ...this.state,
+                        message: "Service not found"
+                    });
+                }
+                else {
+                    console.log("Error: ", response);
+                    // alert("Error while Signing In");
+                }
+            });
+
+        } else {
+            // Object is NOT empty
+        }
     }
 
     render() {
