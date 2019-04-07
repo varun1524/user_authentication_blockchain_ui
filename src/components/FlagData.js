@@ -11,10 +11,11 @@ import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 
+
 const rows = [
-    { id: 0, title: "Task 1", complete: 20 },
-    { id: 1, title: "Task 2", complete: 40 },
-    { id: 2, title: "Task 3", complete: 60 }
+    { id: 0, title: "Task 1", complete: 20, status:"Flagged", flagbit:1 },
+    { id: 1, title: "Task 2", complete: 40, flagbit:0 },
+    { id: 2, title: "Task 3", complete: 60,status:"Flagged" , flagbit:1 }
 ];
 
 const defaultColumnProperties = {
@@ -27,23 +28,31 @@ const columns = [
     { key: "id", name: "ID"},
     { key: "title", name: "Name"},
     { key: "complete", name: "Organization"},
+    { key: "status", name: "Status"},
     { key: "action", name: "Action"}
 ].map(c => ({ ...c, ...defaultColumnProperties }));
 
-const BranchAction = (rowdata) => [
+const FlagAction = (rowdata) => [
     {
         icon: "glyphicon glyphicon-link",
         actions: [
             {
-                text: "Edit",
+                text: "Flag",
                 callback: () => {
-                    alert("Sends to Edit Page: "+JSON.stringify(rowdata));
+                    alert("Flag's Data: "+JSON.stringify(rowdata));
                 }
-            },
+            }
+        ]
+    }
+];
+const UnflagAction = (rowdata) => [
+    {
+        icon: "glyphicon glyphicon-link",
+        actions: [
             {
-                text: "Delete",
+                text: "Unflag",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                    alert("Unflag Data: "+JSON.stringify(rowdata));
                 }
             }
         ]
@@ -51,11 +60,22 @@ const BranchAction = (rowdata) => [
 ];
 
 function getCellActions(column, row) {
-    const InOrgNoBlock = {
-        action: BranchAction(row)
+    const Flag = {
+        action: FlagAction(row)
+    };
+    const Unflag = {
+        action: UnflagAction(row)
     };
 
-    return InOrgNoBlock[column.key];
+    if(row.flagbit===0)
+    {
+        return Flag[column.key];
+    }
+    else
+    {
+        return Unflag[column.key];
+    }
+
 }
 
 
@@ -75,7 +95,7 @@ function getRows(rows, filters) {
 
 const ROW_COUNT = 50;
 
-function Example({ rows }) {
+function Table({ rows }) {
     const [filters, setFilters] = useState({});
     const filteredRows = getRows(rows, filters);
     return (
@@ -92,7 +112,8 @@ function Example({ rows }) {
     );
 }
 
-class OrganizationBranch extends Component {
+
+class FlagData extends Component {
 
     constructor() {
         super();
@@ -108,8 +129,6 @@ class OrganizationBranch extends Component {
     }
 
     handleDataEntry = (() => {
-        // showAlert("SHowed Successful", "info", this);
-        // document.getElementById('emailErr').innerHTML = '';
         console.log('1',this.state.email);
         console.log('2',this.state.password);
         console.log('3', this.state);
@@ -132,26 +151,6 @@ class OrganizationBranch extends Component {
         //
         // console.log('inside');
 
-        /*
-        * state data
-        given_name : "",
-        last_name : "",
-        dob : "",
-        gender : "",
-        email : "",
-        ethnicity : "",
-        line1 : "",
-        apt : "",
-        city : "",
-        st : "",
-        country : "",
-        zip : "",
-        citizen_country : "",
-        message : "",
-        emailColor:"",
-        phone: ""
-        *
-        * */
 
         if(!this.state.given_name){
             document.getElementById('givenNameErr').innerHTML = 'First name is required';
@@ -210,14 +209,14 @@ class OrganizationBranch extends Component {
                 </div>
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
-                        <h1 className="page-title">All Branch Details</h1>
+                        <h1 className="page-title">Flag Data</h1>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
                                     <Home className="myiconcolor"/>
                                     <a href="/page1">Home </a>
                                     <KeyboardArrowRight className="myiconcolor"/>
-                                    <a href="/organizationbranch">Organization Branch</a>
+                                    <a href="/organizationbranch">Flag Data</a>
                                 </li>
                             </ul>
                         </div>
@@ -225,14 +224,13 @@ class OrganizationBranch extends Component {
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Branch Details</div> &nbsp;
-                                        <a className="btn btn-info myaddnewbutton" href="/addnewbranch">Add New</a>
+                                        <div className="caption">Experience Details</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <Example className="table-responsive" rows={rows} />
+                                                <Table className="table-responsive" rows={rows} />
 
                                             </div>
                                         </div>
@@ -258,4 +256,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
-export default withRouter(OrganizationBranch);
+export default withRouter(FlagData);

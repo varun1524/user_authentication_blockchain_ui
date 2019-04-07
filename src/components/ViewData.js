@@ -11,10 +11,11 @@ import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 
+
 const rows = [
-    { id: 0, title: "Task 1", complete: 20 },
-    { id: 1, title: "Task 2", complete: 40 },
-    { id: 2, title: "Task 3", complete: 60 }
+    { id: 0, title: "Task 1", complete: 20, status:"Flagged", flagbit:1 },
+    { id: 1, title: "Task 2", complete: 40, flagbit:0 },
+    { id: 2, title: "Task 3", complete: 60,status:"Flagged" , flagbit:1 }
 ];
 
 const defaultColumnProperties = {
@@ -27,36 +28,8 @@ const columns = [
     { key: "id", name: "ID"},
     { key: "title", name: "Name"},
     { key: "complete", name: "Organization"},
-    { key: "action", name: "Action"}
+    { key: "status", name: "Status"}
 ].map(c => ({ ...c, ...defaultColumnProperties }));
-
-const BranchAction = (rowdata) => [
-    {
-        icon: "glyphicon glyphicon-link",
-        actions: [
-            {
-                text: "Edit",
-                callback: () => {
-                    alert("Sends to Edit Page: "+JSON.stringify(rowdata));
-                }
-            },
-            {
-                text: "Delete",
-                callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
-                }
-            }
-        ]
-    }
-];
-
-function getCellActions(column, row) {
-    const InOrgNoBlock = {
-        action: BranchAction(row)
-    };
-
-    return InOrgNoBlock[column.key];
-}
 
 
 const handleFilterChange = filter => filters => {
@@ -75,7 +48,7 @@ function getRows(rows, filters) {
 
 const ROW_COUNT = 50;
 
-function Example({ rows }) {
+function Table({ rows }) {
     const [filters, setFilters] = useState({});
     const filteredRows = getRows(rows, filters);
     return (
@@ -87,12 +60,12 @@ function Example({ rows }) {
             onAddFilter={filter => setFilters(handleFilterChange(filter))}
             onClearFilters={() => setFilters({})}
             enableCellSelect={true}
-            getCellActions={getCellActions}
         />
     );
 }
 
-class OrganizationBranch extends Component {
+
+class ViewData extends Component {
 
     constructor() {
         super();
@@ -108,8 +81,6 @@ class OrganizationBranch extends Component {
     }
 
     handleDataEntry = (() => {
-        // showAlert("SHowed Successful", "info", this);
-        // document.getElementById('emailErr').innerHTML = '';
         console.log('1',this.state.email);
         console.log('2',this.state.password);
         console.log('3', this.state);
@@ -132,26 +103,6 @@ class OrganizationBranch extends Component {
         //
         // console.log('inside');
 
-        /*
-        * state data
-        given_name : "",
-        last_name : "",
-        dob : "",
-        gender : "",
-        email : "",
-        ethnicity : "",
-        line1 : "",
-        apt : "",
-        city : "",
-        st : "",
-        country : "",
-        zip : "",
-        citizen_country : "",
-        message : "",
-        emailColor:"",
-        phone: ""
-        *
-        * */
 
         if(!this.state.given_name){
             document.getElementById('givenNameErr').innerHTML = 'First name is required';
@@ -210,14 +161,16 @@ class OrganizationBranch extends Component {
                 </div>
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
-                        <h1 className="page-title">All Branch Details</h1>
+                        <h1 className="page-title">Viewing data for Username</h1>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
                                     <Home className="myiconcolor"/>
                                     <a href="/page1">Home </a>
                                     <KeyboardArrowRight className="myiconcolor"/>
-                                    <a href="/organizationbranch">Organization Branch</a>
+                                    <a href="/viewaccess">View Access</a>
+                                    <KeyboardArrowRight className="myiconcolor"/>
+                                    <a href="/viewdata">View Data</a>
                                 </li>
                             </ul>
                         </div>
@@ -225,14 +178,13 @@ class OrganizationBranch extends Component {
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Branch Details</div> &nbsp;
-                                        <a className="btn btn-info myaddnewbutton" href="/addnewbranch">Add New</a>
+                                        <div className="caption">View Details</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <Example className="table-responsive" rows={rows} />
+                                                <Table className="table-responsive" rows={rows} />
 
                                             </div>
                                         </div>
@@ -258,4 +210,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
-export default withRouter(OrganizationBranch);
+export default withRouter(ViewData);

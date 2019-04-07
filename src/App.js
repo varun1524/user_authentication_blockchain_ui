@@ -21,6 +21,14 @@ import OrganizationBranch from "./components/OrganizationBranch";
 import UserProfile from "./components/UserProfile";
 import AddBlockData from "./components/AddBlockData";
 import history from './history';
+import OrganizationBranchEdit from "./components/OrganizationBranchEdit";
+import FlagData from "./components/FlagData";
+import FlaggedRequests from "./components/FlaggedRequests";
+import AdminUserSearch from "./components/AdminUserSearch";
+import RequestDataAccess from "./components/RequestDataAccess";
+import AccessRequest from "./components/AccessRequest";
+import ViewAccess from "./components/ViewAccess";
+import ViewData from "./components/ViewData";
 
 class App extends Component {
     handlePageChange = ((page)=>{
@@ -71,6 +79,10 @@ class App extends Component {
                             <AddNewBranch
                             />)}
                         />
+                                <Route path= "/organizationbranchedit" render = {() => (
+                                    <OrganizationBranchEdit
+                                    />)}
+                                />
                         <Route path= "/dashboard" render = {() => (
                             <Dashboard
                             />)}
@@ -97,6 +109,41 @@ class App extends Component {
                                 handlePageChange = {this.handlePageChange}
                             />)}
                         />
+                                <Route path= "/flagdata" render = {() => (
+                                    <FlagData
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
+                                <Route path= "/flaggedrequests" render = {() => (
+                                    <FlaggedRequests
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
+                                <Route path= "/adminsearch" render = {() => (
+                                    <AdminUserSearch
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
+                                <Route path= "/requestdataaccess" render = {() => (
+                                    <RequestDataAccess
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
+                                <Route path= "/accessrequest" render = {() => (
+                                    <AccessRequest
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
+                                <Route path= "/viewaccess" render = {() => (
+                                    <ViewAccess
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
+                                <Route path= "/viewdata" render = {() => (
+                                    <ViewData
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
                             </div>
                         </Router>
                     </Switch>
