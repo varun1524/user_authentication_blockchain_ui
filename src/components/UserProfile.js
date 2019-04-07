@@ -33,10 +33,8 @@ class UserProfile extends Component {
         let payload = {
             "user_id" : 1
         };
-<<<<<<< HEAD
         console.log("-----IN USER PROFILE-----",payload);
-=======
->>>>>>> 2de04934e2883504d0d6904c857721cd596b2608
+
         getUserProfile(payload).then((response) => {
             console.log(response.status);
             if (response.status === 200) {

@@ -78,6 +78,7 @@ class AddBlockData extends Component
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
                         <h1 className="page-title">Add Block Data</h1>
+                        <h2>Here {this.props.location.state}</h2>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>

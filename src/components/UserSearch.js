@@ -1,13 +1,15 @@
 import React, {Component, useState} from 'react';
 import Menu from './SideMenu'
 import TopMenu from './TopMenu'
-import {Link, withRouter} from 'react-router-dom';
+import {Link, withRouter, Route} from 'react-router-dom';
 import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 import HomeIcon from "@material-ui/icons/Home"
 import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
+import history from '../history';
+
 
 const defaultColumnProperties = {
     filterable: true
@@ -51,8 +53,9 @@ const InOrganizationActions_NoBlock = (rowdata) => [
                 text: "Add Block Data",
                 callback: () => {
                     alert("Redirect to Add Block: "+JSON.stringify(rowdata));
-                    this.props.handlePageChange("/addblockdata");   
-
+                    //this.props.handlePageChange("/addblockdata");
+                    history.push({pathname:'/addblockdata', state:JSON.stringify(rowdata)});
+                    alert("after")
                 }
             }
         ]

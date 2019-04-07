@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Switch, withRouter, Route} from 'react-router-dom';
+import {Switch, withRouter, Route, Router} from 'react-router-dom';
 import Landing from './components/Landing';
 import SignUp from './components/Signup';
 import Login from './components/Login';
@@ -20,6 +20,7 @@ import OrganizationProfileEdit from "./components/OrganizationProfileEdit";
 import OrganizationBranch from "./components/OrganizationBranch";
 import UserProfile from "./components/UserProfile";
 import AddBlockData from "./components/AddBlockData";
+import history from './history';
 
 class App extends Component {
     handlePageChange = ((page)=>{
@@ -31,6 +32,8 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <Switch>
+                        <Router history={history}>
+                            <div>
                         <Route exact path= "/" component={Landing}/>
                         <Route path= "/signup" render = {() => (
                             <SignUp
@@ -94,8 +97,10 @@ class App extends Component {
                                 handlePageChange = {this.handlePageChange}
                             />)}
                         />
-
+                            </div>
+                        </Router>
                     </Switch>
+
                 </header>
             </div>
         );
