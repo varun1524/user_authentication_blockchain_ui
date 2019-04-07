@@ -70,7 +70,7 @@ class Landing extends Component {
                             this.props.history.push("/dashboard");
                         }
                         else {
-                            alert("Username or Password is incorrect. Please try again!")
+                            window.alert("Username or Password is incorrect. Please try again!")
                         }
                     });
 

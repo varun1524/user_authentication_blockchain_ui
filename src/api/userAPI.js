@@ -34,6 +34,22 @@ export const doLogout = () =>
         return error;
     });
 
+export const getUserProfile = () =>
+    fetch(`/api/v1//ger_user_info`, {
+        method: 'GET',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials:'include',
+        body: JSON.stringify()
+    }).then(res => {
+        return res;
+    }).catch(error => {
+        console.log("This is error");
+        return error;
+    });
+
 export const doSignUp = (payload) =>
     fetch (`api/v1/signup_organization`,
         {

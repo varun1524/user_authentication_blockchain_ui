@@ -25,7 +25,7 @@ class Dashboard extends Component {
                         <h1 className="page-title">Dashboard</h1>
                         <h2>Given name</h2>
                         <h2>{this.props.user.given_name}</h2>
-                        <button onClick={()=>this.handleClick()}>Click me</button>
+
                         <div className="page-bar">
 
                         </div>

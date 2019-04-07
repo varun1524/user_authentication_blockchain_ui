@@ -19,8 +19,8 @@ const user = {
 
 const user_reducer = (state = user, action) => {
     switch (action.type) {
-        case actionTypes.USER_BLOCKDATA_ADDITION :
-            console.log("organization user successfully added user block data", action.data);
+        case actionTypes.USER_PROFILE_FETCH :
+            console.log("user profile successfully fetched", action.data);
             state = Object.assign({},action.data);
             return state;
         default :

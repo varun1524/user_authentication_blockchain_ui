@@ -63,13 +63,17 @@ const normal_user = [
     },
 ]
 
+let menu = organization_content
+
 class Menu extends Component {
+    componentDidMount() {
+        // CAll get_user_info with user_id=current and then we will know who is logged in
+        // check whether we have any logged in data in store or not, if not then redirect to login page
+    }
+
     render() {
         console.log("current user data")
         console.log(this.props.user)
-        //let curr_type = this.props.user.data.user_type
-        let menu = organization_content
-
         return (<MetisMenu content={menu} LinkComponent={RouterLink} />);
     }
 }

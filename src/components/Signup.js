@@ -86,6 +86,8 @@ class Signup extends Component {
             document.getElementById('stateErr').innerText = '';
             document.getElementById('datefErr').innerText = '';
 
+            var new_date = this.state.founded_date + ' 00:00:00'
+
             console.log('No error. All fields are valid. Trying to sign up');
             let payload = {
                 'name': this.state.name,
@@ -98,7 +100,7 @@ class Signup extends Component {
                 'zip':this.state.zip,
                 'phone':this.state.phone,
                 'headquarter' : this.state.headquarter,
-                'founded_date'  : '1992-08-10 01:15:00',
+                'founded_date'  : '2009-10-10 12:00:00',
                 'organization_type': 1
             };
             console.log("-----PAYLOAD-----",payload);

@@ -21,6 +21,7 @@ import UserSearch from './components/UserSearch'
 import OrganizationProfile from "./components/OrganizationProfile";
 import OrganizationProfileEdit from "./components/OrganizationProfileEdit";
 import OrganizationBranch from "./components/OrganizationBranch";
+import UserProfile from "./components/UserProfile";
 
 library.add(faIgloo);
 
@@ -77,6 +78,10 @@ class App extends Component {
                         />
                         <Route path= "/organizationprofile" render = {() => (
                             <OrganizationProfile
+                            />)}
+                        />
+                        <Route path= "/userprofile" render = {() => (
+                            <UserProfile
                             />)}
                         />
                         <Route path= "/organizationprofileedit" render = {() => (
