@@ -3,7 +3,7 @@ const headers = {
 };
 
 export const doCreateUser = (payload) =>
-    fetch(`api/v1//create_user`, {
+    fetch(`api/v1/create_user`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -53,8 +53,10 @@ export const doCreateBranch = (payload) =>
         return error;
     });
 
+
+
 export const doInsertBlockData = (payload) =>
-    fetch(`/user/insertBlockData`, {
+    fetch(`api/v1/add_user_record`, {
         method: 'POST',
         headers: {
             ...headers,

@@ -1,35 +1,159 @@
-import React, { Component } from 'react';
+import React, {Component, useState} from 'react';
 import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
 import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
-import ReactDataGrid from "react-data-grid";
 import HomeIcon from "@material-ui/icons/Home"
+import ReactDataGrid from "react-data-grid";
+import {Toolbar,Data} from "react-data-grid-addons";
+
+const defaultColumnProperties = {
+    filterable: true
+};
 
 const columns = [
-    { key: "id", name: "ID", editable: true },
-    { key: "title", name: "Title", editable: true },
-    { key: "complete", name: "Complete", editable: true }
-];
+    { key: "id", name: "ID"},
+    { key: "title", name: "Name"},
+    { key: "complete", name: "Organization"},
+    { key: "action", name: "Action"}
+].map(c => ({ ...c, ...defaultColumnProperties }));
+
+const selectors = Data.Selectors;
 
 const rows = [
-    { id: 0, title: "Task 1", complete: 20 },
-    { id: 1, title: "Task 2", complete: 40 },
-    { id: 2, title: "Task 3", complete: 60 }
+    { id: 0, title: "Task 1", complete: 20},
+    { id: 1, title: "Task 2", complete: 40 , inorg:'Y' },
+    { id: 2, title: "Task 3", complete: 60 },
+    { id: 3, title: "Task 1", complete: 20 },
+    { id: 4, title: "Task 2", complete: 40 },
+    { id: 5, title: "Task 3", complete: 60 }
 ];
 
-class UserSearch extends Component {
-    onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
-        this.setState(state => {
-            const rows = state.rows.slice();
-            for (let i = fromRow; i <= toRow; i++) {
-                rows[i] = { ...rows[i], ...updated };
+const InOrganizationActions_NoBlock = (rowdata) => [
+    {
+        icon: "glyphicon glyphicon-link",
+        actions: [
+            {
+                text: "Edit",
+                callback: () => {
+                    alert("Sends to Edit Page: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Delete",
+                callback: () => {
+                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Add Block Data",
+                callback: () => {
+                    alert("Redirect to Add Block: "+JSON.stringify(rowdata));
+                    this.props.handlePageChange("/addblockdata");   
+
+                }
             }
-            return { rows };
-        });
+        ]
+    }
+];
+
+const InOrganizationActions_Block = (rowdata) => [
+    {
+        icon: "glyphicon glyphicon-link",
+        actions: [
+            {
+                text: "Edit",
+                callback: () => {
+                    alert("Sends to Edit Page: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Delete",
+                callback: () => {
+                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                }
+            }
+        ]
+    }
+];
+
+const OutOrganizationActions= (rowdata) => [
+    {
+        icon: "glyphicon glyphicon-link",
+        actions: [
+            {
+                text: "Add to Organization",
+                callback: () => {
+                    alert("Adds to Organization: "+JSON.stringify(rowdata)) ;
+                }
+            }
+        ]
+    }
+];
+
+function getCellActions(column, row) {
+    const InOrgNoBlock = {
+        action: InOrganizationActions_NoBlock(row)
     };
+    const InOrgBlock = {
+        action: InOrganizationActions_Block(row)
+    };
+    const OutOrg = {
+        action: OutOrganizationActions(row)
+    };
+
+    if(row.complete===20)
+    {
+        return InOrgNoBlock[column.key];
+    }
+    else if(row.title==="Task 3")
+    {
+        return InOrgBlock[column.key];
+    }
+    else {
+        return OutOrg[column.key];
+    }
+
+
+}
+
+const handleFilterChange = filter => filters => {
+    const newFilters = { ...filters };
+    if (filter.filterTerm) {
+        newFilters[filter.column.key] = filter;
+    } else {
+        delete newFilters[filter.column.key];
+    }
+    return newFilters;
+};
+
+function getRows(rows, filters) {
+    return selectors.getRows({ rows, filters });
+}
+
+const ROW_COUNT = 50;
+
+function Example({ rows }) {
+    const [filters, setFilters] = useState({});
+    const filteredRows = getRows(rows, filters);
+    return (
+        <ReactDataGrid
+            columns={columns}
+            rowGetter={i => filteredRows[i]}
+            rowsCount={filteredRows.length}
+            toolbar={<Toolbar enableFilter={true} />}
+            onAddFilter={filter => setFilters(handleFilterChange(filter))}
+            onClearFilters={() => setFilters({})}
+            enableCellSelect={true}
+            getCellActions={getCellActions}
+        />
+    );
+}
+
+
+class UserSearch extends Component {
     constructor() {
         super();
         this.state = {
@@ -43,7 +167,7 @@ class UserSearch extends Component {
         // document.getElementById('emailErr').innerHTML = '';
         console.log('1',this.state.search_by);
         console.log('2',this.state.search_value);
-        console.log('3', this.state)
+        console.log('3', this.state);
 
         if(!this.state.search_value){
             window.alert("Please enter search criteria")
@@ -159,13 +283,7 @@ class UserSearch extends Component {
                                                 <h3 className="form-section">Search Results
                                                 </h3>
 
-                                                <ReactDataGrid
-                                                    columns={columns}
-                                                    rowGetter={i => rows[i]}
-                                                    rowsCount={3}
-                                                    onGridRowsUpdated={this.onGridRowsUpdated}
-                                                    enableCellSelect={true}
-                                                />
+                                                <Example className="table-responsive" rows={rows} />
                                             </div>
                                         </div>
                                     </div>

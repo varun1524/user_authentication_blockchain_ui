@@ -36,7 +36,7 @@ export const doLogout = () =>
 
 export const getUserProfile = (payload) =>
     fetch(`/api/v1/get_user_info`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
             ...headers,
             'Content-Type': 'application/json'
