@@ -32,7 +32,8 @@ class UserProfile extends Component {
     componentDidMount() {
         let payload = {
             "user_id" : 1
-        }
+        };
+        console.log("-----IN USER PROFILE-----",payload);
         getUserProfile(payload).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
