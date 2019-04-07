@@ -9,10 +9,7 @@ import InsertUserDataForm from './components/CreateUserByOrgUser'
 import Menu from './components/SideMenu'
 import Page1 from './components/Page1'
 import Page2 from './components/Page2'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {connect} from 'react-redux';
-import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 import AddUser from './components/AddUser'
 import AddNewUser from './components/AddNewUser'
 import AddNewBranch from './components/AddNewBranch'
@@ -22,10 +19,13 @@ import OrganizationProfile from "./components/OrganizationProfile";
 import OrganizationProfileEdit from "./components/OrganizationProfileEdit";
 import OrganizationBranch from "./components/OrganizationBranch";
 import UserProfile from "./components/UserProfile";
-
-library.add(faIgloo);
+import AddBlockData from "./components/AddBlockData";
 
 class App extends Component {
+    handlePageChange = ((page)=>{
+        this.props.history.push(page);
+    });
+
     render() {
         return (
             <div className="App">
@@ -74,6 +74,7 @@ class App extends Component {
                         />
                         <Route path= "/usersearch" render = {() => (
                             <UserSearch
+                                handlePageChange = {this.handlePageChange}
                             />)}
                         />
                         <Route path= "/organizationprofile" render = {() => (
@@ -86,6 +87,11 @@ class App extends Component {
                         />
                         <Route path= "/organizationprofileedit" render = {() => (
                             <OrganizationProfileEdit
+                            />)}
+                        />
+                        <Route path= "/addblockdata" render = {() => (
+                            <AddBlockData
+                                handlePageChange = {this.handlePageChange}
                             />)}
                         />
 

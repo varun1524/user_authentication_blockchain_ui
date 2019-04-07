@@ -19,8 +19,7 @@ const rows = [
 ];
 
 const defaultColumnProperties = {
-    filterable: true,
-    width: 120
+    filterable: true
 };
 
 const selectors = Data.Selectors;
@@ -85,7 +84,7 @@ class OrganizationBranch extends Component {
         // document.getElementById('emailErr').innerHTML = '';
         console.log('1',this.state.email);
         console.log('2',this.state.password);
-        console.log('3', this.state)
+        console.log('3', this.state);
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
