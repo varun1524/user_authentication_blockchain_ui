@@ -123,7 +123,7 @@ class ViewData extends Component {
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data);
-                    alert("Branch details successfully added")
+                    alert("Branch details successfully added");
                     this.props.branch_addiiton_success(data);
                     // this.props.history.push("/home");
                 });

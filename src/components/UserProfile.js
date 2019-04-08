@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
-import {getUserProfile} from "../api/userAPI";
+import {BackendCred} from "../api/Util";
 import {bindActionCreators} from "redux";
 import {user_profile_fetch} from "../actions/user";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
@@ -33,9 +33,10 @@ class UserProfile extends Component {
         let payload = {
             "user_id" : 1
         };
-        console.log("-----IN USER PROFILE-----",payload);
+        let endpoint='/api/v1/get_user_info?user_id=current';
+        let method='GET';
 
-        getUserProfile(payload).then((response) => {
+        BackendCred(payload,endpoint,method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
@@ -65,7 +66,7 @@ class UserProfile extends Component {
 
     handleDataEntry = (() => {
         console.log('User Profile', this.state)
-        //Validation
+
     });
 
     render() {

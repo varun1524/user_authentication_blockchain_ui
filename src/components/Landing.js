@@ -4,7 +4,7 @@ import {Link, withRouter} from 'react-router-dom';
 import './../assets/stylesheets/bootstrap.min.css';
 import './../assets/stylesheets/style.css';
 import './../assets/stylesheets/animate.css';
-import {doLogin} from './../api/userAPI';
+import {Backend} from './../api/Util';
 import SignUp from './Signup';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -59,14 +59,14 @@ class Landing extends Component {
                 'email': this.state.email,
                 'password': this.state.password
             };
+            let endpoint='api/v1/login';
+            let method='POST';
 
-            doLogin(payload).then((response) => {
+            Backend(payload,endpoint,method).then((response) => {
                 console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
                         if(data.message==="success") {
-                            console.log("data in login",JSON.parse(data.data));
-                            this.props.login_success(JSON.parse(data.data));
                             this.props.history.push("/dashboard");
                         }
                         else {
@@ -84,7 +84,6 @@ class Landing extends Component {
                 }
                 else {
                     console.log("Error: ", response);
-                    // alert("Error while Signing In");
                 }
             });
         }

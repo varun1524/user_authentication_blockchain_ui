@@ -35,14 +35,14 @@ export const doLogout = () =>
     });
 
 export const getUserProfile = (payload) =>
-    fetch(`/api/v1/get_user_info`, {
+    fetch(`/api/v1/get_user_info?user_id=current`, {
         method: 'GET',
         headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
         credentials:'include',
-        body: JSON.stringify(payload)
+        //body: JSON.stringify(payload)
     }).then(res => {
         return res;
     }).catch(error => {
@@ -83,3 +83,4 @@ export const doLogin = (payload) =>
         console.log(error);
         return error;
     });
+

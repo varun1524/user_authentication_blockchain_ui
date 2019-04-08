@@ -219,8 +219,7 @@ class AddNewUser extends Component {
                                                                     })
                                                                 }}
                                                         >
-                                                            <option value="">---Select One---</option>
-                                                            <option value="">American</option>
+
                                                         </select>
                                                     </div>
                                                 </div>

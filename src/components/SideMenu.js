@@ -6,15 +6,33 @@ import RouterLink from 'react-metismenu-router-link';
 import history from '../history';
 import {getUserProfile} from "../api/userAPI";
 
+
+const super_admin=[
+    {
+        icon: '',
+        label: 'Dashboard',
+        to: '/dashboard',
+    },
+    {
+        icon: '',
+        label: 'Flagged Requests',
+        to: '/flaggedrequests',
+    },
+    {
+        icon: '',
+        label: 'User Search',
+        to: '/adminusersearch',
+    },
+
+];
+
 const organization_content=[
     {
-
         icon: 'home',
         label: 'Dashboard',
         to: '/dashboard',
     },
     {
-
         icon: '',
         label: 'User',
         content: [
@@ -23,12 +41,6 @@ const organization_content=[
                 label: 'User Search',
                 to: '/usersearch',
             }
-            // {
-            //     parentId:2,
-            //     icon: 'icon-class-name',
-            //     label: 'New User',
-            //     to: '/page2',
-            // },
 
         ],
     },
@@ -50,20 +62,63 @@ const organization_content=[
 
         ],
     },
+    {
+
+        icon: '',
+        label: 'Block Data',
+        content: [
+            {
+                icon: 'icon-class-name',
+                label: 'Request',
+                to: '/requestdataaccess',
+            },
+            {
+                icon: 'icon-class-name',
+                label: 'View',
+                to: '/viewaccess',
+            }
+
+        ],
+    }
+
 ];
 
 const normal_user = [
     {
-        icon: 'home',
-        label: 'User Profile',
-        to: '/user_profile',
+        icon: '',
+        label: 'Dashboard',
+        to: '/dashboard',
     },
     {
         icon: 'home',
         label: 'View my block data',
-        to: '/user_block_data',
+        to: '/flagdata',
     },
-]
+    {
+        icon: '',
+        label: 'User Profile',
+        to: '/userprofile',
+    },
+    {
+
+        icon: '',
+        label: 'Block Data',
+        content: [
+            {
+                icon: 'icon-class-name',
+                label: 'Request',
+                to: '/requestdataaccess',
+            },
+            {
+                icon: 'icon-class-name',
+                label: 'View',
+                to: '/viewaccess',
+            }
+
+        ],
+    }
+
+];
 
 let menu = organization_content
 
@@ -94,12 +149,12 @@ class Menu extends Component {
                         console.log(data);
                         if(data.message==="success") {
                             console.log("data in user profile",JSON.parse(data.data));
-                            this.props.user_profile_fetch(JSON.parse(data.data));
+                            //this.props.user_profile_fetch(JSON.parse(data.data));
                         }
                         else {
                             alert("User profile could not be fetched. Please try again!")
                         }
-                        this.props.user_profile_fetch(data);
+                        // this.props.user_profile_fetch(data);
                     });
                 }
                 else if (response.status === 404) {
@@ -120,14 +175,14 @@ class Menu extends Component {
     }
 
     render() {
-        console.log("current user data")
-        console.log(this.props.user)
+        console.log("current user data");
+        console.log(this.props.user);
         return (<MetisMenu content={menu} LinkComponent={RouterLink} />);
     }
 }
 
 function mapStateToProps(reducer_state) {
-    console.log("--Reducer state-----", reducer_state.user.data)
+    console.log("--Reducer state-----", reducer_state.user.data);
     return {
         user: reducer_state.user
     };
