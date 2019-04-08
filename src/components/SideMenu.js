@@ -26,7 +26,7 @@ const super_admin=[
 
 ];
 
-const organization_content=[
+const org_admin=[
     {
         icon: 'home',
         label: 'Dashboard',
@@ -83,7 +83,46 @@ const organization_content=[
 
 ];
 
-const normal_user = [
+const org_user=[
+    {
+        icon: 'home',
+        label: 'Dashboard',
+        to: '/dashboard',
+    },
+    {
+        icon: '',
+        label: 'User',
+        content: [
+            {
+                icon: 'icon-class-name',
+                label: 'User Search',
+                to: '/usersearch',
+            }
+
+        ],
+    },
+    {
+
+        icon: '',
+        label: 'Block Data',
+        content: [
+            {
+                icon: 'icon-class-name',
+                label: 'Request',
+                to: '/requestdataaccess',
+            },
+            {
+                icon: 'icon-class-name',
+                label: 'View',
+                to: '/viewaccess',
+            }
+
+        ],
+    }
+
+];
+
+const user = [
     {
         icon: '',
         label: 'Dashboard',
@@ -120,7 +159,7 @@ const normal_user = [
 
 ];
 
-let menu = organization_content
+let menu = org_admin;
 
 class Menu extends Component {
     componentDidMount() {

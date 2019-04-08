@@ -233,6 +233,7 @@ class UserSearch extends Component {
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
                                         <div className="caption">Search User</div>
+
                                         <a className="btn btn-info myaddnewbutton" href="/addnewuser">Add New</a>
                                     </div>
                                     <div className="portlet-body form">
