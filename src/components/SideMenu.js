@@ -4,7 +4,9 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import RouterLink from 'react-metismenu-router-link';
 import history from '../history';
+import {bindActionCreators} from 'redux';
 import {getUserProfile} from "../api/userAPI";
+import {login_success} from "../actions/login";
 
 
 const super_admin=[
@@ -187,21 +189,39 @@ class Menu extends Component {
                     response.json().then((data) => {
                         console.log(data);
                         if(data.message==="success") {
-                            console.log("data in user profile",JSON.parse(data.data));
-                            //this.props.user_profile_fetch(JSON.parse(data.data));
+                            console.log("data in side menu after get_user_info",JSON.parse(data.data));
+                            this.props.login_success(JSON.parse(data.data));
                         }
                         else {
+                            alert("not logged in")
                             history.push('/')
                         }
                     });
                 }
                 else {
+                    alert("not logged in")
                     history.push('/')
                 }
             });
 
         } else {
             // Object is NOT empty
+            if(obj.user_type == 1){
+                console.log("Changing menu type to super admin")
+                menu = super_admin
+            }
+            else if(obj.user_type == 2){
+                console.log("Changing menu type to organization admin")
+                menu = org_admin
+            }
+            else if(obj.user_type == 3){
+                console.log("Changing menu type to organization user")
+                menu = org_user
+            }
+            else{
+                console.log("Changing menu type to normal user")
+                menu=user
+            }
         }
     }
 
@@ -219,4 +239,8 @@ function mapStateToProps(reducer_state) {
     };
 }
 
-export default withRouter(connect(mapStateToProps)(Menu));
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({login_success: login_success}, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Menu));
