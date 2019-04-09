@@ -180,7 +180,7 @@ class Menu extends Component {
                 "user_id" : "current"
             };
             console.log("-----IN SIDE MENU-----",payload);
-
+            console.log("User data-->", this.props.user)
             getUserProfile(payload).then((response) => {
                 console.log(response.status);
                 if (response.status === 200) {
@@ -191,20 +191,12 @@ class Menu extends Component {
                             //this.props.user_profile_fetch(JSON.parse(data.data));
                         }
                         else {
-                            alert("User profile could not be fetched. Please try again!")
+                            history.push('/')
                         }
-                        // this.props.user_profile_fetch(data);
-                    });
-                }
-                else if (response.status === 404) {
-                    this.setState({
-                        ...this.state,
-                        message: "Service not found"
                     });
                 }
                 else {
-                    console.log("Error: ", response);
-                    // alert("Error while Signing In");
+                    history.push('/')
                 }
             });
 
