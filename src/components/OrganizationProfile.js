@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {doCreateBranch} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {branch_addiiton_success} from "../actions/organization_admin";
-import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 import {Home} from "@material-ui/icons";
+import {Backend} from './../api/Util';
 
 class OrganizationProfile extends Component {
     constructor() {
@@ -24,9 +23,11 @@ class OrganizationProfile extends Component {
         }
     }
 
+    componentWillMount() {
+        let endpoint = "api/v1/get_organization_details"
+    }
+
     handleDataEntry = (() => {
-        // showAlert("SHowed Successful", "info", this);
-        // document.getElementById('emailErr').innerHTML = '';
         console.log('1',this.state.email);
         console.log('2',this.state.password);
         console.log('3', this.state)
