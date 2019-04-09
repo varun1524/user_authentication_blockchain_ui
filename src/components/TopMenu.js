@@ -28,6 +28,7 @@ class TopMenu extends Component {
     doLogout(){
         //session destroy
         window.alert("Logging out")
+        // clear all the reducers here
         this.props.history.push("/")
     }
 

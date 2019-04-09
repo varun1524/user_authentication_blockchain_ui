@@ -9,7 +9,7 @@ import {getUserProfile} from "../api/userAPI";
 import {login_success} from "../actions/login";
 
 
-const super_admin=[
+let super_admin=[
     {
         icon: '',
         label: 'Dashboard',
@@ -28,7 +28,7 @@ const super_admin=[
 
 ];
 
-const org_admin=[
+let org_admin=[
     {
         icon: 'home',
         label: 'Dashboard',
@@ -85,7 +85,7 @@ const org_admin=[
 
 ];
 
-const org_user=[
+let org_user=[
     {
         icon: 'home',
         label: 'Dashboard',
@@ -124,7 +124,7 @@ const org_user=[
 
 ];
 
-const user = [
+let user = [
     {
         icon: '',
         label: 'Dashboard',
@@ -161,10 +161,10 @@ const user = [
 
 ];
 
-let menu = org_admin;
+var menu;
 
 class Menu extends Component {
-    componentDidMount() {
+    componentWillMount() {
         function isEmpty(obj) {
             for(var key in obj) {
                 if(obj.hasOwnProperty(key))
@@ -191,6 +191,22 @@ class Menu extends Component {
                         if(data.message==="success") {
                             console.log("data in side menu after get_user_info",JSON.parse(data.data));
                             this.props.login_success(JSON.parse(data.data));
+                            if(obj.user_type == 1){
+                                console.log("Changing menu type to super admin")
+                                menu = super_admin
+                            }
+                            else if(obj.user_type == 2){
+                                console.log("Changing menu type to organization admin")
+                                menu = org_admin
+                            }
+                            else if(obj.user_type == 3){
+                                console.log("Changing menu type to organization user")
+                                menu = org_user
+                            }
+                            else{
+                                console.log("Changing menu type to normal user")
+                                menu=user
+                            }
                         }
                         else {
                             alert("not logged in")
@@ -207,20 +223,21 @@ class Menu extends Component {
         } else {
             // Object is NOT empty
             if(obj.user_type == 1){
-                console.log("Changing menu type to super admin")
+                console.log("Pertaining menu type to super admin")
                 menu = super_admin
             }
             else if(obj.user_type == 2){
-                console.log("Changing menu type to organization admin")
+                console.log("Pertaining menu type to organization admin")
                 menu = org_admin
             }
             else if(obj.user_type == 3){
-                console.log("Changing menu type to organization user")
+                console.log("Pertaining menu type to organization user")
                 menu = org_user
             }
             else{
-                console.log("Changing menu type to normal user")
+                console.log("Pertaining menu type to normal user")
                 menu=user
+                console.log(menu)
             }
         }
     }
@@ -228,6 +245,7 @@ class Menu extends Component {
     render() {
         console.log("current user data");
         console.log(this.props.user);
+        console.log("above", window.menu)
         return (<MetisMenu content={menu} LinkComponent={RouterLink} />);
     }
 }
