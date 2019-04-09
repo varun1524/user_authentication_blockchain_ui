@@ -48,7 +48,7 @@ class UserProfile extends Component {
                     else {
                         alert("User profile could not be fetched. Please try again!")
                     }
-                    this.props.user_profile_fetch(data);
+                    this.props.user_profile_fetch(JSON.parse(data.data));
                 });
             }
             else if (response.status === 404) {
@@ -102,13 +102,13 @@ class UserProfile extends Component {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="control-label">Given Name: &nbsp;</label>
-                                                        <label ></label>
+                                                        <label >{this.props.user.given_name}</label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="control-label">Email: &nbsp;</label>
-                                                        <label ></label>
+                                                        <label >{this.props.user.email}</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -222,7 +222,7 @@ class UserProfile extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user_reducer: reducer_state.user_reducer
+        user: reducer_state.user_reducer
     };
 }
 

@@ -79,9 +79,9 @@ class TopMenu extends Component {
 }
 
 function mapStateToProps(reducer_state) {
-    console.log("--Reducer state-----", reducer_state.user.data)
+    console.log("--Reducer state-----", reducer_state.user_reducer)
     return {
-        user: reducer_state.user
+        user: reducer_state.user_reducer
     };
 }
 

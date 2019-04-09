@@ -26,7 +26,7 @@ class Home extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user: reducer_state.user
+        user: reducer_state.user_reducer
     };
 }
 

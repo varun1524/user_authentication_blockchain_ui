@@ -112,7 +112,7 @@ function mapStateToProps(reducer_state) {
     console.log("In dashboard")
     console.log("reducer", reducer_state)
     return {
-        user: reducer_state.user
+        user: reducer_state.user_reducer
     };
 }
 
