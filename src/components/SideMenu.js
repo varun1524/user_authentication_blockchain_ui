@@ -6,7 +6,7 @@ import RouterLink from 'react-metismenu-router-link';
 import history from '../history';
 import {bindActionCreators} from 'redux';
 import {getUserProfile} from "../api/userAPI";
-import {login_success} from "../actions/login";
+import {user_profile_fetch} from "../actions/user";
 
 
 let super_admin=[
@@ -190,7 +190,7 @@ class Menu extends Component {
                         console.log(data);
                         if(data.message==="success") {
                             console.log("data in side menu after get_user_info",JSON.parse(data.data));
-                            this.props.login_success(JSON.parse(data.data));
+                            this.props.user_profile_fetch(JSON.parse(data.data));
                             if(obj.user_type == 1){
                                 //console.log("Changing menu type to super admin")
                                 menu = super_admin
@@ -258,7 +258,7 @@ function mapStateToProps(reducer_state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({login_success: login_success}, dispatch)
+    return bindActionCreators({user_profile_fetch: user_profile_fetch}, dispatch)
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Menu));

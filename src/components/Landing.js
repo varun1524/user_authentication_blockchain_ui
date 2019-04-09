@@ -37,8 +37,8 @@ class Landing extends Component {
     handleLogin = (() => {
         // showAlert("SHowed Successful", "info", this);
         document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
+        //console.log('1',this.state.email);
+        //console.log('2',this.state.password);
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
@@ -53,8 +53,6 @@ class Landing extends Component {
         }
         else if (this.state.password.length > 0){
             document.getElementById('passwordErr').innerText = '';
-
-            console.log('inside');
             let payload = {
                 'email': this.state.email,
                 'password': this.state.password
@@ -63,7 +61,6 @@ class Landing extends Component {
             let method='POST';
 
             Backend(payload,endpoint,method).then((response) => {
-                console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
                         if(data.message==="success") {
