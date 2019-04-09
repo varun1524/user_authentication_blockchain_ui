@@ -3,7 +3,7 @@ import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {doCreateUser} from "../api/orgAPI";
+import {BackendCredBody} from "../api/Util";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 
@@ -75,12 +75,12 @@ class AddNewUser extends Component {
             'dob' : this.state.dob,
             'email' : this.state.email,
             'password' : 'abcd',
-            'user_type' : 4
+            'user_type' : this.state.user_type
         };
-        console.log("++++ Payload  +++")
-        console.log(payload)
+        console.log("++++ Payload  +++");
+        console.log(payload);
 
-        doCreateUser(payload).then((response) => {
+        BackendCredBody(payload).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
@@ -215,11 +215,13 @@ class AddNewUser extends Component {
                                                                 onChange={(event) => {
                                                                     this.setState({
                                                                         ...this.state,
-                                                                        ethnicity : event.target.value
+                                                                        user_type : event.target.value
                                                                     })
                                                                 }}
+                                                                onClick={()=>{this.handleDataEntry()}}
                                                         >
-
+                                                            <option value="3">Organization User</option>
+                                                            <option value="4">Normal User</option>
                                                         </select>
                                                     </div>
                                                 </div>

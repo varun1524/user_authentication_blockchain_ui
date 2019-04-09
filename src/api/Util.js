@@ -33,5 +33,20 @@ export const BackendCred = (payload,endpoint,method) =>
         return error;
     });
 
+export const BackendCredBody = (payload,endpoint,method) =>
+    fetch(''+endpoint, {
+        method: ''+method,
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials:'include',
+        body: JSON.stringify(payload)
+    }).then(res => {
+        return res;
+    }).catch(error => {
+        console.log("This is error");
+        return error;
+    });
 
 

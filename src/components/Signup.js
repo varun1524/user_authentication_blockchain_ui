@@ -4,7 +4,7 @@ import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-countr
 import {bindActionCreators} from "redux";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {doSignUp} from './../api/userAPI';
+import {Backend} from './../api/Util';
 import {signup_success} from "../actions/signup";
 
 
@@ -101,10 +101,12 @@ class Signup extends Component {
                 'phone':this.state.phone,
                 'headquarter' : this.state.headquarter,
                 'founded_date'  : this.state.founded_date+' 12:00:00',
-                'organization_type': 1
+                'organization_type': this.state.organization_type
             };
             console.log("-----PAYLOAD-----",payload);
-            doSignUp(payload).then((response) => {
+            let endpoint='api/v1/signup_organization';
+            let method='POST';
+            Backend(payload,endpoint,method).then((response) => {
                 console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
@@ -281,10 +283,10 @@ class Signup extends Component {
                                                 })
                                             }}
                                     >
-                                        <option>Educational</option>
-                                        <option>Medical</option>
-                                        <option>IT</option>
-                                        <option>Government</option>
+                                        <option value="1">Educational</option>
+                                        <option value="2">Medical</option>
+                                        <option value="3">IT</option>
+                                        <option value="4">Government</option>
                                     </select>
                                 </div>
                             </div>
