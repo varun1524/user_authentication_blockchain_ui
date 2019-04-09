@@ -192,30 +192,30 @@ class Menu extends Component {
                             console.log("data in side menu after get_user_info",JSON.parse(data.data));
                             this.props.login_success(JSON.parse(data.data));
                             if(obj.user_type == 1){
-                                console.log("Changing menu type to super admin")
+                                //console.log("Changing menu type to super admin")
                                 menu = super_admin
                             }
                             else if(obj.user_type == 2){
-                                console.log("Changing menu type to organization admin")
+                                //console.log("Changing menu type to organization admin")
                                 menu = org_admin
                             }
                             else if(obj.user_type == 3){
-                                console.log("Changing menu type to organization user")
+                                //console.log("Changing menu type to organization user")
                                 menu = org_user
                             }
                             else{
-                                console.log("Changing menu type to normal user")
+                                //console.log("Changing menu type to normal user")
                                 menu=user
                             }
                         }
                         else {
-                            alert("not logged in")
+                            //alert("not logged in")
                             history.push('/')
                         }
                     });
                 }
                 else {
-                    alert("not logged in")
+                    //alert("not logged in")
                     history.push('/')
                 }
             });
@@ -223,19 +223,19 @@ class Menu extends Component {
         } else {
             // Object is NOT empty
             if(obj.user_type == 1){
-                console.log("Pertaining menu type to super admin")
+                //console.log("Pertaining menu type to super admin")
                 menu = super_admin
             }
             else if(obj.user_type == 2){
-                console.log("Pertaining menu type to organization admin")
+                //console.log("Pertaining menu type to organization admin")
                 menu = org_admin
             }
             else if(obj.user_type == 3){
-                console.log("Pertaining menu type to organization user")
+                //console.log("Pertaining menu type to organization user")
                 menu = org_user
             }
             else{
-                console.log("Pertaining menu type to normal user")
+                //console.log("Pertaining menu type to normal user")
                 menu=user
                 console.log(menu)
             }
@@ -243,9 +243,9 @@ class Menu extends Component {
     }
 
     render() {
-        console.log("current user data");
-        console.log(this.props.user);
-        console.log("above", window.menu)
+        //console.log("current user data");
+        //console.log(this.props.user);
+        //console.log("above", window.menu)
         return (<MetisMenu content={menu} LinkComponent={RouterLink} />);
     }
 }

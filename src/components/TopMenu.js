@@ -64,7 +64,7 @@ class TopMenu extends Component {
                                     {this.props.user.given_name}
                                 </DropdownToggle>
                                 <DropdownMenu className="mydropdown">
-                                    <li className="mydropdown-content"><a href="" onClick={()=>this.doLogout()}>Logout</a></li>
+                                    <li className="mydropdown-content"><a onClick={()=>this.doLogout()}>Logout</a></li>
 
                                 </DropdownMenu>
                             </Dropdown>
