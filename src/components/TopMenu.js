@@ -5,9 +5,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem ,Dropdown} from 'reactstrap';
 import angdown from 'react-icons/lib/fa/angle-down'
-
-
-
+import {BackendCred} from "../api/Util";
 
 class TopMenu extends Component {
     constructor(props) {
@@ -27,9 +25,29 @@ class TopMenu extends Component {
 
     doLogout(){
         //session destroy
-        window.alert("Logging out")
+        let endpoint='api/v1/logout';
+        let method='GET';
+        let payload = {}
+        BackendCred(payload,endpoint,method).then((response) => {
+            console.log(response.status);
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    if(data.message==="success") {
+                        window.alert("logged out successfully")
+                        this.props.history.push("/")
+                    }
+                    else {
+                        window.alert("Cannot logout. Please try again!")
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+            }
+        });
+        //window.alert("Logging out")
         // clear all the reducers here
-        this.props.history.push("/")
     }
 
     render() {
