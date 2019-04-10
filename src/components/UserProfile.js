@@ -205,7 +205,7 @@ class UserProfile extends Component {
 
 
                                             <div className="form-actions right">
-                                                <a className="btn blue" href="/organizationprofileedit">Edit</a>
+                                                <a className="btn blue" href="/userprofileedit">Edit</a>
                                             </div>
                                         </div>
                                     </div>

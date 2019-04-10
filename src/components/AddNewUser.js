@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {BackendCredBody} from "../api/Util";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
+import {connect} from "react-redux";
 
 class AddNewUser extends Component {
     constructor() {
@@ -261,4 +262,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
-export default withRouter(AddNewUser);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddNewUser));

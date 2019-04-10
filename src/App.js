@@ -100,6 +100,10 @@ class App extends Component {
                             <UserProfile
                             />)}
                         />
+                                <Route path= "/userprofileedit" render = {() => (
+                                    <Page2
+                                    />)}
+                                />
                         <Route path= "/organizationprofileedit" render = {() => (
                             <OrganizationProfileEdit
                             />)}
