@@ -68,6 +68,9 @@ class AddNewUser extends Component {
         if(!this.state.given_name){
             document.getElementById('givenNameErr').innerHTML = 'First name is required';
         }
+        else if(this.state.user_type===0){
+            document.getElementById('userTypeErr').innerHTML = 'User Type is required';
+        }
 
         let payload = {
             'given_name' : this.state.given_name,
@@ -79,8 +82,9 @@ class AddNewUser extends Component {
         };
         console.log("++++ Payload  +++");
         console.log(payload);
-
-        BackendCredBody(payload).then((response) => {
+        let endpoint='api/v1/create_user';
+        let method='POST';
+        BackendCredBody(payload,endpoint,method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
@@ -219,9 +223,11 @@ class AddNewUser extends Component {
                                                                     })
                                                                 }}
                                                         >
+                                                            <option value="0">----SELECT ONE----</option>
                                                             <option value="3">Organization User</option>
                                                             <option value="4">Normal User</option>
                                                         </select>
+                                                        <span id="userTypeErr"/>
                                                     </div>
                                                 </div>
 
