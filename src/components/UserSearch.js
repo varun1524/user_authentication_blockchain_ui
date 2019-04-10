@@ -234,7 +234,7 @@ class UserSearch extends Component {
                                     <div className="portlet-title">
                                         <div className="caption">Search User</div>
 
-                                        <a className="btn btn-info myaddnewbutton" href="/addnewuser">Add New</a>
+                                        <a className="btn btn-info myaddnewbutton" onClick={()=>{this.props.history.push("/addnewuser")}}>Add New</a>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">

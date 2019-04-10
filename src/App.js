@@ -119,7 +119,7 @@ class App extends Component {
                                         handlePageChange = {this.handlePageChange}
                                     />)}
                                 />
-                                <Route path= "/adminsearch" render = {() => (
+                                <Route path= "/adminusersearch" render = {() => (
                                     <AdminUserSearch
                                         handlePageChange = {this.handlePageChange}
                                     />)}

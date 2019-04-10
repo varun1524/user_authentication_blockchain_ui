@@ -2,7 +2,6 @@ import React, {Component, useState} from 'react';
 import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter, Route} from 'react-router-dom';
-import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 import HomeIcon from "@material-ui/icons/Home"
@@ -10,6 +9,7 @@ import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import history from '../history';
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
+import {BackendCred} from "../api/Util";
 
 
 const defaultColumnProperties = {
@@ -76,8 +76,6 @@ class AdminUserSearch extends Component {
     }
 
     handleDataEntry = (() => {
-        // showAlert("SHowed Successful", "info", this);
-        // document.getElementById('emailErr').innerHTML = '';
         console.log('1',this.state.search_by);
         console.log('2',this.state.search_value);
         console.log('3', this.state);
@@ -88,9 +86,10 @@ class AdminUserSearch extends Component {
 
         let search_by = this.state.search_by
         let payload = {}
-        payload[search_by] = this.state.given_name;
-
-        doCreateUser(payload).then((response) => {
+        //payload[search_by] = this.state.given_name;
+        let endpoint = 'api/v1/get_user_info?'+ search_by + '=' + this.state.search_value
+        let method = 'GET'
+        BackendCred(payload, endpoint, method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {

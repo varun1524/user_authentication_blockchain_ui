@@ -218,7 +218,6 @@ class AddNewUser extends Component {
                                                                         user_type : event.target.value
                                                                     })
                                                                 }}
-                                                                onClick={()=>{this.handleDataEntry()}}
                                                         >
                                                             <option value="3">Organization User</option>
                                                             <option value="4">Normal User</option>
