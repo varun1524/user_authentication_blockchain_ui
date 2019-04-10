@@ -10,6 +10,7 @@ import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import history from '../history';
 import {BackendCred} from "../api/Util"
+import {connect} from "react-redux";
 
 
 const defaultColumnProperties = {
@@ -18,21 +19,15 @@ const defaultColumnProperties = {
 
 const columns = [
     { key: "id", name: "ID"},
-    { key: "title", name: "Name"},
-    { key: "complete", name: "Organization"},
+    { key: "given_name", name: "Given Name"},
+    { key: "last_name", name: "Last Name"},
+    { key: "email", name: "Email"},
     { key: "action", name: "Action"}
 ].map(c => ({ ...c, ...defaultColumnProperties }));
 
 const selectors = Data.Selectors;
 
-const rows = [
-    { id: 0, title: "Task 1", complete: 20},
-    { id: 1, title: "Task 2", complete: 40 , inorg:'Y' },
-    { id: 2, title: "Task 3", complete: 60 },
-    { id: 3, title: "Task 1", complete: 20 },
-    { id: 4, title: "Task 2", complete: 40 },
-    { id: 5, title: "Task 3", complete: 60 }
-];
+let org_id;
 
 const InOrganizationActions_NoBlock = (rowdata) => [
     {
@@ -98,6 +93,8 @@ const OutOrganizationActions= (rowdata) => [
 ];
 
 function getCellActions(column, row) {
+    console.log("getCellActions: ", row,org_id);
+
     const InOrgNoBlock = {
         action: InOrganizationActions_NoBlock(row)
     };
@@ -107,14 +104,9 @@ function getCellActions(column, row) {
     const OutOrg = {
         action: OutOrganizationActions(row)
     };
-
-    if(row.complete===20)
+    if(row.organization_id===org_id)
     {
         return InOrgNoBlock[column.key];
-    }
-    else if(row.title==="Task 3")
-    {
-        return InOrgBlock[column.key];
     }
     else {
         return OutOrg[column.key];
@@ -142,6 +134,7 @@ const ROW_COUNT = 50;
 function Example({ rows }) {
     const [filters, setFilters] = useState({});
     const filteredRows = getRows(rows, filters);
+    // rows=rows;
     return (
         <ReactDataGrid
             columns={columns}
@@ -162,7 +155,8 @@ class UserSearch extends Component {
         super();
         this.state = {
             search_by:"",
-            search_value:""
+            search_value:"",
+            rows1: []
         }
     }
 
@@ -184,9 +178,27 @@ class UserSearch extends Component {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
-                    console.log(data);
-                    this.props.user_addiiton_success(data);
-                    this.props.history.push("/home");
+                    console.log(JSON.parse(data.data));
+                    let rcvd_data = JSON.parse(data.data);
+                    let rows = [];
+                    for (var i = 0; i < rcvd_data.user_info.length; i++){
+                        var obj = rcvd_data.user_info[i];
+                        var data_to_be_added = {
+                            "id" : obj['id'],
+                            "given_name" : obj['given_name'],
+                            "last_name" : obj['last_name'],
+                            "email" : obj['email'],
+                            "organization_id" : obj['organization_id']
+                        };
+                        rows.push(data_to_be_added);
+                    }
+                    this.setState({
+                        ...this.state,
+                        rows1: rows
+                    });
+
+                    console.log("++++++++++++  rows  ++++++++++++++++++", rows)
+                   // rows=JSON.parse(data.data);
                 });
 
             }
@@ -287,7 +299,7 @@ class UserSearch extends Component {
                                                 <h3 className="form-section">Search Results
                                                 </h3>
 
-                                                <Example className="table-responsive" rows={rows} />
+                                                <Example className="table-responsive" rows={this.state.rows1} />
                                             </div>
                                         </div>
                                     </div>
@@ -303,8 +315,10 @@ class UserSearch extends Component {
 }
 
 function mapStateToProps(reducer_state) {
+    org_id=reducer_state.user_reducer.organization_id;
     return {
-        organization_user: reducer_state.organization_user
+        user: reducer_state.user_reducer
+
     };
 }
 
@@ -312,4 +326,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
-export default withRouter(UserSearch);
+export default withRouter(connect(mapStateToProps, null)(UserSearch));

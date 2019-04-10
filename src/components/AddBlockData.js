@@ -6,7 +6,8 @@ import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 import {Home} from "@material-ui/icons";
-import {doInsertBlockData} from "../api/orgAPI";
+import {BackendCredBody} from "../api/Util";
+import {connect} from "react-redux";
 
 class AddBlockData extends Component
 {
@@ -28,8 +29,8 @@ class AddBlockData extends Component
 
     handleDataEntry = (() => {
         let payload = {
-            user_id:"",
-            organization_id:"",
+            for_id:this.props.location.state.id,
+            data_category:"",
             role:this.state.role,
             company:this.state.company,
             start_date:this.state.start_date,
@@ -38,7 +39,10 @@ class AddBlockData extends Component
             highlights:this.state.highlights
         };
 
-        doInsertBlockData(payload).then((response) => {
+        let endpoint='';
+        let method='POST';
+
+        BackendCredBody(payload,endpoint,method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
@@ -48,7 +52,7 @@ class AddBlockData extends Component
                         this.props.history.push("/dashboard");
                     }
                     else {
-                        window.alert("Username or Password is incorrect. Please try again!")
+                        window.alert("Blockdata could not be added. It ")
                     }
                 });
 
@@ -204,7 +208,7 @@ class AddBlockData extends Component
 
 function mapStateToProps(reducer_state) {
     return {
-        organization_user: reducer_state.organization_user
+        user: reducer_state.user_reducer
     };
 }
 
@@ -212,4 +216,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
-export default withRouter(AddBlockData);
+export default withRouter(connect(mapStateToProps, null)(AddBlockData));

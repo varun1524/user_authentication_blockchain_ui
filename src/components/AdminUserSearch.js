@@ -24,14 +24,7 @@ const columns = [
 
 const selectors = Data.Selectors;
 
-const rows = [
-    { id: 0, title: "Task 1", complete: 20},
-    { id: 1, title: "Task 2", complete: 40 , inorg:'Y' },
-    { id: 2, title: "Task 3", complete: 60 },
-    { id: 3, title: "Task 1", complete: 20 },
-    { id: 4, title: "Task 2", complete: 40 },
-    { id: 5, title: "Task 3", complete: 60 }
-];
+let rows ;
 
 const handleFilterChange = filter => filters => {
     const newFilters = { ...filters };
@@ -94,6 +87,7 @@ class AdminUserSearch extends Component {
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data);
+                    rows=JSON.parse(data.data);
                     this.props.user_addiiton_success(data);
                     this.props.history.push("/home");
                 });
