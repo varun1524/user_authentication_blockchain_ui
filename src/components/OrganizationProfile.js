@@ -7,7 +7,7 @@ import {bindActionCreators} from "redux";
 import {branch_addiiton_success} from "../actions/organization_admin";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 import {Home} from "@material-ui/icons";
-import {Backend} from './../api/Util';
+import {Backend, BackendCred} from './../api/Util';
 
 class OrganizationProfile extends Component {
     constructor() {
@@ -24,7 +24,30 @@ class OrganizationProfile extends Component {
     }
 
     componentWillMount() {
-        let endpoint = "api/v1/get_organization_details"
+        let endpoint='api/v1/get_organization_details';
+        let method='GET';
+        let payload = {}
+        BackendCred(payload,endpoint,method).then((response) => {
+            console.log(response.status);
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    if(data.message==="success") {
+                        window.alert("Organization data fetched successfully")
+                        console.log("Organization profile",data.data)
+                        //this.props.history.push("/")
+                    }
+                    else {
+                        window.alert("Cannot logout. Please try again!")
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+            }
+        });
+        //window.alert("Logging out")
+        // clear all the reducers here
     }
 
     handleDataEntry = (() => {
