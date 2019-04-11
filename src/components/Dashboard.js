@@ -63,35 +63,35 @@ class Dashboard extends Component {
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Welcome Username here</div>
+                                        <div className="caption">Welcome {this.props.user.given_name} {this.props.user.last_name} !!!</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
                                             <div className="row">
-                                                <div className="col-md-6">
-                                                    <div className="form-group">
-                                                        <label className="control-label">Organization: &nbsp;</label>
-                                                        <label ></label>
-                                                        <span id="nameErr"/>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <div className="form-group">
-                                                        <label className="control-label">Branch: &nbsp;</label>
-                                                        <label ></label>
-                                                        <span id="nameErr"/>
-                                                    </div>
-                                                </div>
+                                                {/*<div className="col-md-6">*/}
+                                                {/*    <div className="form-group">*/}
+                                                {/*        <label className="control-label">Organization: &nbsp;</label>*/}
+                                                {/*        <label ></label>*/}
+                                                {/*        <span id="nameErr"/>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
+                                                {/*<div className="col-md-6">*/}
+                                                {/*    <div className="form-group">*/}
+                                                {/*        <label className="control-label">Branch: &nbsp;</label>*/}
+                                                {/*        <label ></label>*/}
+                                                {/*        <span id="nameErr"/>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
                                             </div>
 
                                             <div className="row">
-                                                <div className="col-md-6">
-                                                    <div className="form-group">
-                                                        <label className="control-label">Role: &nbsp;</label>
-                                                        <label ></label>
-                                                        <span id="nameErr"/>
-                                                    </div>
-                                                </div>
+                                                {/*<div className="col-md-6">*/}
+                                                {/*    <div className="form-group">*/}
+                                                {/*        <label className="control-label">Role: &nbsp;</label>*/}
+                                                {/*        <label ></label>*/}
+                                                {/*        <span id="nameErr"/>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
                                             </div>
                                         </div>
                                     </div>

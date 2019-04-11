@@ -16,6 +16,7 @@ const user = {
     country_of_citizenship : "",
     zip : "",
     user_type:"",
+    phone:"",
     neha:""
 };
 

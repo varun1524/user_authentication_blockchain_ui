@@ -3,13 +3,12 @@ import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
-import {user_addiiton_success} from "../actions/orgnization_user";
 import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from "react-redux";
+import {BackendCredBody} from "../api/Util"
 
-// This is user profile edits
+// This is user profile edit
 class Page2 extends Component {
     constructor() {
         super();
@@ -20,25 +19,20 @@ class Page2 extends Component {
             gender : "",
             email : "",
             ethnicity : "",
-            line1 : "",
-            apt : "",
+            address_line_1 : "",
+            address_line_2 : "",
             city : "",
-            st : "",
-            country : "",
+            state : "",
+            country_of_residence : "",
+            country_of_citizenship : "",
             zip : "",
-            citizen_country : "",
-            message : "",
-            emailColor:"",
             phone: ""
         }
     }
 
+
     handleDataEntry = (() => {
-        // showAlert("SHowed Successful", "info", this);
-        // document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
-        console.log('3', this.state)
+        console.log('Updated state in edit profile page', this.state)
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
@@ -90,47 +84,41 @@ class Page2 extends Component {
             'gender' : this.state.gender,
             'email' : this.state.email,
             'ethnicity' : this.state.ethnicity,
-            'address_line_1' : this.state.line1,
-            'address_line_2' : this.state.apt,
+            'address_line_1' : this.state.address_line_1,
+            'address_line_2' : this.state.address_line_2,
             'city' : this.state.city,
-            'state' : this.state.st,
-            'country_of_residence' : this.state.country,
+            'state' : this.state.state,
+            'country_of_residence' : this.state.country_of_residence,
             'zip' : this.state.zip,
-            'country_of_citizenship' : this.state.citizen_country,
+            'country_of_citizenship' : this.state.country_of_citizenship,
             'phone' : this.state.phone
         };
 
-        doCreateUser(payload).then((response) => {
+        let method = 'POST';
+        let endpoint = 'api/vi/save_user_profile'
+
+        BackendCredBody(payload, endpoint, method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data);
-                    this.props.user_addiiton_success(data);
-                    this.props.history.push("/home");
-                });
-
-            }
-            else if (response.status === 404) {
-                this.setState({
-                    ...this.state,
-                    message: "User not registered. Please sign up"
-                });
-            }
-            else if (response.status === 401) {
-                this.setState({
-                    ...this.state,
-                    message: "Incorrect Password. Please try again"
+                    if(data.message==="success") {
+                        this.props.history.push("/userprofile");
+                    }
+                    else{
+                        alert("Changes could not be saved. Please try again");
+                    }
                 });
             }
             else {
                 console.log("Error: ", response);
+                alert("Changes could not be saved. Please try again");
                 // alert("Error while Signing In");
             }
         });
     });
 
     render() {
-        console.log("[signin] render method");
         return (
             <div>
                 <TopMenu/>
@@ -139,7 +127,7 @@ class Page2 extends Component {
                 </div>
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
-                        <h1 className="page-title">New User Form</h1>
+                        <h1 className="page-title">Edit form</h1>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
@@ -160,7 +148,7 @@ class Page2 extends Component {
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Create New User</div>
+                                        <div className="caption">Edit your profile</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
@@ -238,6 +226,7 @@ class Page2 extends Component {
                                                     <div className="form-group">
                                                         <label className="control-label">Email</label>
                                                         <input type="text" id="lastName" className="form-control" placeholder="Enter email"
+                                                               value={this.props.user.email}
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
@@ -260,7 +249,11 @@ class Page2 extends Component {
                                                                 }}
                                                         >
                                                             <option value="">---Select One---</option>
-                                                            <option value="">American</option>
+                                                            <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+                                                            <optton value="Asian">Asian</optton>
+                                                            <optton value="Black or African American">Black or African American</optton>
+                                                            <optton value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</optton>
+                                                            <optton value="White">White</optton>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -273,22 +266,24 @@ class Page2 extends Component {
                                                     <div className="form-group">
                                                         <label>Line 1</label>
                                                         <input type="text" className="form-control"
+                                                               value={this.props.user.address_line_1}
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       line1 : event.target.value
+                                                                       address_line_1 : event.target.value
                                                                    })
                                                                }}
                                                         /> </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Building / Apt Number</label>
+                                                        <label>Address Line 2</label>
                                                         <input type="text" className="form-control"
+                                                               value={this.props.user.address_line_1}
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       apt : event.target.value
+                                                                       address_line_2 : event.target.value
                                                                    })
                                                                }}
                                                         /> </div>
@@ -300,6 +295,7 @@ class Page2 extends Component {
                                                     <div className="form-group">
                                                         <label>City</label>
                                                         <input type="text" className="form-control"
+                                                               value={this.props.user.city}
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
@@ -315,7 +311,7 @@ class Page2 extends Component {
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       st : event.target.value
+                                                                       state : event.target.value
                                                                    })
                                                                }}
                                                         /> </div>
@@ -330,7 +326,7 @@ class Page2 extends Component {
                                                                 onChange={(event) => {
                                                                     this.setState({
                                                                         ...this.state,
-                                                                        country : event.target.value
+                                                                        country_of_residence : event.target.value
                                                                     })
                                                                 }}
                                                         >
@@ -361,7 +357,7 @@ class Page2 extends Component {
                                                                 onChange={(event) => {
                                                                     this.setState({
                                                                         ...this.state,
-                                                                        citizen_country : event.target.value
+                                                                        country_of_citizenship : event.target.value
                                                                     })
                                                                 }}
                                                         > </select>
@@ -403,10 +399,6 @@ function mapStateToProps(reducer_state) {
     return {
         user: reducer_state.user_reducer
     };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
 export default withRouter(connect(mapStateToProps)(Page2));
