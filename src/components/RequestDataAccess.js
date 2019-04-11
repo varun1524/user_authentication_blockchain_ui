@@ -52,6 +52,7 @@ const RequestActions = (rowdata) => [
                     };
                     BackendCredBody(payload, endpoint, method).then((response) => {
                         console.log(response.status);
+                        console.log(response.data);
                         if (response.status === 200) {
                             response.json().then((data) => {
                                 if(data.message==="success") {

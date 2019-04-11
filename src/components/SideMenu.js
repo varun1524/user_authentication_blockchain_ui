@@ -153,13 +153,13 @@ class Menu extends Component {
                 {
                     icon: 'icon-class-name',
                     label: 'Request',
-                    to: '/requestdataaccess',
+                    to: '/accessrequest',
                 },
                 {
                     icon: 'icon-class-name',
                     label: 'View',
                     to: '/viewaccess',
-                }
+                },
             ]
         }
     ];

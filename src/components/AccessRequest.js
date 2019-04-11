@@ -9,7 +9,7 @@ import {Home} from "@material-ui/icons";
 import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
-
+import {BackendCred, BackendCredBody} from "../api/Util";
 
 const rows = [
     { id: 0, title: "Task 1", complete: 20, status:"Flagged", flagbit:1 },
@@ -97,43 +97,34 @@ class AccessRequest extends Component {
     constructor() {
         super();
         this.state = {
-            address_line_1 : "",
-            address_line_2 : "",
-            city : "",
-            state : "",
-            zip: "",
-            country : "",
-            phone : ""
+
         }
     }
 
+    componentWillMount() {
+        let endpoint = 'api/v1/request_user_records';
+        let method = 'GET'
+        let payload = {}
+        BackendCred(payload, endpoint, method).then((response) => {
+            console.log(response.status);
+            console.log(response.data);
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    if(data.message==="success") {
+                        alert("Request fetched successfully")
+                        console.log("ComponentWillMount [AccessRequest]", data)
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+                alert("Could not request the access");
+            }
+        });
+    }
+
     handleDataEntry = (() => {
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
-        console.log('3', this.state);
-        //Validation
-        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
-
-        // code for validation
-
-        // if(!this.state.given_name){
-        //     document.getElementById('emailErr').innerHTML = 'Username is required';
-        // }
-        // else if (!this.state.password){
-        //     document.getElementById('passwordErr').innerText = 'Password is required';
-        // }
-        // else if(!re.test(this.state.email)){
-        //     document.getElementById('emailErr').innerHTML='Email is invalid';
-        // }
-        // else if (this.state.password.length > 0){
-        //     document.getElementById('passwordErr').innerText = '';
-        //
-        // console.log('inside');
-
-
-        if(!this.state.given_name){
-            document.getElementById('givenNameErr').innerHTML = 'First name is required';
-        }
 
         let payload = {
             'address_line_1' : this.state.address_line_1,
