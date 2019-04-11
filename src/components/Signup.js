@@ -28,8 +28,12 @@ class Signup extends Component {
             organization_type: ""
         }
     }
-    componentDidMount(){
 
+
+
+
+    componentDidMount(){
+        this.setSelectedIndex(document.getElementById("ddCountry"),"India");
     }
 
     componentWillMount(){
@@ -39,6 +43,20 @@ class Signup extends Component {
     componentWillUnmount(){
 
     }
+    setSelectedIndex = ((s,v)=> {
+        // Loop through all the items in drop down list
+        for (let i = 0; i< s.options.length; i++)
+        {
+            if (s.options[i].value === v)
+            {
+            // Item is found. Set its property and exit
+                s.options[i].selected = true;
+                break;
+
+            }
+        }
+    });
+
     handleSignup = (() => {
         // showAlert("SHowed Successful", "info", this);
         document.getElementById('emailErr').innerHTML = '';
@@ -225,7 +243,7 @@ class Signup extends Component {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Country</label>
-                                    <CountryDropdown class="form-control m-b" name="account" value={this.state.country}
+                                    <CountryDropdown class="form-control m-b" name="account" value={this.state.country} id="ddCountry"
                                                      onChange={(val) => {
                                                          this.setState({
                                                              ...this.state,
@@ -235,6 +253,8 @@ class Signup extends Component {
                                     >
                                     </CountryDropdown><span id="countryErr"/>
 
+
+
                                 </div>
                             </div>
                         </div>
@@ -243,7 +263,7 @@ class Signup extends Component {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>State</label>
-                                    <RegionDropdown class="form-control m-b" name="account" country={this.state.country} value={this.state.state}
+                                    <RegionDropdown class="form-control m-b" name="account" country={this.state.country} value={this.state.state} id="xabc"
                                                     onChange={(val) => {
                                                         this.setState({
                                                             ...this.state,
