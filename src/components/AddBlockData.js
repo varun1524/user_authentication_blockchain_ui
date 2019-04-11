@@ -52,10 +52,9 @@ class AddBlockData extends Component
         };
         let endpoint='api/v1/add_user_record';
         let method='POST';
-        alert("Sending data to the block");
-        alert(JSON.stringify(payload));
+        console.log("Sending data to the block : ",payload);
         BackendCredBody(payload,endpoint,method).then((response) => {
-            console.log(response.status);
+            console.log("BackendCredBody: ", response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
                     if(data.message==="success") {

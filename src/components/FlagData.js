@@ -2,16 +2,16 @@ import React, { Component, useState} from 'react';
 import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
-import {doCreateBranch} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
-import {branch_addiiton_success} from "../actions/organization_admin";
-import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
+import {user_profile_fetch} from "../actions/user";
 import {Home} from "@material-ui/icons";
 import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 import {BackendCred} from "../api/Util";
 import {connect} from "react-redux";
+import {getUserProfile} from "../api/userAPI";
+import history from "../history";
 
 
 const rows = [
@@ -26,11 +26,21 @@ const defaultColumnProperties = {
 
 const selectors = Data.Selectors;
 
+// const columns = [
+//     { key: "id", name: "ID"},
+//     { key: "title", name: "Name"},
+//     { key: "complete", name: "Organization"},
+//     { key: "status", name: "Status"},
+//     { key: "action", name: "Action"}
+// ].map(c => ({ ...c, ...defaultColumnProperties }));
+
 const columns = [
-    { key: "id", name: "ID"},
-    { key: "title", name: "Name"},
-    { key: "complete", name: "Organization"},
-    { key: "status", name: "Status"},
+    { key: "company", name: "Company"},
+    { key: "role", name: "Role"},
+    { key: "start_date", name: "Start Date"},
+    { key: "end_date", name: "End Date"},
+    { key: "technologies", name: "Technologies"},
+    { key: "highlights", name: "Highlights"},
     { key: "action", name: "Action"}
 ].map(c => ({ ...c, ...defaultColumnProperties }));
 
@@ -96,6 +106,50 @@ function getRows(rows, filters) {
 }
 
 const ROW_COUNT = 50;
+const ROW_HEIGHT = 200;
+
+const Panel = ({ title, children }) => {
+    return (
+        <div className="panel panel-default">
+            <div className="panel-heading">{title}</div>
+            <div className="panel-body">{children}</div>
+        </div>
+    );
+};
+
+const Contact = ({
+                     company,
+                     role,
+                     start_date,
+                     end_date,
+                     highlights,
+                     technologies
+                 }) => {
+    return (
+        <div>
+            <address>
+                <strong>
+                    Dates : {start_date} - {end_date}
+                </strong>
+                <br />
+                Position : {role}
+                <br />
+                <label>Highlights</label> {highlights}
+                <br />
+                <label>Technologies</label>{technologies}
+            </address>
+        </div>
+    );
+};
+
+const RowRenderer = ({ row, idx }) => {
+    const { company } = row;
+    return (
+        <Panel title={`${company}`}>
+            <Contact {...row} />
+        </Panel>
+    );
+};
 
 function Table({ rows }) {
     const [filters, setFilters] = useState({});
@@ -106,6 +160,7 @@ function Table({ rows }) {
             rowGetter={i => filteredRows[i]}
             rowsCount={filteredRows.length}
             toolbar={<Toolbar enableFilter={true} />}
+            rowRenderer={RowRenderer}
             onAddFilter={filter => setFilters(handleFilterChange(filter))}
             onClearFilters={() => setFilters({})}
             enableCellSelect={true}
@@ -115,107 +170,146 @@ function Table({ rows }) {
 }
 
 
+
 class FlagData extends Component {
 
     constructor() {
         super();
         this.state = {
-
+            rows1: []
         }
     }
 
     componentWillMount() {
-        let endpoint = 'api/v1/get_user_record'+this.props.user.id;
-        let method = 'GET'
-        let payload = {}
-        BackendCred(payload, endpoint, method).then((response) => {
-            console.log(response.status);
-            console.log(response.data);
-            if (response.status === 200) {
-                response.json().then((data) => {
-                    if(data.message==="success") {
-                        alert("User can view inserted block data")
-                        console.log("View My Data normal user", data)
-                    }
-                });
 
-            }
-            else {
-                console.log("Error: ", response);
-                alert("Could not request the access");
-            }
-        });
-    }
-
-    handleDataEntry = (() => {
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
-        console.log('3', this.state);
-        //Validation
-        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
-
-        // code for validation
-
-        // if(!this.state.given_name){
-        //     document.getElementById('emailErr').innerHTML = 'Username is required';
-        // }
-        // else if (!this.state.password){
-        //     document.getElementById('passwordErr').innerText = 'Password is required';
-        // }
-        // else if(!re.test(this.state.email)){
-        //     document.getElementById('emailErr').innerHTML='Email is invalid';
-        // }
-        // else if (this.state.password.length > 0){
-        //     document.getElementById('passwordErr').innerText = '';
-        //
-        // console.log('inside');
+        // Check whether we have reducer or not
+        console.log("[FlagData] reducer object", this.props.user);
+        if(!this.props.user.id) {
+            // Object is empty -> user is not logged in
+            // call get_user_info with user="current"
+            let payload = {
+                "user_id" : "current"
+            };
+            console.log("-----IN FLAG DATA-----",payload);
+            console.log("User data-->", this.props.user)
+            getUserProfile(payload).then((response) => {
+                console.log("[FlagData] Profile fetch response : ",response.status);
+                if (response.status === 200) {
+                    response.json().then((data) => {
+                        console.log(data);
+                        if(data.message==="success") {
+                            console.log("[Flag Data] data in flag data after get_user_info",JSON.parse(data.data));
+                            this.props.user_profile_fetch(JSON.parse(data.data));
+                            console.log("[FlagData]fetched reducer",this.props.user)
+                            let endpoint = 'api/v1/get_user_record?user_id='+this.props.user.id;
+                            let method = 'GET'
+                            let payload = {}
 
 
-        if(!this.state.given_name){
-            document.getElementById('givenNameErr').innerHTML = 'First name is required';
+                            console.log("[FlagData] Componentwillmount")
+                            console.log(endpoint)
+                            BackendCred(payload, endpoint, method).then((response) => {
+                                console.log(response.status);
+                                console.log(response.data);
+                                if (response.status === 200) {
+                                    response.json().then((data) => {
+                                        if(data.message==="success") {
+                                            //alert("User can view inserted block data")
+                                            console.log("View My Data normal user", data)
+                                            let rcvd_data = (data.data.block_data);
+                                            console.log("rcvd_data : ", rcvd_data)
+                                            let rows = [];
+                                            for (var i = 0; i < rcvd_data.length; i++){
+                                                var obj = rcvd_data[i].data;
+                                                var data_to_be_added = {
+                                                    company : obj['company'],
+                                                    start_date : obj['start_date'],
+                                                    end_date : obj['end_date'],
+                                                    role : obj['role'],
+                                                    technologies : obj['technologies'],
+                                                    highlights : obj['highlights']
+                                                };
+                                                rows.push(data_to_be_added);
+                                            }
+                                            this.setState({
+                                                ...this.state,
+                                                rows1: rows
+                                            });
+                                            console.log("[FlagData] : ", rows)
+                                        }
+                                    });
+
+                                }
+                                else {
+                                    console.log("Error: ", response);
+                                    alert("Could not request the access");
+                                }
+                            });
+                        }
+                        else {
+                            //alert("not logged in")
+                            history.push('/')
+                        }
+                    });
+                }
+                else {
+                    //alert("not logged in")
+                    history.push('/')
+                }
+            });
+        }
+        else{
+            let endpoint = 'api/v1/get_user_record?user_id='+this.props.user.id;
+            let method = 'GET'
+            let payload = {}
+
+
+            console.log("[FlagData] Componentwillmount")
+            console.log(endpoint)
+            BackendCred(payload, endpoint, method).then((response) => {
+                console.log(response.status);
+                console.log(response.data);
+                if (response.status === 200) {
+                    response.json().then((data) => {
+                        if(data.message==="success") {
+                            //alert("User can view inserted block data")
+                            console.log("View My Data normal user", data)
+                            let rcvd_data = (data.data.block_data);
+                            console.log("rcvd_data : ", rcvd_data)
+                            let rows = [];
+                            for (var i = 0; i < rcvd_data.length; i++){
+                                var obj = rcvd_data[i].data;
+                                var data_to_be_added = {
+                                    company : obj['company'],
+                                    start_date : obj['start_date'],
+                                    end_date : obj['end_date'],
+                                    role : obj['role'],
+                                    technologies : obj['technologies'],
+                                    highlights : obj['highlights']
+                                };
+                                rows.push(data_to_be_added);
+                            }
+                            this.setState({
+                                ...this.state,
+                                rows1: rows
+                            });
+                            console.log("[FlagData] : ", rows)
+                        }
+                    });
+
+                }
+                else {
+                    console.log("Error: ", response);
+                    alert("Could not request the access");
+                }
+            });
         }
 
-        let payload = {
-            'address_line_1' : this.state.address_line_1,
-            'address_line_2' : this.state.address_line_2,
-            'city' : this.state.city,
-            'state' : this.state.state,
-            'country' : this.state.country,
-            'zip': this.state.zip,
-            'phone': this.state.phone
-        };
-
-        doCreateBranch(payload).then((response) => {
-            console.log(response.status);
-            if (response.status === 200) {
-                response.json().then((data) => {
-                    console.log(data);
-                    alert("Branch details successfully added")
-                    this.props.branch_addiiton_success(data);
-                    // this.props.history.push("/home");
-                });
-
-            }
-            else if (response.status === 404) {
-                this.setState({
-                    ...this.state,
-                    message: "Service not found"
-                });
-            }
-            else if (response.status === 401) {
-                this.setState({
-                    ...this.state,
-                    message: "Branch already exists"
-                });
-            }
-            else {
-                console.log("Error: ", response);
-                // alert("Error while Signing In");
-            }
-        });
-    });
 
 
+
+
+    }
 
     render() {
 
@@ -249,7 +343,7 @@ class FlagData extends Component {
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <Table className="table-responsive" rows={rows} />
+                                                <Table className="table-responsive" rows={this.state.rows1} />
 
                                             </div>
                                         </div>
@@ -272,7 +366,7 @@ function mapStateToProps(reducer_state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
+    return bindActionCreators({user_profile_fetch: user_profile_fetch}, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, null)(FlagData));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FlagData));
