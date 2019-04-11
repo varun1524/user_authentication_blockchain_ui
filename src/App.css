@@ -367,6 +367,10 @@ html {
 .portlet.box.blue {
   border: 1px solid #60aee4;
   border-top: 0;
+  border-left: 2px solid #60aee4;
+}
+.myportletblue {
+  border-bottom: 2px solid #60aee4 !important;
 }
 
 .portlet.blue, .portlet.box.blue>.portlet-title, .portlet>.portlet-body.blue {
@@ -564,6 +568,16 @@ body, h1, h2, h3, h4, h5, h6 {
 .rdg-cell-action{
   float:left !important;
 }
+
+.fade{
+  opacity:1 !important;
+}
+
+.tabbable-line>.nav-tabs {
+  border: none;
+  margin: 0;
+}
+
 
 
 
