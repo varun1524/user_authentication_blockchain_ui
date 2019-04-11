@@ -586,9 +586,26 @@ body, h1, h2, h3, h4, h5, h6 {
     top: -8px;
 }
 
+.react-grid-Header {
+  display:none !important;
+}
 
+.react-grid-Viewport {
+  top: 0px !important;
+  border:none !important;
+}
 
+.react-grid-Toolbar{
+  display:none !important;
+}
 
+react-grid-Canvas {
+  display: none !important;
+}
+
+react-grid-viewport{
+  display: none !important;
+}
 
 
 

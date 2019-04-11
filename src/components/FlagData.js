@@ -111,7 +111,7 @@ const ROW_HEIGHT = 200;
 const Panel = ({ title, children }) => {
     return (
         <div className="panel panel-default">
-            <div className="panel-heading">{title}</div>
+            <div className="panel-heading h3 text-grey">Company: {title}</div>
             <div className="panel-body">{children}</div>
         </div>
     );
@@ -128,15 +128,14 @@ const Contact = ({
     return (
         <div>
             <address>
-                <strong>
-                    Dates : {start_date} - {end_date}
-                </strong>
+
+                <label>Position: &nbsp;</label> {role}
                 <br />
-                Position : {role}
+                <label>Dates: &nbsp;</label> {start_date} - {end_date}
                 <br />
-                <label>Highlights</label> {highlights}
+                <label>Highlights: &nbsp;</label>{highlights}
                 <br />
-                <label>Technologies</label>{technologies}
+                <label>Technologies: &nbsp;</label>{technologies}
             </address>
         </div>
     );
