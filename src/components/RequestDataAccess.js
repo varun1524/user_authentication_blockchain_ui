@@ -10,7 +10,7 @@ import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import history from '../history';
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
-import {BackendCred} from "../api/Util";
+import {BackendCred, BackendCredBody} from "../api/Util";
 
 
 const defaultColumnProperties = {
@@ -44,10 +44,13 @@ const RequestActions = (rowdata) => [
                 callback: () => {
                     alert("Requests all the data: "+JSON.stringify(rowdata));
                     // data category from database
-                    let endpoint = 'api/v1/request_user_records?for_id='+ rowdata.id + '&data_category=1';
-                    let method = 'GET'
-                    let payload = {}
-                    BackendCred(payload, endpoint, method).then((response) => {
+                    let endpoint = 'api/v1/request_user_records';
+                    let method = 'POST'
+                    let payload = {
+                        "for_id":rowdata.id,
+                        "data_category": 1
+                    };
+                    BackendCredBody(payload, endpoint, method).then((response) => {
                         console.log(response.status);
                         if (response.status === 200) {
                             response.json().then((data) => {
