@@ -18,9 +18,9 @@ const defaultColumnProperties = {
 };
 
 const columns = [
-    { key: "id", name: "ID"},
-    { key: "title", name: "Name"},
-    { key: "complete", name: "Organization"},
+    { key: "given_name", name: "Given Name"},
+    { key: "last_name", name: "Last Name"},
+    { key: "email", name: "Email"},
     { key: "action", name: "Action"}
 ].map(c => ({ ...c, ...defaultColumnProperties }));
 
@@ -33,6 +33,41 @@ const rows = [
     { id: 3, title: "Task 1", complete: 20, flagbit:1 },
     { id: 4, title: "Task 2", complete: 40, flagbit:0 },
     { id: 5, title: "Task 3", complete: 60, flagbit:1 }
+];
+
+const RequestActions = (rowdata) => [
+    {
+        icon: "glyphicon glyphicon-link",
+        actions: [
+            {
+                text: "All data",
+                callback: () => {
+                    alert("Sends to Edit Page: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Request Educational history",
+                callback: () => {
+                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Request Employment history",
+                callback: () => {
+                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Add Block Data",
+                callback: () => {
+                    alert("Redirect to Add Block: "+JSON.stringify(rowdata));
+                    //this.props.handlePageChange("/addblockdata");
+                    history.push({pathname:'/addblockdata', state:JSON.stringify(rowdata)});
+                    alert("after")
+                }
+            }
+        ]
+    }
 ];
 
 const RequestAction = (rowdata) => [

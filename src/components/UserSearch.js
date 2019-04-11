@@ -18,7 +18,7 @@ const defaultColumnProperties = {
 };
 
 const columns = [
-    { key: "id", name: "ID"},
+    //{ key: "id", name: "ID"},
     { key: "given_name", name: "Given Name"},
     { key: "last_name", name: "Last Name"},
     { key: "email", name: "Email"},
