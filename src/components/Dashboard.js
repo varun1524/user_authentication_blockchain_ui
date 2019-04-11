@@ -54,7 +54,7 @@ class Dashboard extends Component {
                             <ul className="page-breadcrumb">
                                 <li>
                                     <Home className="myiconcolor"/>
-                                    <a href="/dashboard">Home </a>
+                                    <a onClick={()=>{this.props.history.push("/dashboard")}}>Home </a>
                                 </li>
 
                             </ul>

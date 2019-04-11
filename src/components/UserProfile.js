@@ -84,9 +84,9 @@ class UserProfile extends Component {
                             <ul className="page-breadcrumb">
                                 <li>
                                     <Home className="myiconcolor"/>
-                                    {/*<a href="/dashboard">Home </a>*/}
+                                    <a onClick={()=>{this.props.history.push("/dashboard")}}>Home </a>
                                     <KeyboardArrowRight className="myiconcolor"/>
-                                    {/*<a href="/organizationprofile">User Profile </a>*/}
+                                    <a onClick={()=>{this.props.history.push("/userprofile")}}>User Profile</a>
                                 </li>
                             </ul>
                         </div>
@@ -198,14 +198,14 @@ class UserProfile extends Component {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="control-label">Country of Citizenship: &nbsp;</label>
-                                                        <label ></label>
+                                                        <label></label>
                                                     </div>
                                                 </div>
                                             </div>
 
 
                                             <div className="form-actions right">
-                                                <a className="btn blue" href="/userprofileedit">Edit</a>
+                                                <a className="btn blue" onClick={()=>{this.RedirectPage("/userprofileedit")}}>Edit</a>
                                             </div>
                                         </div>
                                     </div>

@@ -7,6 +7,8 @@ import {bindActionCreators} from "redux";
 import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from "react-redux";
 import {BackendCredBody} from "../api/Util"
+import {Home} from "@material-ui/icons";
+import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 
 // This is user profile edit
 class Page2 extends Component {
@@ -131,16 +133,12 @@ class Page2 extends Component {
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon='home'
-                                        size='2x'
-                                        spin
-                                        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                                    />
-                                    {/*<span className='DeleteIcon'></span>*/}
-                                    {/*<i className='material-icons'></i>*/}
-                                    <DeleteIcon/>
-                                    <a href="/page1">Home </a>
+                                    <Home className="myiconcolor"/>
+                                    <a onClick={()=>{this.RedirectPage("/dashboard")}}>Home </a>
+                                    <KeyboardArrowRight className="myiconcolor"/>
+                                    <a onClick={()=>{this.RedirectPage("/userprofile")}}>User Profile</a>
+                                    <KeyboardArrowRight className="myiconcolor"/>
+                                    <a onClick={()=>{this.RedirectPage("/userprofileedit")}}>User Profile Edit</a>
                                 </li>
                             </ul>
                         </div>
