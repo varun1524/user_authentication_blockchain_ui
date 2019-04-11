@@ -586,24 +586,24 @@ body, h1, h2, h3, h4, h5, h6 {
     top: -8px;
 }
 
-.react-grid-Header {
+.myreact-grid-Header {
   display:none !important;
 }
 
-.react-grid-Viewport {
+.myreact-grid-Viewport {
   top: 0px !important;
   border:none !important;
 }
 
-.react-grid-Toolbar{
+.myreact-grid-Toolbar{
   display:none !important;
 }
 
-react-grid-Canvas {
+.myreact-grid-Canvas {
   display: none !important;
 }
 
-react-grid-viewport{
+.myreact-grid-viewport{
   display: none !important;
 }
 

@@ -47,7 +47,7 @@ const InOrganizationActions_NoBlock = (rowdata) => [
                 }
             },
             {
-                text: "Add Block Data",
+                text: "Add User Info",
                 callback: () => {
                     //alert("Redirect to Add Block: "+JSON.stringify(rowdata));
                     //this.props.handlePageChange("/addblockdata");

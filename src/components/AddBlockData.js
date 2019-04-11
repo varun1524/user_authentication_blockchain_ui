@@ -98,7 +98,7 @@ class AddBlockData extends Component
                 </div>
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
-                        <h1 className="page-title">Add Block Data</h1>
+                        <h1 className="page-title">Add User Info</h1>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
@@ -107,7 +107,7 @@ class AddBlockData extends Component
                                     <KeyboardArrowRight className="myiconcolor"/>
                                     <a onClick={()=>{this.RedirectPage("/usersearch")}}>User Search</a>
                                     <KeyboardArrowRight className="myiconcolor"/>
-                                    <a onClick={()=>{this.RedirectPage("/addblockdata")}}>Add Block Data</a>
+                                    <a onClick={()=>{this.RedirectPage("/addblockdata")}}>Add User Info</a>
                                 </li>
                             </ul>
                         </div>
@@ -119,7 +119,7 @@ class AddBlockData extends Component
                                     <div className="col-md-12">
                                         <div className="portlet box blue myportletblue">
                                             <div className="portlet-title">
-                                                <div className="caption">Add Block Data for Experience</div>
+                                                <div className="caption">Add User Info for Experience</div>
                                             </div>
                                             <div className="portlet-body form">
                                                 <div className="form-body">
@@ -230,7 +230,7 @@ class AddBlockData extends Component
                                     <div className="col-md-12">
                                         <div className="portlet box blue myportletblue">
                                             <div className="portlet-title">
-                                                <div className="caption">Add Block Data for Education</div>
+                                                <div className="caption">Add User Info for Education</div>
                                             </div>
                                             <div className="portlet-body form">
                                                 <div className="form-body">
@@ -335,7 +335,7 @@ class AddBlockData extends Component
                                     <div className="col-md-12">
                                         <div className="portlet box blue myportletblue">
                                             <div className="portlet-title">
-                                                <div className="caption">Add Block Data for Drug Test</div>
+                                                <div className="caption">Add User Info for Drug Test</div>
                                             </div>
                                             <div className="portlet-body form">
                                                 <div className="form-body">
@@ -407,7 +407,7 @@ class AddBlockData extends Component
                                     <div className="col-md-12">
                                         <div className="portlet box blue myportletblue">
                                             <div className="portlet-title">
-                                                <div className="caption">Add Block Data for Driving</div>
+                                                <div className="caption">Add User Info for Driving</div>
                                             </div>
                                             <div className="portlet-body form">
                                                 <div className="form-body">
@@ -467,7 +467,7 @@ class AddBlockData extends Component
                                     <div className="col-md-12">
                                         <div className="portlet box blue myportletblue">
                                             <div className="portlet-title">
-                                                <div className="caption">Add Block Data for Criminal</div>
+                                                <div className="caption">Add User Info for Criminal</div>
                                             </div>
                                             <div className="portlet-body form">
                                                 <div className="form-body">
@@ -553,7 +553,7 @@ class AddBlockData extends Component
                                     <div className="col-md-12">
                                         <div className="portlet box blue myportletblue">
                                             <div className="portlet-title">
-                                                <div className="caption">Add Block Data for Address</div>
+                                                <div className="caption">Add User Info for Address</div>
                                             </div>
                                             <div className="portlet-body form">
                                                 <div className="form-body">

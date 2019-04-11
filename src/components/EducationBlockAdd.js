@@ -83,7 +83,7 @@ class EducationBlockAdd extends Component
                 </div>
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
-                        <h1 className="page-title">Add Block Data</h1>
+                        <h1 className="page-title">Add User Infoa</h1>
                         <h2>Here {this.props.location.state}</h2>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
@@ -93,7 +93,7 @@ class EducationBlockAdd extends Component
                                     <KeyboardArrowRight className="myiconcolor"/>
                                     <a onClick={()=>{this.RedirectPage("/usersearch")}}>User Search</a>
                                     <KeyboardArrowRight className="myiconcolor"/>
-                                    <a onClick={()=>{this.RedirectPage("/addblockdata")}}>Add Block Data</a>
+                                    <a onClick={()=>{this.RedirectPage("/addblockdata")}}>Add User Info</a>
                                 </li>
                             </ul>
                         </div>
@@ -105,7 +105,7 @@ class EducationBlockAdd extends Component
                                     <div className="col-md-12">
                                         <div className="portlet box blue myportletblue">
                                             <div className="portlet-title">
-                                                <div className="caption">Add Block Data for </div>
+                                                <div className="caption">Add User Info for </div>
                                             </div>
                                             <div className="portlet-body form">
                                                 <div className="form-body">

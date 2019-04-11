@@ -342,7 +342,7 @@ class FlagData extends Component {
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <Table className="table-responsive" rows={this.state.rows1} />
+                                                <Table className="myreact-grid-Header myreact-grid-Viewport myreact-grid-Toolbar" rows={this.state.rows1} />
 
                                             </div>
                                         </div>
