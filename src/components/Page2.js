@@ -32,6 +32,10 @@ class Page2 extends Component {
         }
     }
 
+    componentDidMount() {
+        document.getElementById("txtDate").value=this.props.user.dob;
+    }
+
 
     handleDataEntry = (() => {
         console.log('Updated state in edit profile page', this.state)
@@ -189,8 +193,8 @@ class Page2 extends Component {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label className="control-label">Date of Birth</label>
-                                                        <input type="text" className="form-control" placeholder="mm/dd/yyyy"
-                                                               value={this.props.user.dob}
+                                                        <input type="date" className="form-control" placeholder="mm/dd/yyyy" id="txtDate"
+
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
@@ -248,10 +252,10 @@ class Page2 extends Component {
                                                         >
                                                             <option value="">---Select One---</option>
                                                             <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
-                                                            <optton value="Asian">Asian</optton>
-                                                            <optton value="Black or African American">Black or African American</optton>
-                                                            <optton value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</optton>
-                                                            <optton value="White">White</optton>
+                                                            <option value="Asian">Asian</option>
+                                                            <option value="Black or African American">Black or African American</option>
+                                                            <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                                                            <option value="White">White</option>
                                                         </select>
                                                     </div>
                                                 </div>

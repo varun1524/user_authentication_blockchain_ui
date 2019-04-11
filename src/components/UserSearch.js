@@ -51,7 +51,8 @@ const InOrganizationActions_NoBlock = (rowdata) => [
                 callback: () => {
                     alert("Redirect to Add Block: "+JSON.stringify(rowdata));
                     //this.props.handlePageChange("/addblockdata");
-                    history.push({pathname:'/addblockdata', state:JSON.stringify(rowdata)});
+                    // history.push({pathname:'/addblockdata', state:JSON.stringify(rowdata)});
+                    history.push({pathname:'/addblockdata', state:rowdata});
                     alert("after")
                 }
             }
@@ -185,11 +186,11 @@ class UserSearch extends Component {
                     for (var i = 0; i < rcvd_data.user_info.length; i++){
                         var obj = rcvd_data.user_info[i];
                         var data_to_be_added = {
-                            "id" : obj['id'],
-                            "given_name" : obj['given_name'],
-                            "last_name" : obj['last_name'],
-                            "email" : obj['email'],
-                            "organization_id" : obj['organization_id']
+                            id : obj['id'],
+                            given_name : obj['given_name'],
+                            last_name : obj['last_name'],
+                            email : obj['email'],
+                            organization_id : obj['organization_id']
                         };
                         rows.push(data_to_be_added);
                     }

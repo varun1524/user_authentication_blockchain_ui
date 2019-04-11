@@ -37,16 +37,23 @@ class AddBlockData extends Component
             end_date:this.state.end_date,
             technologies:this.state.technologies,
             highlights:this.state.highlights
-        }
+        };
+        //console.log("handleDataEntry: ", this.props.location.state);
+        //console.log("handleDataEntry: ", this.props.location.state['id']);
+        //console.log("handleDataEntry: ", this.props.location.state.id);
+        //alert(this.props.location.state['id']);
         let payload = {
-            operation_type: 1,
-            block_type: 1,
-            data: data
-        }
+            user_id : this.props.location.state.id,
+            block_data : {
+                operation_type: 1,
+                block_type: 1,
+                data: data
+            }
+        };
         let endpoint='api/v1/add_user_record';
         let method='POST';
-        alert("Sending data to the block")
-        alert(payload)
+        alert("Sending data to the block");
+        alert(JSON.stringify(payload));
         BackendCredBody(payload,endpoint,method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
@@ -93,7 +100,6 @@ class AddBlockData extends Component
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
                         <h1 className="page-title">Add Block Data</h1>
-                        /*<h2>Here {this.props.location.state}</h2>*/
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
