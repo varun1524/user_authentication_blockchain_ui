@@ -63,7 +63,7 @@ class Dashboard extends Component {
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Welcome {this.props.user.given_name} {this.props.user.last_name} !!!</div>
+                                        <div className="caption">Welcome {this.props.user.given_name}</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">

@@ -11,6 +11,7 @@ import {Toolbar,Data} from "react-data-grid-addons";
 import history from '../history';
 import {BackendCred} from "../api/Util"
 import {connect} from "react-redux";
+import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 
 
 const defaultColumnProperties = {
@@ -236,7 +237,11 @@ class UserSearch extends Component {
                             <ul className="page-breadcrumb">
                                 <li>
                                     <HomeIcon className="myiconcolor"/>
-                                    <a href="/page1">Home </a>
+                                    <a onClick={()=>{this.props.history.push("/dashboard")}}>Home </a>
+                                    <KeyboardArrowRight className="myiconcolor"/>
+                                    <a>User</a>
+                                    <KeyboardArrowRight className="myiconcolor"/>
+                                    <a onClick={()=>{this.props.history.push("/usersearch")}}>User Search </a>
                                 </li>
                             </ul>
                         </div>
