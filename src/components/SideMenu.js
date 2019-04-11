@@ -138,7 +138,7 @@ class Menu extends Component {
         },
         {
             icon: 'home',
-            label: 'View my block data',
+            label: 'My background information',
             to: '/flagdata',
         },
         {
