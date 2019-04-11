@@ -29,6 +29,7 @@ import RequestDataAccess from "./components/RequestDataAccess";
 import AccessRequest from "./components/AccessRequest";
 import ViewAccess from "./components/ViewAccess";
 import ViewData from "./components/ViewData";
+import EducationBlockAdd from "./components/EducationBlockAdd";
 
 class App extends Component {
     handlePageChange = ((page)=>{
@@ -145,6 +146,11 @@ class App extends Component {
                                 />
                                 <Route path= "/viewdata" render = {() => (
                                     <ViewData
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
+                                <Route path= "/educationblockadd" render = {() => (
+                                    <EducationBlockAdd
                                         handlePageChange = {this.handlePageChange}
                                     />)}
                                 />
