@@ -42,17 +42,61 @@ const RequestActions = (rowdata) => [
             {
                 text: "All data",
                 callback: () => {
-                    alert("Sends to Edit Page: "+JSON.stringify(rowdata));
+                    alert("Requests all the data: "+JSON.stringify(rowdata));
+                    // data category from database
+                    let endpoint = 'api/v1/request_user_records?for_id='+ rowdata.id + '&data_category=1';
+                    let method = 'GET'
+                    let payload = {}
+                    BackendCred(payload, endpoint, method).then((response) => {
+                        console.log(response.status);
+                        if (response.status === 200) {
+                            response.json().then((data) => {
+                                if(data.message==="success") {
+                                    alert("Access requested successfully")
+                                }
+                            });
+
+                        }
+                        else {
+                            console.log("Error: ", response);
+                            alert("Could not request the access");
+                        }
+                    });
                 }
             },
             {
                 text: "Request Educational history",
                 callback: () => {
                     alert("Removes from Org: "+JSON.stringify(rowdata));
+
                 }
             },
             {
                 text: "Request Employment history",
+                callback: () => {
+                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Request Drug test history",
+                callback: () => {
+                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Request Driving history",
+                callback: () => {
+                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Request Criminal history",
+                callback: () => {
+                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                }
+            },
+            {
+                text: "Request Housing history",
                 callback: () => {
                     alert("Removes from Org: "+JSON.stringify(rowdata));
                 }
@@ -99,20 +143,9 @@ const CancelAction = (rowdata) => [
 
 function getCellActions(column, row) {
     const Request = {
-        action: RequestAction(row)
+        action: RequestActions(row)
     };
-    const Cancel = {
-        action: CancelAction(row)
-    };
-
-    if(row.flagbit===0)
-    {
-        return Request[column.key];
-    }
-    else
-    {
-        return Cancel[column.key];
-    }
+    return Request[column.key];
 
 }
 
