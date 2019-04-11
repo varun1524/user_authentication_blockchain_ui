@@ -10,6 +10,7 @@ import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import history from '../history';
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
+import {BackendCred} from "../api/Util";
 
 
 const defaultColumnProperties = {
@@ -119,7 +120,8 @@ class RequestDataAccess extends Component {
         super();
         this.state = {
             search_by:"",
-            search_value:""
+            search_value:"",
+            rows1: []
         }
     }
 
@@ -136,15 +138,34 @@ class RequestDataAccess extends Component {
 
         let search_by = this.state.search_by
         let payload = {}
-        payload[search_by] = this.state.given_name;
-
-        doCreateUser(payload).then((response) => {
+        //payload[search_by] = this.state.given_name;
+        let endpoint = 'api/v1/get_user_info?'+ search_by + '=' + this.state.search_value
+        let method = 'GET'
+        BackendCred(payload, endpoint, method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
-                    console.log(data);
-                    this.props.user_addiiton_success(data);
-                    this.props.history.push("/home");
+                    console.log(JSON.parse(data.data));
+                    let rcvd_data = JSON.parse(data.data);
+                    let rows = [];
+                    for (var i = 0; i < rcvd_data.user_info.length; i++){
+                        var obj = rcvd_data.user_info[i];
+                        var data_to_be_added = {
+                            "id" : obj['id'],
+                            "given_name" : obj['given_name'],
+                            "last_name" : obj['last_name'],
+                            "email" : obj['email'],
+                            "organization_id" : obj['organization_id']
+                        };
+                        rows.push(data_to_be_added);
+                    }
+                    this.setState({
+                        ...this.state,
+                        rows1: rows
+                    });
+
+                    console.log("++++++++++++  rows  ++++++++++++++++++", rows)
+                    // rows=JSON.parse(data.data);
                 });
 
             }
@@ -245,7 +266,7 @@ class RequestDataAccess extends Component {
                                                 <h3 className="form-section">Search Results
                                                 </h3>
 
-                                                <Table rows={rows} />
+                                                <Table rows={this.state.rows1} />
                                             </div>
                                         </div>
                                     </div>

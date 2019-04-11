@@ -93,7 +93,8 @@ class AddNewUser extends Component {
                     if(data.message==="success") {
                         console.log(data);
                         this.props.user_addiiton_success(data);
-                        this.props.history.push("/home");
+                        alert("User added successfully")
+                        this.props.history.push("/usersearch");
                     }
                     else {
                         alert("User could not be added. Please try again!")

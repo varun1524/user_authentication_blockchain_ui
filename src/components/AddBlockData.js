@@ -39,7 +39,7 @@ class AddBlockData extends Component
             highlights:this.state.highlights
         };
 
-        let endpoint='';
+        let endpoint='api/v1/request_user_records';
         let method='POST';
 
         BackendCredBody(payload,endpoint,method).then((response) => {
