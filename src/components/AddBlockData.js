@@ -43,7 +43,7 @@ class AddBlockData extends Component
             block_type: 1,
             data: data
         }
-        let endpoint='api/v1/request_user_records';
+        let endpoint='api/v1/add_user_record';
         let method='POST';
         alert("Sending data to the block")
         alert(payload)
