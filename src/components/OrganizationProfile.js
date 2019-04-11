@@ -153,9 +153,9 @@ class OrganizationProfile extends Component {
                             <ul className="page-breadcrumb">
                                 <li>
                                     <Home className="myiconcolor"/>
-                                    <a href="/dashboard">Home </a>
+                                    <a onClick={()=>{this.props.history.push("/dashboard")}} >Home </a>
                                     <KeyboardArrowRight className="myiconcolor"/>
-                                    <a href="/organizationprofile">Organization Profile </a>
+                                    <a onClick={()=>{this.props.history.push("/organizationprofile")}}>Organization Profile </a>
                                 </li>
 
                             </ul>
