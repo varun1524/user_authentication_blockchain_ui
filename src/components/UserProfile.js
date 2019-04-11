@@ -205,7 +205,7 @@ class UserProfile extends Component {
 
 
                                             <div className="form-actions right">
-                                                <a className="btn blue" onClick={()=>{this.RedirectPage("/userprofileedit")}}>Edit</a>
+                                                <a className="btn blue" onClick={()=>{this.props.history.push("/userprofileedit")}}>Edit</a>
                                             </div>
                                         </div>
                                     </div>
