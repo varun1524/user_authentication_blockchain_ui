@@ -8,7 +8,7 @@ import {bindActionCreators} from "redux";
 import {branch_addiiton_success} from "../actions/organization_admin";
 import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
 
-class AddNewBranch extends Component {
+class OrganizationBranchEdit extends Component {
     constructor() {
         super();
         this.state = {
@@ -87,7 +87,7 @@ class AddNewBranch extends Component {
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data);
-                    //alert("Branch details successfully added")
+                    alert("Branch details successfully added")
                     this.props.branch_addiiton_success(data);
                     // this.props.history.push("/home");
                 });
@@ -113,7 +113,7 @@ class AddNewBranch extends Component {
     });
 
     render() {
-        console.log("[addnewuser] render method");
+        console.log("[orgbranchedit] render method");
         return (
             <div>
                 <TopMenu/>
@@ -122,7 +122,7 @@ class AddNewBranch extends Component {
                 </div>
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
-                        <h1 className="page-title">New Branch</h1>
+                        <h1 className="page-title">Branch Edit</h1>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
@@ -140,7 +140,7 @@ class AddNewBranch extends Component {
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Create New Branch</div>
+                                        <div className="caption">Organization Branch Edit</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
@@ -157,18 +157,18 @@ class AddNewBranch extends Component {
                                                                }}
                                                         /> </div>
                                                 </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group">
-                                                    <label>Phone</label>
-                                                    <input type="text" className="form-control"
-                                                           onChange={(event) => {
-                                                               this.setState({
-                                                                   ...this.state,
-                                                                   phone : event.target.value
-                                                               })
-                                                           }}
-                                                    /> </div>
-                                            </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label>Phone</label>
+                                                        <input type="text" className="form-control"
+                                                               onChange={(event) => {
+                                                                   this.setState({
+                                                                       ...this.state,
+                                                                       phone : event.target.value
+                                                                   })
+                                                               }}
+                                                        /> </div>
+                                                </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6">
@@ -295,4 +295,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
-export default withRouter(AddNewBranch);
+export default withRouter(OrganizationBranchEdit);

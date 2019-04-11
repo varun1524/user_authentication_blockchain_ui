@@ -102,4 +102,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_blockdata_addition: user_blockdata_addition}, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InsertUserBlockData));
+export default withRouter(connect(mapStateToProps)(InsertUserBlockData));

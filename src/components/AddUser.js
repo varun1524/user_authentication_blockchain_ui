@@ -7,6 +7,7 @@ import {doCreateUser} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 
+
 const options = ['Given name','Last name', 'Email', 'Zip', 'City', 'Phone']
 const secondOptions = ['Given name','Last name', 'Email', 'Zip', 'City', 'Phone']
 
@@ -157,12 +158,7 @@ class AddUser extends Component {
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon='home'
-                                        size='2x'
-                                        spin
-                                        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                                    />
+
                                     <a href="/page1">Home </a>
                                 </li>
                             </ul>

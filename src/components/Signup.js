@@ -4,7 +4,7 @@ import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-countr
 import {bindActionCreators} from "redux";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {doSignUp} from './../api/userAPI';
+import {Backend} from './../api/Util';
 import {signup_success} from "../actions/signup";
 
 
@@ -28,8 +28,12 @@ class Signup extends Component {
             organization_type: ""
         }
     }
-    componentDidMount(){
 
+
+
+
+    componentDidMount(){
+        this.setSelectedIndex(document.getElementById("ddCountry"),"India");
     }
 
     componentWillMount(){
@@ -39,6 +43,20 @@ class Signup extends Component {
     componentWillUnmount(){
 
     }
+    setSelectedIndex = ((s,v)=> {
+        // Loop through all the items in drop down list
+        for (let i = 0; i< s.options.length; i++)
+        {
+            if (s.options[i].value === v)
+            {
+            // Item is found. Set its property and exit
+                s.options[i].selected = true;
+                break;
+
+            }
+        }
+    });
+
     handleSignup = (() => {
         // showAlert("SHowed Successful", "info", this);
         document.getElementById('emailErr').innerHTML = '';
@@ -55,9 +73,6 @@ class Signup extends Component {
         }
         else if(!re.test(this.state.email)){
             document.getElementById('emailErr').innerHTML='Email is invalid';
-        }
-        else if (!this.state.password){
-            document.getElementById('passwordErr').innerText = 'Password is required';
         }
         else if (!this.state.address_line_1){
             document.getElementById('add1Err').innerText = 'Address Line 1 is required';
@@ -77,7 +92,7 @@ class Signup extends Component {
         else if (!this.state.phone){
             document.getElementById('stateErr').innerText = 'Phone number is required';
         }
-        else if (!this.state.foundation_date){
+        else if (!this.state.founded_date){
             document.getElementById('datefErr').innerText = 'Foundation date is required';
         }
         else{
@@ -88,6 +103,8 @@ class Signup extends Component {
             document.getElementById('zipErr').innerText = '';
             document.getElementById('stateErr').innerText = '';
             document.getElementById('datefErr').innerText = '';
+
+            var new_date = this.state.founded_date + ' 00:00:00';
 
             console.log('No error. All fields are valid. Trying to sign up');
             let payload = {
@@ -101,25 +118,28 @@ class Signup extends Component {
                 'zip':this.state.zip,
                 'phone':this.state.phone,
                 'headquarter' : this.state.headquarter,
-                'founded_date'  : this.state.founded_date,
+                'founded_date'  : this.state.founded_date+' 12:00:00',
                 'organization_type': this.state.organization_type
             };
-
-            doSignUp(payload).then((response) => {
+            console.log("-----PAYLOAD-----",payload);
+            let endpoint='api/v1/signup_organization';
+            let method='POST';
+            Backend(payload,endpoint,method).then((response) => {
                 console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
-                        alert("Your request has been submitted. You will get an email when request has been submitted")
+
+                        alert("Your request has been submitted. You will get an email when request has been submitted");
                         console.log(data);
                         this.props.signup_success(data);
-                        this.props.history.push("/login");
+                        this.props.history.push("/");
                     });
 
                 }
                 else if (response.status === 403) {
                     this.setState({
                         ...this.state,
-                        message: "Counld not register. Please try again"
+                        message: "Could not register. Please try again"
                     });
                 }
                 else {
@@ -223,7 +243,7 @@ class Signup extends Component {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Country</label>
-                                    <CountryDropdown class="form-control m-b" name="account" value={this.state.country}
+                                    <CountryDropdown class="form-control m-b" name="account" value={this.state.country} id="ddCountry"
                                                      onChange={(val) => {
                                                          this.setState({
                                                              ...this.state,
@@ -233,6 +253,8 @@ class Signup extends Component {
                                     >
                                     </CountryDropdown><span id="countryErr"/>
 
+
+
                                 </div>
                             </div>
                         </div>
@@ -241,7 +263,7 @@ class Signup extends Component {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>State</label>
-                                    <RegionDropdown class="form-control m-b" name="account" country={this.state.country} value={this.state.state}
+                                    <RegionDropdown class="form-control m-b" name="account" country={this.state.country} value={this.state.state} id="xabc"
                                                     onChange={(val) => {
                                                         this.setState({
                                                             ...this.state,
@@ -281,10 +303,10 @@ class Signup extends Component {
                                                 })
                                             }}
                                     >
-                                        <option>Educational</option>
-                                        <option>Medical</option>
-                                        <option>IT</option>
-                                        <option>Government</option>
+                                        <option value="1">Educational</option>
+                                        <option value="2">Medical</option>
+                                        <option value="3">IT</option>
+                                        <option value="4">Government</option>
                                     </select>
                                 </div>
                             </div>
@@ -320,7 +342,7 @@ class Signup extends Component {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Date founded</label>
-                                    <input type="text" placeholder="Enter MM/DD/YYYY" class="form-control"
+                                    <input type="date" placeholder="Enter MM/DD/YYYY" class="form-control"
                                            onChange={(event) => {
                                                this.setState({
                                                    ...this.state,
@@ -396,7 +418,7 @@ class Signup extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user: reducer_state.user
+        user: reducer_state.user_reducer
     };
 }
 
