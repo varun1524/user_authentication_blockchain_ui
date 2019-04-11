@@ -30,28 +30,37 @@ class AddBlockData extends Component
     };
 
     handleDataEntry = (() => {
-        let payload = {
-            for_id:this.props.location.state.id,
-            data_category:"",
+        let data = {
             role:this.state.role,
             company:this.state.company,
             start_date:this.state.start_date,
             end_date:this.state.end_date,
             technologies:this.state.technologies,
             highlights:this.state.highlights
-        };
-
+        }
+        let payload = {
+            operation_type: 1,
+            block_type: 1,
+            data: data
+        }
         let endpoint='api/v1/request_user_records';
         let method='POST';
-
+        alert("Sending data to the block")
+        alert(payload)
         BackendCredBody(payload,endpoint,method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
                     if(data.message==="success") {
-                        console.log("data in login",JSON.parse(data.data));
-                        this.props.login_success(JSON.parse(data.data));
-                        this.props.history.push("/dashboard");
+                        console.log("Data in add block data",JSON.parse(data.data));
+                        window.alert("This data successfully added to the network")
+                        // empty all the elements
+                        document.getElementById('input_role').value = '';
+                        document.getElementById('input_company').value = '';
+                        document.getElementById('start_date').value = '';
+                        document.getElementById('end_date').value = '';
+                        document.getElementById('technology').value = '';
+                        document.getElementById('highlights').value = '';
                     }
                     else {
                         window.alert("Blockdata could not be added. It ")
@@ -114,6 +123,7 @@ class AddBlockData extends Component
                                                             <div className="form-group">
                                                                 <label>Role</label>
                                                                 <input type="text" className="form-control"
+                                                                       id="input_role"
                                                                        onChange={(event) => {
                                                                            this.setState({
                                                                                ...this.state,
@@ -126,6 +136,7 @@ class AddBlockData extends Component
                                                             <div className="form-group">
                                                                 <label>Company</label>
                                                                 <input type="text" className="form-control"
+                                                                       id="input_company"
                                                                        onChange={(event) => {
                                                                            this.setState({
                                                                                ...this.state,
@@ -140,6 +151,7 @@ class AddBlockData extends Component
                                                             <div className="form-group">
                                                                 <label>Start Date</label>
                                                                 <input type="date" className="form-control"
+                                                                       id="start_date"
                                                                        onChange={(event) => {
                                                                            this.setState({
                                                                                ...this.state,
@@ -152,6 +164,7 @@ class AddBlockData extends Component
                                                             <div className="form-group">
                                                                 <label>End Date</label>
                                                                 <input type="date" className="form-control"
+                                                                       id="end_date"
                                                                        onChange={(event) => {
                                                                            this.setState({
                                                                                ...this.state,
@@ -167,6 +180,7 @@ class AddBlockData extends Component
                                                             <div className="form-group">
                                                                 <label>Project/Technology/Skills</label>
                                                                 <textarea rows="5" className="form-control" placeholder="Enter type of work, project or skills"
+                                                                          id="technology"
                                                                           onChange={(event) => {
                                                                               this.setState({
                                                                                   ...this.state,
@@ -183,6 +197,7 @@ class AddBlockData extends Component
                                                             <div className="form-group">
                                                                 <label>Highlights</label>
                                                                 <textarea rows="5" placeholder="Enter specifics and other information"
+                                                                          id="highlights"
                                                                           className="form-control"
                                                                           onChange={(event) => {
                                                                               this.setState({
