@@ -4,7 +4,7 @@ import {Link, withRouter} from 'react-router-dom';
 import './../assets/stylesheets/bootstrap.min.css';
 import './../assets/stylesheets/style.css';
 import './../assets/stylesheets/animate.css';
-import {doLogin} from './../api/userAPI';
+import {Backend} from './../api/Util';
 import SignUp from './Signup';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -37,8 +37,8 @@ class Landing extends Component {
     handleLogin = (() => {
         // showAlert("SHowed Successful", "info", this);
         document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
+        //console.log('1',this.state.email);
+        //console.log('2',this.state.password);
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
@@ -53,20 +53,24 @@ class Landing extends Component {
         }
         else if (this.state.password.length > 0){
             document.getElementById('passwordErr').innerText = '';
-
-            console.log('inside');
             let payload = {
                 'email': this.state.email,
                 'password': this.state.password
             };
+            let endpoint='api/v1/login';
+            let method='POST';
 
-            doLogin(payload).then((response) => {
-                console.log(response.status);
+            Backend(payload,endpoint,method).then((response) => {
                 if (response.status === 200) {
                     response.json().then((data) => {
-                        console.log(data);
-                        this.props.login_success(data);
-                        this.props.history.push("/home");
+                        if(data.message==="success") {
+                            console.log("data in login",JSON.parse(data.data));
+                            this.props.login_success(JSON.parse(data.data));
+                            this.props.history.push("/dashboard");
+                        }
+                        else {
+                            window.alert("Username or Password is incorrect. Please try again!")
+                        }
                     });
 
                 }
@@ -74,11 +78,11 @@ class Landing extends Component {
                     this.setState({
                         ...this.state,
                         message: "Username/Password incorrect. Please try again"
+
                     });
                 }
                 else {
                     console.log("Error: ", response);
-                    // alert("Error while Signing In");
                 }
             });
         }
@@ -88,7 +92,6 @@ class Landing extends Component {
     });
 
     render() {
-        console.log("Rendering signin in landing page");
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
         return (
             <div className="gray-bg">
@@ -118,7 +121,7 @@ class Landing extends Component {
                         />
                         <span id="passwordErr"/>
                     </div>
-                    <a type="submit" className="btn btn-primary block full-width m-b" href="/page1">Login</a>
+                    <a type="submit" className="btn btn-primary block full-width m-b" onClick={()=>{this.handleLogin()}}>Login</a>
 
                     <a href="#">
                         <small>Forgot password?</small>
@@ -136,7 +139,7 @@ class Landing extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user: reducer_state.user
+        user: reducer_state.user_reducer
     };
 }
 

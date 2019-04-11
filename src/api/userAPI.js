@@ -34,15 +34,31 @@ export const doLogout = () =>
         return error;
     });
 
+export const getUserProfile = (payload) =>
+    fetch(`/api/v1/get_user_info?user_id=current`, {
+        method: 'GET',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials:'include',
+        //body: JSON.stringify(payload)
+    }).then(res => {
+        return res;
+    }).catch(error => {
+        console.log("This is error");
+        return error;
+    });
+
 export const doSignUp = (payload) =>
-    fetch (`/user/signup`,
+    fetch (`api/v1/signup_organization`,
         {
             method: 'POST',
             headers: {
                 ...headers,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
         }).then(res => {
         return res;
     }).catch(error => {
@@ -52,7 +68,7 @@ export const doSignUp = (payload) =>
     });
 
 export const doLogin = (payload) =>
-    fetch(`/user/login`, {
+    fetch(`api/v1/login`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -67,3 +83,4 @@ export const doLogin = (payload) =>
         console.log(error);
         return error;
     });
+

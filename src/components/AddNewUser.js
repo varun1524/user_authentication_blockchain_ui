@@ -3,9 +3,10 @@ import Menu from './SideMenu'
 import TopMenu from './TopMenu'
 import {Link, withRouter} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {doCreateUser} from "../api/orgAPI";
+import {BackendCredBody} from "../api/Util";
 import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
+import {connect} from "react-redux";
 
 class AddNewUser extends Component {
     constructor() {
@@ -22,9 +23,9 @@ class AddNewUser extends Component {
     handleDataEntry = (() => {
         // showAlert("SHowed Successful", "info", this);
         // document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
-        console.log('3', this.state)
+        //console.log('1',this.state.email);
+        //console.log('2',this.state.password);
+        //console.log('3', this.state)
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
@@ -68,29 +69,43 @@ class AddNewUser extends Component {
         if(!this.state.given_name){
             document.getElementById('givenNameErr').innerHTML = 'First name is required';
         }
+        else if(this.state.user_type===0){
+            document.getElementById('userTypeErr').innerHTML = 'User Type is required';
+        }
 
         let payload = {
             'given_name' : this.state.given_name,
             'last_name' : this.state.last_name,
             'dob' : this.state.dob,
             'email' : this.state.email,
+            'password' : 'abcd',
             'user_type' : this.state.user_type
         };
-
-        doCreateUser(payload).then((response) => {
+        console.log("++++ Payload  +++");
+        console.log(payload);
+        let endpoint='api/v1/create_user';
+        let method='POST';
+        BackendCredBody(payload,endpoint,method).then((response) => {
             console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data);
-                    this.props.user_addiiton_success(data);
-                    this.props.history.push("/home");
+                    if(data.message==="success") {
+                        console.log(data);
+                        this.props.user_addiiton_success(data);
+                        alert("User added successfully")
+                        this.props.history.push("/usersearch");
+                    }
+                    else {
+                        alert("User could not be added. Please try again!")
+                    }
                 });
 
             }
             else if (response.status === 404) {
                 this.setState({
                     ...this.state,
-                    message: "User not registered. Please sign up"
+                    message: "Service not found"
                 });
             }
             else if (response.status === 401) {
@@ -206,13 +221,15 @@ class AddNewUser extends Component {
                                                                 onChange={(event) => {
                                                                     this.setState({
                                                                         ...this.state,
-                                                                        ethnicity : event.target.value
+                                                                        user_type : event.target.value
                                                                     })
                                                                 }}
                                                         >
-                                                            <option value="">---Select One---</option>
-                                                            <option value="">American</option>
+                                                            <option value="0">----SELECT ONE----</option>
+                                                            <option value="3">Organization User</option>
+                                                            <option value="4">Normal User</option>
                                                         </select>
+                                                        <span id="userTypeErr"/>
                                                     </div>
                                                 </div>
 
@@ -246,4 +263,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
-export default withRouter(AddNewUser);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddNewUser));

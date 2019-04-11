@@ -232,7 +232,7 @@ class InputForm extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user: reducer_state.user
+        user: reducer_state.user_reducer
     };
 }
 
@@ -242,7 +242,7 @@ function mapDispatchToProps(dispatch) {
 
 //export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InsertUserData));
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
     form: 'InsertUserData',
     validate
 })(InputForm));

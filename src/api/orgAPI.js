@@ -3,7 +3,24 @@ const headers = {
 };
 
 export const doCreateUser = (payload) =>
-    fetch(`/user/createUser`, {
+    fetch(`api/v1/create_user`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials:'include',
+        body: JSON.stringify(payload)
+    }).then(res => {
+        return res;
+    }).catch(error => {
+        console.log("This is error");
+        console.log(error);
+        return error;
+    });
+
+export const doSearchUser = (payload) =>
+    fetch(`api/v1//ger_user_info`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -36,8 +53,10 @@ export const doCreateBranch = (payload) =>
         return error;
     });
 
+
+
 export const doInsertBlockData = (payload) =>
-    fetch(`/user/insertBlockData`, {
+    fetch(`api/v1/add_user_record`, {
         method: 'POST',
         headers: {
             ...headers,

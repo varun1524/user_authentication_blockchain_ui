@@ -7,8 +7,10 @@ import {doCreateBranch} from "../api/orgAPI";
 import {bindActionCreators} from "redux";
 import {branch_addiiton_success} from "../actions/organization_admin";
 import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
+import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
+import {Home} from "@material-ui/icons";
 
-class AddNewBranch extends Component {
+class OrganizationProfileEdit extends Component {
     constructor() {
         super();
         this.state = {
@@ -87,7 +89,7 @@ class AddNewBranch extends Component {
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data);
-                    //alert("Branch details successfully added")
+                    alert("Branch details successfully added")
                     this.props.branch_addiiton_success(data);
                     // this.props.history.push("/home");
                 });
@@ -113,7 +115,7 @@ class AddNewBranch extends Component {
     });
 
     render() {
-        console.log("[addnewuser] render method");
+        console.log("[org profile] render method");
         return (
             <div>
                 <TopMenu/>
@@ -122,85 +124,110 @@ class AddNewBranch extends Component {
                 </div>
                 <div className="page-content-wrapper">
                     <div className="page-content top-side-padding">
-                        <h1 className="page-title">New Branch</h1>
+                        <h1 className="page-title">Organization Profile</h1>
                         <div className="page-bar">
                             <ul className="page-breadcrumb">
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon='home'
-                                        size='2x'
-                                        spin
-                                        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                                    />
-                                    <a href="/page1">Home </a>
+                                    <Home className="myiconcolor"/>
+                                    <a onClick={()=>{this.props.history.push("/dashboard")}} >Home </a>
+                                    <KeyboardArrowRight className="myiconcolor"/>
+                                    <a onClick={()=>{this.props.history.push("/organizationprofile")}}>Organization Profile </a>
+                                    <KeyboardArrowRight className="myiconcolor"/>
+                                    <a onClick={()=>{this.props.history.push("/organizationprofileedit")}}>Edit </a>
                                 </li>
+
                             </ul>
                         </div>
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Create New Branch</div>
+                                        <div className="caption">Details</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Branch Name</label>
-                                                        <input type="text" className="form-control"
+                                                        <label className="control-label">Name</label>
+                                                        <input type="text" placeholder="Enter name"
+                                                               className="form-control"
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       address_line_1 : event.target.value
+                                                                       name: event.target.value
                                                                    })
                                                                }}
-                                                        /> </div>
+                                                        />
+                                                        <span id="nameErr"/>
+                                                    </div>
                                                 </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group">
-                                                    <label>Phone</label>
-                                                    <input type="text" className="form-control"
-                                                           onChange={(event) => {
-                                                               this.setState({
-                                                                   ...this.state,
-                                                                   phone : event.target.value
-                                                               })
-                                                           }}
-                                                    /> </div>
-                                            </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Email</label>
+                                                        <input type="email" placeholder="Enter email"
+                                                               className="form-control"
+                                                               onChange={(event) => {
+                                                                   this.setState({
+                                                                       ...this.state,
+                                                                       email: event.target.value
+                                                                   })
+                                                               }}
+                                                        /><span id="emailErr"/>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Address Line 1</label>
-                                                        <input type="text" className="form-control"
+                                                        <label className="control-label">Address 1</label>
+                                                        <input type="text" placeholder="Enter address 1"
+                                                               className="form-control"
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       address_line_1 : event.target.value
+                                                                       address_line_1: event.target.value
                                                                    })
                                                                }}
-                                                        /> </div>
+                                                        /><span id="add1Err"/>
+                                                    </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Address Line 2</label>
-                                                        <input type="text" className="form-control"
+                                                        <label className="control-label">Address 2</label>
+                                                        <input type="text" placeholder="Enter Apt No / Building No"
+                                                               className="form-control"
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       address_line_2 : event.target.value
+                                                                       address_line_2: event.target.value
                                                                    })
                                                                }}
-                                                        /> </div>
+                                                        />
+                                                        <span id="add2Err"/>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Country</label>
+                                                        <label className="control-label">City</label>
+                                                        <input type="text" placeholder="Enter city"
+                                                               className="form-control"
+                                                               onChange={(event) => {
+                                                                   this.setState({
+                                                                       ...this.state,
+                                                                       city: event.target.value
+                                                                   })
+                                                               }}
+                                                        />
+                                                        <span id="cityErr"/>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Country</label>
                                                         <CountryDropdown class="form-control m-b" name="account"
                                                                          value={this.state.country}
                                                                          onChange={(val) => {
@@ -214,9 +241,12 @@ class AddNewBranch extends Component {
 
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>State</label>
+                                                        <label className="control-label">State</label>
                                                         <RegionDropdown class="form-control m-b" name="account"
                                                                         country={this.state.country}
                                                                         value={this.state.state}
@@ -231,42 +261,89 @@ class AddNewBranch extends Component {
 
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>City</label>
-                                                        <input type="text" placeholder="Enter city"
+                                                        <label className="control-label">Zip</label>
+                                                        <input type="text" placeholder="Enter zip"
                                                                className="form-control"
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       city: event.target.value
+                                                                       zip: event.target.value
                                                                    })
                                                                }}
-                                                        /><span id="cityErr"/>
+                                                        /><span id="zipErr"/>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Organization Type</label>
+                                                        <select className="form-control m-b" name="account"
+                                                                onChange={(event) => {
+                                                                    this.setState({
+                                                                        ...this.state,
+                                                                        organization_type: event.target.value
+                                                                    })
+                                                                }}
+                                                        >
+                                                            <option>Educational</option>
+                                                            <option>Medical</option>
+                                                            <option>IT</option>
+                                                            <option>Government</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label>Zip</label>
-                                                        <input type="text" className="form-control"
+                                                        <label className="control-label">Phone</label>
+                                                        <input type="text" placeholder="Enter contact no"
+                                                               className="form-control"
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       zip : event.target.value
+                                                                       phone: event.target.value
                                                                    })
                                                                }}
-                                                        /> </div>
+                                                        /><span id="phoneErr"/>
+                                                    </div>
                                                 </div>
-
                                             </div>
+
                                             <div className="row">
                                                 <div className="col-md-6">
-
+                                                    <div className="form-group">
+                                                        <label className="control-label">Headquarter</label>
+                                                        <input type="text" placeholder="Enter location"
+                                                               className="form-control"
+                                                               onChange={(event) => {
+                                                                   this.setState({
+                                                                       ...this.state,
+                                                                       headquarter: event.target.value
+                                                                   })
+                                                               }}/>
+                                                        <span id="hqErr"/>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Date founded</label>
+                                                        <input type="date" placeholder="Enter MM/DD/YYYY"
+                                                               className="form-control"
+                                                               onChange={(event) => {
+                                                                   this.setState({
+                                                                       ...this.state,
+                                                                       founded_date: event.target.value
+                                                                   })
+                                                               }}/>
+                                                        <span id="datefErr"></span>
+                                                    </div>
                                                 </div>
                                             </div>
+
 
                                             <div className="form-actions right">
                                                 <button type="button" className="btn default">Cancel</button>&nbsp;
@@ -295,4 +372,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
-export default withRouter(AddNewBranch);
+export default withRouter(OrganizationProfileEdit);

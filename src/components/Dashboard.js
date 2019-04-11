@@ -1,56 +1,124 @@
 import React, { Component } from 'react';
-import Logo from './../assets/images/logo-default.png';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faIgloo } from '@fortawesome/free-solid-svg-icons';
+import Menu from './SideMenu'
+import TopMenu from './TopMenu'
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {login_success} from "../actions/login";
+import {Home} from "@material-ui/icons";
+import {getUserProfile} from "../api/userAPI";
+import history from "../history";
+import {bindActionCreators} from 'redux';
+import {user_profile_fetch} from "../actions/user";
 
-
-library.add(faIgloo);
 
 class Dashboard extends Component {
 
+    componentWillMount() {
+        let payload = {}
+        getUserProfile(payload).then((response) => {
+            console.log(response.status);
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    console.log(data);
+                    if(data.message==="success") {
+                        console.log("data in the dashboard after get_user_info",JSON.parse(data.data));
+                        this.props.user_profile_fetch(JSON.parse(data.data));
+                    }
+                    else {
+                        //alert("not logged in")
+                        history.push('/')
+                    }
+                });
+            }
+            else {
+                //alert("not logged in")
+                history.push('/')
+            }
+        });
+    }
+
+    handleClick = () => {
+        this.props.history.push("/page2")
+    }
+
     render() {
         return (
-            <div className="custom-sidebar-body csbcolor">
-                <div className="page-header navbar navbar-fixed-top">
-                    <div className="page-header-inner">
-                        <div className="page-logo">
-                            <img src={Logo} className="sidebar-logo"/>
-                        </div>
-                        <div className="page-top">
-                            <ul className="nav navbar-nav pull-right">
-                                <li className="dropdown dropdown-user">
-                                    <a href="javascript:;" className="dropdown-toggle" data-toggle="dropdown"
-                                       data-hover="dropdown" data-close-others="true">
-                                        <img alt="" className="img-circle"
-                                             src={Logo} />
-                                        <span className="username username-hide-on-mobile"> Adam </span>
-
-                                    </a>
+            <div>
+                <TopMenu/>
+                <div className="">
+                    <Menu/>
+                </div>
+                <div className="page-content-wrapper">
+                    <div className="page-content top-side-padding">
+                        <h1 className="page-title">Dashboard</h1>
+                        <div className="page-bar">
+                            <ul className="page-breadcrumb">
+                                <li>
+                                    <Home className="myiconcolor"/>
+                                    <a onClick={()=>{this.props.history.push("/dashboard")}}>Home </a>
                                 </li>
 
                             </ul>
                         </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="portlet box blue">
+                                    <div className="portlet-title">
+                                        <div className="caption">Welcome {this.props.user.given_name}</div>
+                                    </div>
+                                    <div className="portlet-body form">
+                                        <div className="form-body">
+                                            <div className="row">
+                                                {/*<div className="col-md-6">*/}
+                                                {/*    <div className="form-group">*/}
+                                                {/*        <label className="control-label">Organization: &nbsp;</label>*/}
+                                                {/*        <label ></label>*/}
+                                                {/*        <span id="nameErr"/>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
+                                                {/*<div className="col-md-6">*/}
+                                                {/*    <div className="form-group">*/}
+                                                {/*        <label className="control-label">Branch: &nbsp;</label>*/}
+                                                {/*        <label ></label>*/}
+                                                {/*        <span id="nameErr"/>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
+                                            </div>
+
+                                            <div className="row">
+                                                {/*<div className="col-md-6">*/}
+                                                {/*    <div className="form-group">*/}
+                                                {/*        <label className="control-label">Role: &nbsp;</label>*/}
+                                                {/*        <label ></label>*/}
+                                                {/*        <span id="nameErr"/>*/}
+                                                {/*    </div>*/}
+                                                {/*</div>*/}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
         );
 
     }
 }
 
 function mapStateToProps(reducer_state) {
+    console.log("In dashboard")
+    console.log("reducer", reducer_state)
     return {
-        user: reducer_state.user
+        user: reducer_state.user_reducer
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({login_success: login_success}, dispatch)
+    return bindActionCreators({user_profile_fetch: user_profile_fetch}, dispatch)
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
+

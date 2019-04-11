@@ -677,4 +677,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InsertUserDataForm));
+export default withRouter(connect(mapStateToProps)(InsertUserDataForm));
