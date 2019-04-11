@@ -118,9 +118,7 @@ class Page2 extends Component {
             }
             else {
                 console.log("Error: ", response);
-                alert("Changes could not be saved. Please try again");
-                // alert("Error while Signing In");
-            }
+                alert("Changes could not be saved. Please try again");}
         });
     });
 

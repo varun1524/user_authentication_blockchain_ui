@@ -37,13 +37,13 @@ const Actions = (rowdata) => [
             {
                 text: "Accept",
                 callback: () => {
-                    alert("Accept Request: "+JSON.stringify(rowdata));
+                    console.log("Accept Request: "+JSON.stringify(rowdata));
                 }
             },
             {
                 text: "Reject",
                 callback: () => {
-                    alert("Reject Request: "+JSON.stringify(rowdata));
+                    console.log("Reject Request: "+JSON.stringify(rowdata));
                 }
             }
         ]
@@ -111,7 +111,7 @@ class AccessRequest extends Component {
             if (response.status === 200) {
                 response.json().then((data) => {
                     if(data.message==="success") {
-                        alert("Request fetched successfully")
+                        console.log("Request fetched successfully")
                         console.log("ComponentWillMount [AccessRequest]", data)
                     }
                 });
@@ -119,7 +119,7 @@ class AccessRequest extends Component {
             }
             else {
                 console.log("Error: ", response);
-                alert("Could not request the access");
+                console.log("Could not request the access");
             }
         });
     }
@@ -161,7 +161,6 @@ class AccessRequest extends Component {
             }
             else {
                 console.log("Error: ", response);
-                // alert("Error while Signing In");
             }
         });
     });

@@ -214,13 +214,11 @@ class Menu extends Component {
                             }
                         }
                         else {
-                            //alert("not logged in")
                             history.push('/')
                         }
                     });
                 }
                 else {
-                    //alert("not logged in")
                     history.push('/')
                 }
             });

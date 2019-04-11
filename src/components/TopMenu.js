@@ -33,7 +33,7 @@ class TopMenu extends Component {
             if (response.status === 200) {
                 response.json().then((data) => {
                     if(data.message==="success") {
-                        window.alert("logged out successfully")
+                        //window.alert("logged out successfully")
                         this.props.history.push("/")
                     }
                     else {

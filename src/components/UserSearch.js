@@ -37,23 +37,23 @@ const InOrganizationActions_NoBlock = (rowdata) => [
             {
                 text: "Edit",
                 callback: () => {
-                    alert("Sends to Edit Page: "+JSON.stringify(rowdata));
+                    //alert("Sends to Edit Page: "+JSON.stringify(rowdata));
                 }
             },
             {
                 text: "Delete",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                    //alert("Removes from Org: "+JSON.stringify(rowdata));
                 }
             },
             {
                 text: "Add Block Data",
                 callback: () => {
-                    alert("Redirect to Add Block: "+JSON.stringify(rowdata));
+                    //alert("Redirect to Add Block: "+JSON.stringify(rowdata));
                     //this.props.handlePageChange("/addblockdata");
                     // history.push({pathname:'/addblockdata', state:JSON.stringify(rowdata)});
                     history.push({pathname:'/addblockdata', state:rowdata});
-                    alert("after")
+                    //alert("after")
                 }
             }
         ]
@@ -67,13 +67,13 @@ const InOrganizationActions_Block = (rowdata) => [
             {
                 text: "Edit",
                 callback: () => {
-                    alert("Sends to Edit Page: "+JSON.stringify(rowdata));
+                    console.log("Sends to Edit Page: "+JSON.stringify(rowdata));
                 }
             },
             {
                 text: "Delete",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
+                    console.log("Removes from Org: "+JSON.stringify(rowdata));
                 }
             }
         ]
@@ -87,7 +87,7 @@ const OutOrganizationActions= (rowdata) => [
             {
                 text: "Add to Organization",
                 callback: () => {
-                    alert("Adds to Organization: "+JSON.stringify(rowdata)) ;
+                    console.log("Adds to Organization: "+JSON.stringify(rowdata)) ;
                 }
             }
         ]

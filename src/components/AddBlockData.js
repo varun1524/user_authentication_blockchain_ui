@@ -69,7 +69,7 @@ class AddBlockData extends Component
                         document.getElementById('highlights').value = '';
                     }
                     else {
-                        window.alert("Blockdata could not be added. It ")
+                        window.alert("User data could not be added. It ")
                     }
                 });
 
