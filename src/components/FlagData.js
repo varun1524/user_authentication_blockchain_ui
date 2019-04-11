@@ -10,6 +10,8 @@ import {Home} from "@material-ui/icons";
 import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
+import {BackendCred} from "../api/Util";
+import {connect} from "react-redux";
 
 
 const rows = [
@@ -118,14 +120,31 @@ class FlagData extends Component {
     constructor() {
         super();
         this.state = {
-            address_line_1 : "",
-            address_line_2 : "",
-            city : "",
-            state : "",
-            zip: "",
-            country : "",
-            phone : ""
+
         }
+    }
+
+    componentWillMount() {
+        let endpoint = 'api/v1/get_user_record'+this.props.user.id;
+        let method = 'GET'
+        let payload = {}
+        BackendCred(payload, endpoint, method).then((response) => {
+            console.log(response.status);
+            console.log(response.data);
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    if(data.message==="success") {
+                        alert("User can view inserted block data")
+                        console.log("View My Data normal user", data)
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+                alert("Could not request the access");
+            }
+        });
     }
 
     handleDataEntry = (() => {
@@ -248,7 +267,7 @@ class FlagData extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        organization_user: reducer_state.organization_user
+        user: reducer_state.user_reducer
     };
 }
 
@@ -256,4 +275,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
-export default withRouter(FlagData);
+export default withRouter(connect(mapStateToProps, null)(FlagData));
