@@ -101,7 +101,7 @@ class Page2 extends Component {
         };
 
         let method = 'POST';
-        let endpoint = 'api/vi/save_user_profile'
+        let endpoint = 'api/v1/save_user_profile'
 
         BackendCredBody(payload, endpoint, method).then((response) => {
             console.log(response.status);

@@ -245,7 +245,7 @@ class Menu extends Component {
     }
 
     componentDidMount() {
-        console.log("menu", this.state.menu)
+        //console.log("menu", this.state.menu)
     }
 
     render() {
@@ -257,7 +257,7 @@ class Menu extends Component {
 }
 
 function mapStateToProps(reducer_state) {
-    console.log("--Reducer state-----", reducer_state.user_reducer.data);
+    console.log("--Reducer state-----", reducer_state.user_reducer);
     return {
         user: reducer_state.user_reducer
     };
