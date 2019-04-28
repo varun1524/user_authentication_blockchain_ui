@@ -13,6 +13,34 @@ import {connect} from "react-redux";
 import {getUserProfile} from "../api/userAPI";
 import history from "../history";
 
+const static_data = [
+    {
+        company: "svkjndj",
+        end_date: "2019-04-27",
+        highlights: "acsdcsw",
+        role: "intern",
+        start_date: "2019-04-05",
+        technologies: "asdcds"
+    },
+    {
+        company: "nehaj",
+        end_date: "2019-04-27",
+        highlights: "acsdcsw",
+        role: "intern",
+        start_date: "2019-04-05",
+        technologies: "asdcds"
+    },
+    {
+        company: "rajb",
+        end_date: "2019-04-27",
+        highlights: "acsdcsw",
+        role: "intern",
+        start_date: "2019-04-05",
+        technologies: "asdcds"
+    }
+]
+
+
 
 const rows = [
     { id: 0, title: "Task 1", complete: 20, status:"Flagged", flagbit:1 },
@@ -52,6 +80,8 @@ const FlagAction = (rowdata) => [
                 text: "Flag",
                 callback: () => {
                     alert("Flag's Data: "+JSON.stringify(rowdata));
+                    //Call API to flag the data
+
                 }
             }
         ]
@@ -266,6 +296,7 @@ class FlagData extends Component {
             console.log("[FlagData] Componentwillmount")
             console.log(endpoint)
             BackendCred(payload, endpoint, method).then((response) => {
+                console.log("[Response from Blockchain]", response)
                 console.log(response.status);
                 console.log(response.data);
                 if (response.status === 200) {
@@ -311,8 +342,6 @@ class FlagData extends Component {
     }
 
     render() {
-
-        console.log("[branch] render method");
         return (
             <div>
                 <TopMenu/>
@@ -332,7 +361,7 @@ class FlagData extends Component {
                                 </li>
                             </ul>
                         </div>
-                        <div className="row">
+                        /*<div className="row">
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
@@ -342,7 +371,26 @@ class FlagData extends Component {
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <Table className="myreact-grid-Header myreact-grid-Viewport myreact-grid-Toolbar" rows={this.state.rows1} />
+                                                {/*<Table className="myreact-grid-Header myreact-grid-Viewport myreact-grid-Toolbar" rows={this.state.rows1} />*/}
+                                               /* <Table rows={this.state.rows1} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*/
+
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="portlet box blue">
+                                    <div className="portlet-title">
+                                        <div className="caption">Details</div>
+                                    </div>
+                                    <div className="portlet-body form">
+                                        <div className="form-body">
+
+                                            <div className="row">
+                                                <Table rows={static_data} />
 
                                             </div>
                                         </div>

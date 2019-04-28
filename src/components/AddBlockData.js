@@ -21,7 +21,11 @@ class AddBlockData extends Component
             start_date:"",
             end_date:"",
             technologies:"",
-            highlights:""
+            highlights:"",
+            university : "",
+            degree_type : "",
+            gpa : "",
+            notes : ""
         }
     }
 
@@ -29,15 +33,28 @@ class AddBlockData extends Component
        this.props.handlePageChange(newpage)
     };
 
-    handleDataEntry = (() => {
-        let data = {
-            role:this.state.role,
-            company:this.state.company,
-            start_date:this.state.start_date,
-            end_date:this.state.end_date,
-            technologies:this.state.technologies,
-            highlights:this.state.highlights
-        };
+    handleDataEntry = ((data_type) => {
+        let data = {};
+        if (data_type===1){
+            data = {
+                role:this.state.role,
+                company:this.state.company,
+                start_date:this.state.start_date,
+                end_date:this.state.end_date,
+                technologies:this.state.technologies,
+                highlights:this.state.highlights
+            };
+        }else if(data_type===1){
+            data = {
+                university:this.state.university,
+                start_date:this.state.start_date,
+                end_date:this.state.end_date,
+                degree_type: this.state.degree_type,
+                gpa:this.state.gpa,
+                notes:this.state.notes
+            };
+        }
+
         //console.log("handleDataEntry: ", this.props.location.state);
         //console.log("handleDataEntry: ", this.props.location.state['id']);
         //console.log("handleDataEntry: ", this.props.location.state.id);
@@ -46,7 +63,7 @@ class AddBlockData extends Component
             user_id : this.props.location.state.id,
             block_data : {
                 operation_type: 1,
-                block_type: 1,
+                block_type: data_type,
                 data: data
             }
         };
@@ -217,7 +234,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry()}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(1)}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -295,7 +312,7 @@ class AddBlockData extends Component
                                                                           onChange={(event) => {
                                                                               this.setState({
                                                                                   ...this.state,
-                                                                                  technologies : event.target.value
+                                                                                  gpa : event.target.value
                                                                               })
                                                                           }}
                                                                 />
@@ -312,7 +329,7 @@ class AddBlockData extends Component
                                                                           onChange={(event) => {
                                                                               this.setState({
                                                                                   ...this.state,
-                                                                                  highlights: event.target.value
+                                                                                  notes: event.target.value
                                                                               })
                                                                           }}
                                                                 /><span id="cityErr"/>
@@ -322,7 +339,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry()}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(2)}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
