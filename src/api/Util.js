@@ -18,6 +18,21 @@ export const Backend = (payload,endpoint,method) =>
         return error;
     });
 
+export const BackendGetWithoutSession = (endpoint,method) =>
+    fetch(''+endpoint, {
+        method: ''+method,
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        return res;
+    }).catch(error => {
+        console.log("This is error");
+        console.log(error);
+        return error;
+    });
+
 export const BackendCred = (payload,endpoint,method) =>
     fetch(''+endpoint, {
         method: ''+method,

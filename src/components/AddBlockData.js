@@ -6,7 +6,7 @@ import {bindActionCreators} from "redux";
 import {user_addiiton_success} from "../actions/orgnization_user";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 import {Home} from "@material-ui/icons";
-import {BackendCredBody} from "../api/Util";
+import {BackendCredBody, BackendGetWithoutSession} from "../api/Util";
 import {connect} from "react-redux";
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
@@ -25,8 +25,41 @@ class AddBlockData extends Component
             university : "",
             degree_type : "",
             gpa : "",
-            notes : ""
+            notes : "",
+            test_date : "",
+            test_type : "",
+            tests : "",
+            result : "",
+            driving_license : "",
+            incident_date : "",
+            case_type : "",
+            case_id : "",
+            case_start_date : "",
+            case_end_date : ""
+
         }
+    }
+
+    componentWillMount() {
+        let endpoint='api/v1/get_block_types';
+        let method='GET';
+        BackendGetWithoutSession(endpoint,method).then((response) => {
+            console.log("[Get Block types]: ", response);
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    if(data.message==="success") {
+                        console.log("Fetched block types")
+                    }
+                    else {
+                        console.log("Error in fetching block type", response)
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+            }
+        });
     }
 
     RedirectPage = (newpage) => {
@@ -35,7 +68,7 @@ class AddBlockData extends Component
 
     handleDataEntry = ((data_type) => {
         let data = {};
-        if (data_type===1){
+        if (data_type===3){
             data = {
                 role:this.state.role,
                 company:this.state.company,
@@ -53,8 +86,29 @@ class AddBlockData extends Component
                 gpa:this.state.gpa,
                 notes:this.state.notes
             };
+        }else if(data_type===2) {
+            data = {
+                test_date: this.state.test_date,
+                test_type: this.state.test_type,
+                tests: this.state.tests,
+                result: this.state.result
+            };
+        }else if(data_type===4) {
+            data = {
+                driving_license: this.state.driving_license,
+                incident_date: this.state.incident_date,
+                notes: this.state.notes
+            };
         }
-
+        else if(data_type===5) {
+            data = {
+                case_type : this.state.case_type,
+                case_id : this.case.case_id,
+                case_start_date : this.state.case_start_date,
+                case_end_date : this.state.case_end_date,
+                notes: this.state.notes
+            };
+        }
         //console.log("handleDataEntry: ", this.props.location.state);
         //console.log("handleDataEntry: ", this.props.location.state['id']);
         //console.log("handleDataEntry: ", this.props.location.state.id);
@@ -234,7 +288,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(1)}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(3)}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -339,7 +393,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(2)}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(1)}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -411,7 +465,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry()}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(2)}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -471,7 +525,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry()}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(4)}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -557,7 +611,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry()}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(5)}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
