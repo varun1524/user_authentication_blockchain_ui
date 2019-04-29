@@ -45,7 +45,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-## Project Dependancies
+# Project Dependancies
 
 This project contains Front End part of project "User Authentication Using Blockchain Technology".
 
