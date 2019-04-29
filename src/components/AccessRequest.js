@@ -23,12 +23,38 @@ const defaultColumnProperties = {
 const selectors = Data.Selectors;
 
 const columns = [
-    { key: "id", name: "ID"},
-    { key: "title", name: "Name"},
-    { key: "complete", name: "Organization"},
-    { key: "status", name: "Status"},
+    { key: "name", name: "Name"},
+    { key: "req_type", name:"Requestor"},
+    { key: "category", name: "Data Type"},
     { key: "action", name: "Action"}
 ].map(c => ({ ...c, ...defaultColumnProperties }));
+
+function accessRequest(id, end_point){
+    // alert("Requests all the data: "+JSON.stringify(rowdata));
+    // data category from database
+    let endpoint = 'api/v1/' + end_point ;
+    let method = 'POST'
+    let payload = {
+        "request_id":id
+    };
+    BackendCredBody(payload, endpoint, method).then((response) => {
+        console.log(response)
+        if (response.status === 200) {
+            response.json().then((data) => {
+                console.log(data);
+                if(data.message==="success") {
+                    alert("Action taken successfully")
+                    window.location.reload();
+                }
+            });
+
+        }
+        else {
+            console.log("Error: ", response);
+            alert("Could not take the action");
+        }
+    });
+}
 
 const Actions = (rowdata) => [
     {
@@ -38,12 +64,14 @@ const Actions = (rowdata) => [
                 text: "Accept",
                 callback: () => {
                     console.log("Accept Request: "+JSON.stringify(rowdata));
+                    accessRequest(rowdata.id, "approve_data_request");
                 }
             },
             {
                 text: "Reject",
                 callback: () => {
                     console.log("Reject Request: "+JSON.stringify(rowdata));
+                    accessRequest(rowdata.id, "deny_data_request")
                 }
             }
         ]
@@ -72,8 +100,6 @@ function getRows(rows, filters) {
     return selectors.getRows({ rows, filters });
 }
 
-const ROW_COUNT = 50;
-
 function Table({ rows }) {
     const [filters, setFilters] = useState({});
     const filteredRows = getRows(rows, filters);
@@ -97,12 +123,12 @@ class AccessRequest extends Component {
     constructor() {
         super();
         this.state = {
-
+            rows1 :[]
         }
     }
 
     componentWillMount() {
-        let endpoint = 'api/v1/request_user_records';
+        let endpoint = 'api/v1/get_all_data_request';
         let method = 'GET'
         let payload = {}
         BackendCred(payload, endpoint, method).then((response) => {
@@ -111,8 +137,30 @@ class AccessRequest extends Component {
             if (response.status === 200) {
                 response.json().then((data) => {
                     if(data.message==="success") {
-                        console.log("Request fetched successfully")
-                        console.log("ComponentWillMount [AccessRequest]", data)
+                        console.log("[AccessRequest]Request fetched successfully")
+                        console.log("[AccessRequest]ComponentWillMount ", JSON.parse(data.data))
+                        let rcvd_data = JSON.parse(data.data);
+                        console.log("rcvd_data : ", rcvd_data)
+                        let rows = [];
+                        for (var i = 0; i < rcvd_data.length; i++){
+                            var obj = rcvd_data[i];
+                            var per_type = "Employee";
+                            if (obj['name'].includes("Organization")){
+                                per_type = "Organization"
+                            }
+                            var data_to_be_added = {
+                                id : obj['id'],
+                                name : obj['name'].replace('Organization,',''),
+                                req_type : per_type,
+                                category : obj['category']
+                            };
+                            rows.push(data_to_be_added);
+                        }
+                        this.setState({
+                            ...this.state,
+                            rows1: rows
+                        });
+                        console.log("[FlagData] : ", rows)
                     }
                 });
 
@@ -193,13 +241,13 @@ class AccessRequest extends Component {
                             <div className="col-md-12">
                                 <div className="portlet box blue">
                                     <div className="portlet-title">
-                                        <div className="caption">Details</div>
+                                        <div className="caption">Pending requests</div>
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <Table rows={rows} />
+                                                <Table rows={this.state.rows1} />
 
                                             </div>
                                         </div>

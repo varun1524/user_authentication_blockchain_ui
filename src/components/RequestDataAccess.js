@@ -11,6 +11,7 @@ import {Toolbar,Data} from "react-data-grid-addons";
 import history from '../history';
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 import {BackendCred, BackendCredBody} from "../api/Util";
+import {connect} from "react-redux";
 
 
 const defaultColumnProperties = {
@@ -28,82 +29,75 @@ const selectors = Data.Selectors;
 
 const rows = [
     { id: 0, title: "Task 1", complete: 20, flagbit:1},
-    { id: 1, title: "Task 2", complete: 40 , flagbit:0 },
+    { id: 1, title: "Task 2", complete: 40 ,flagbit:0 },
     { id: 2, title: "Task 3", complete: 60, flagbit:1 },
     { id: 3, title: "Task 1", complete: 20, flagbit:1 },
     { id: 4, title: "Task 2", complete: 40, flagbit:0 },
     { id: 5, title: "Task 3", complete: 60, flagbit:1 }
 ];
 
+var record_types = {}
+
+function accessRequest(id, record_type){
+    // alert("Requests all the data: "+JSON.stringify(rowdata));
+    // data category from database
+    let endpoint = 'api/v1/request_user_records';
+    let method = 'POST'
+    let payload = {
+        "for_id":id,
+        "data_category": record_types[record_type]
+    };
+    BackendCredBody(payload, endpoint, method).then((response) => {
+        if (response.status === 200) {
+            response.json().then((data) => {
+                if(data.message==="success") {
+                    alert("Access requested successfully")
+                }
+            });
+
+        }
+        else {
+            console.log("Error: ", response);
+            alert("Could not request the access");
+        }
+    });
+}
+
 const RequestActions = (rowdata) => [
     {
         icon: "glyphicon glyphicon-link",
         actions: [
             {
-                text: "All data",
-                callback: () => {
-                    alert("Requests all the data: "+JSON.stringify(rowdata));
-                    // data category from database
-                    let endpoint = 'api/v1/request_user_records';
-                    let method = 'POST'
-                    let payload = {
-                        "for_id":rowdata.id,
-                        "data_category": 1
-                    };
-                    BackendCredBody(payload, endpoint, method).then((response) => {
-                        console.log(response.status);
-                        console.log(response.data);
-                        if (response.status === 200) {
-                            response.json().then((data) => {
-                                if(data.message==="success") {
-                                    alert("Access requested successfully")
-                                }
-                            });
-
-                        }
-                        else {
-                            console.log("Error: ", response);
-                            alert("Could not request the access");
-                        }
-                    });
-                }
-            },
-            {
                 text: "Request Educational history",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
-
+                    accessRequest(rowdata.id, "educational")
                 }
+
             },
             {
                 text: "Request Employment history",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
-                }
+                    accessRequest(rowdata.id, "employment")                }
             },
             {
                 text: "Request Drug test history",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
-                }
+                    accessRequest(rowdata.id, "medical")                }
             },
             {
                 text: "Request Driving history",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
-                }
+                    accessRequest(rowdata.id, "driving")                }
             },
             {
                 text: "Request Criminal history",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
-                }
+                    accessRequest(rowdata.id, "criminal")                }
             },
             {
                 text: "Request Housing history",
                 callback: () => {
-                    alert("Removes from Org: "+JSON.stringify(rowdata));
-                }
+                    accessRequest(rowdata.id, "residential")                }
             },
             {
                 text: "Add User Info",
@@ -167,8 +161,6 @@ function getRows(rows, filters) {
     return selectors.getRows({ rows, filters });
 }
 
-const ROW_COUNT = 50;
-
 function Table({ rows }) {
     const [filters, setFilters] = useState({});
     const filteredRows = getRows(rows, filters);
@@ -195,6 +187,10 @@ class RequestDataAccess extends Component {
             search_value:"",
             rows1: []
         }
+    }
+
+    componentWillMount() {
+        record_types = this.props.record_types;
     }
 
     handleDataEntry = (() => {
@@ -355,7 +351,7 @@ class RequestDataAccess extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        organization_user: reducer_state.organization_user
+        record_types : reducer_state.record_type_reducer
     };
 }
 
@@ -363,4 +359,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
 }
 
-export default withRouter(RequestDataAccess);
+export default withRouter(connect(mapStateToProps, null)(RequestDataAccess));

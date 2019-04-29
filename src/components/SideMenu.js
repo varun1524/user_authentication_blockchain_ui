@@ -148,16 +148,16 @@ class Menu extends Component {
         },
         {
             icon: '',
-            label: 'Block Data',
+            label: 'View Requests',
             content: [
                 {
                     icon: 'icon-class-name',
-                    label: 'Request',
+                    label: 'Pending Requests',
                     to: '/accessrequest',
                 },
                 {
                     icon: 'icon-class-name',
-                    label: 'View',
+                    label: 'OtherRequests',
                     to: '/viewaccess',
                 },
             ]

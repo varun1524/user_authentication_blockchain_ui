@@ -35,31 +35,18 @@ class AddBlockData extends Component
             case_type : "",
             case_id : "",
             case_start_date : "",
-            case_end_date : ""
-
+            case_end_date : "",
+            address_line_1 : "",
+            address_line_2 : "",
+            city : "",
+            state : "",
+            country : "",
+            zip : ""
         }
     }
 
     componentWillMount() {
-        let endpoint='api/v1/get_block_types';
-        let method='GET';
-        BackendGetWithoutSession(endpoint,method).then((response) => {
-            console.log("[Get Block types]: ", response);
-            if (response.status === 200) {
-                response.json().then((data) => {
-                    if(data.message==="success") {
-                        console.log("Fetched block types")
-                    }
-                    else {
-                        console.log("Error in fetching block type", response)
-                    }
-                });
 
-            }
-            else {
-                console.log("Error: ", response);
-            }
-        });
     }
 
     RedirectPage = (newpage) => {
@@ -68,7 +55,7 @@ class AddBlockData extends Component
 
     handleDataEntry = ((data_type) => {
         let data = {};
-        if (data_type===3){
+        if (data_type==="employment"){
             data = {
                 role:this.state.role,
                 company:this.state.company,
@@ -77,7 +64,7 @@ class AddBlockData extends Component
                 technologies:this.state.technologies,
                 highlights:this.state.highlights
             };
-        }else if(data_type===1){
+        }else if(data_type==="educational"){
             data = {
                 university:this.state.university,
                 start_date:this.state.start_date,
@@ -86,27 +73,37 @@ class AddBlockData extends Component
                 gpa:this.state.gpa,
                 notes:this.state.notes
             };
-        }else if(data_type===2) {
+        }else if(data_type==="medical") {
             data = {
                 test_date: this.state.test_date,
                 test_type: this.state.test_type,
                 tests: this.state.tests,
                 result: this.state.result
             };
-        }else if(data_type===4) {
+        }else if(data_type==="driving") {
             data = {
                 driving_license: this.state.driving_license,
                 incident_date: this.state.incident_date,
                 notes: this.state.notes
             };
         }
-        else if(data_type===5) {
+        else if(data_type==="criminal") {
             data = {
                 case_type : this.state.case_type,
-                case_id : this.case.case_id,
+                case_id : this.state.case_id,
                 case_start_date : this.state.case_start_date,
                 case_end_date : this.state.case_end_date,
                 notes: this.state.notes
+            };
+        }
+        else if(data_type==="residential") {
+            data = {
+                address_line_1 : this.state.address_line_1,
+                address_line_2 : this.state.address_line_2,
+                city : this.state.city,
+                state : this.state.state,
+                country: this.state.country,
+                zip : this.state.zip
             };
         }
         //console.log("handleDataEntry: ", this.props.location.state);
@@ -117,7 +114,7 @@ class AddBlockData extends Component
             user_id : this.props.location.state.id,
             block_data : {
                 operation_type: 1,
-                block_type: data_type,
+                block_type: this.props.record_types[data_type],
                 data: data
             }
         };
@@ -288,7 +285,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(3)}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry("employment")}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -393,7 +390,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(1)}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry("educational")}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -465,7 +462,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(2)}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry("medical")}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -525,7 +522,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(4)}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry("driving")}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -611,7 +608,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry(5)}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry("criminal")}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -723,7 +720,7 @@ class AddBlockData extends Component
 
                                                     <div className="form-actions right">
                                                         <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry()}}>Submit</button>
+                                                        <button type="button" className="btn blue" onClick={()=>{this.handleDataEntry("residential")}}>Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -743,13 +740,12 @@ class AddBlockData extends Component
 }
 
 function mapStateToProps(reducer_state) {
+    console.log("Reducer State", reducer_state)
     return {
-        user: reducer_state.user_reducer
+        user: reducer_state.user_reducer,
+        record_types : reducer_state.record_type_reducer
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({user_addiiton_success: user_addiiton_success}, dispatch)
-}
 
 export default withRouter(connect(mapStateToProps, null)(AddBlockData));

@@ -10,6 +10,7 @@ import {Home} from "@material-ui/icons";
 import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
+import {BackendGetWithoutSession} from "../api/Util";
 
 
 const rows = [
@@ -102,6 +103,30 @@ class ViewAccess extends Component {
             country : "",
             phone : ""
         }
+    }
+
+    componentWillMount() {
+        let endpoint='api/v1/get_all_request_status';
+        let method='GET';
+        BackendGetWithoutSession(endpoint,method).then((response) => {
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    if(data.message==="success") {
+                        console.log("Fetched my requests");
+                        console.log("[Get All request status]: ", JSON.parse(data.data));
+                        var obj = JSON.parse(data.data);
+                        console.log(obj)
+                    }
+                    else {
+                        console.log("Error in fetching block type", response)
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+            }
+        });
     }
 
     handleDataEntry = (() => {

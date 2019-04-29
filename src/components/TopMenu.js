@@ -5,7 +5,8 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem ,Dropdown} from 'reactstrap';
 import angdown from 'react-icons/lib/fa/angle-down'
-import {BackendCred} from "../api/Util";
+import {BackendCred, BackendGetWithoutSession} from "../api/Util";
+import {record_type_fetch} from "../actions/user";
 
 class TopMenu extends Component {
     constructor(props) {
@@ -15,6 +16,35 @@ class TopMenu extends Component {
         this.state = {
             dropdownOpen: false
         };
+    }
+
+    componentWillMount() {
+        let endpoint='api/v1/get_block_types';
+        let method='GET';
+        BackendGetWithoutSession(endpoint,method).then((response) => {
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    if(data.message==="success") {
+                        //console.log("Fetched block types");
+                        //console.log("[Get Block types]: ", JSON.parse(data.data));
+                        var obj = JSON.parse(data.data);
+                        var type = {}
+                        for(var i=0;i<obj.length;i++){
+                            type[obj[i].type] = obj[i].id
+                        }
+                        //console.log(type)
+                        this.props.record_type_fetch(type);
+                    }
+                    else {
+                        console.log("Error in fetching block type", response)
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+            }
+        });
     }
 
     toggle() {
@@ -85,4 +115,8 @@ function mapStateToProps(reducer_state) {
     };
 }
 
-export default withRouter(connect(mapStateToProps)(TopMenu));
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({record_type_fetch: record_type_fetch}, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TopMenu));
