@@ -44,3 +44,15 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# Project Dependancies
+
+This project contains Front End part of project "User Authentication Using Blockchain Technology".
+
+The whole project is divided in 3 parts
+1) [User Interface](https://github.com/varun1524/user_authentication_blockchain_ui)
+2) [Back End Server](https://github.com/divyang8842/User-Authentication-using-blockchain-technology)
+3) [Blockchain Network](https://github.com/varun1524/user_authentication_blockchain_hyperledger)
+
+In order to run the application, we need to have all 3 part of application running in the system.
+

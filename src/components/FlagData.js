@@ -12,15 +12,19 @@ import {BackendCred} from "../api/Util";
 import {connect} from "react-redux";
 import {getUserProfile} from "../api/userAPI";
 import history from "../history";
+import Card from 'react-bootstrap/Card';
+import Button from "react-bootstrap/Button";
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
 
 const static_data = [
     {
-        company: "svkjndj",
-        end_date: "2019-04-27",
-        highlights: "acsdcsw",
-        role: "intern",
-        start_date: "2019-04-05",
-        technologies: "asdcds"
+        company: "Abc Technologies",
+        end_date: "2012-04-27",
+        highlights: "This are the highlights",
+        role: "Sr Software Engineer",
+        start_date: "2015-05-09",
+        technologies: "C#, Java, Asp.NET, JavaScript"
     },
     {
         company: "nehaj",
@@ -32,11 +36,11 @@ const static_data = [
     },
     {
         company: "rajb",
-        end_date: "2019-04-27",
-        highlights: "acsdcsw",
-        role: "intern",
+        end_date: "2020-06-29",
+        highlights: "THE HIGHLIGHTS",
+        role: "Software Engineer",
         start_date: "2019-04-05",
-        technologies: "asdcds"
+        technologies: "Machine Learning"
     }
 ]
 
@@ -120,6 +124,14 @@ function getCellActions(column, row) {
 
 }
 
+const divStyle={
+    overflowY: 'scroll',
+    border:'1px solid red',
+    width:'500px',
+    float: 'left',
+    height:'500px',
+    position:'relative'
+};
 
 const handleFilterChange = filter => filters => {
     const newFilters = { ...filters };
@@ -140,7 +152,7 @@ const ROW_HEIGHT = 200;
 
 const Panel = ({ title, children }) => {
     return (
-        <div className="panel panel-default">
+        <div className="panel ">
             <div className="panel-heading h3 text-grey">Company: {title}</div>
             <div className="panel-body">{children}</div>
         </div>
@@ -156,7 +168,7 @@ const Contact = ({
                      technologies
                  }) => {
     return (
-        <div>
+
             <address>
 
                 <label>Position: &nbsp;</label> {role}
@@ -167,7 +179,7 @@ const Contact = ({
                 <br />
                 <label>Technologies: &nbsp;</label>{technologies}
             </address>
-        </div>
+
     );
 };
 
@@ -192,7 +204,6 @@ function Table({ rows }) {
             rowRenderer={RowRenderer}
             onAddFilter={filter => setFilters(handleFilterChange(filter))}
             onClearFilters={() => setFilters({})}
-            enableCellSelect={true}
             getCellActions={getCellActions}
         />
     );
@@ -361,24 +372,6 @@ class FlagData extends Component {
                                 </li>
                             </ul>
                         </div>
-                        /*<div className="row">
-                            <div className="col-md-12">
-                                <div className="portlet box blue">
-                                    <div className="portlet-title">
-                                        <div className="caption">Experience Details</div>
-                                    </div>
-                                    <div className="portlet-body form">
-                                        <div className="form-body">
-
-                                            <div className="row">
-                                                {/*<Table className="myreact-grid-Header myreact-grid-Viewport myreact-grid-Toolbar" rows={this.state.rows1} />*/}
-                                               /* <Table rows={this.state.rows1} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*/
 
                         <div className="row">
                             <div className="col-md-12">
@@ -388,11 +381,22 @@ class FlagData extends Component {
                                     </div>
                                     <div className="portlet-body form">
                                         <div className="form-body">
-
-                                            <div className="row">
-                                                <Table rows={static_data} />
-
-                                            </div>
+                                                    <div className="row">
+                                                        <Card>
+                                                            <Card.Header as="h2">{static_data[0].company}</Card.Header>
+                                                            <Card.Body>
+                                                                <Card.Title as="h3">{static_data[0].role}</Card.Title>
+                                                                <Card.Text>
+                                                                    <p>
+                                                                        <strong>Start Date - End Date: </strong> {static_data[0].start_date} - {static_data[0].end_date} <br/>
+                                                                        <strong>Technologies: </strong>{static_data[0].technologies} <br/>
+                                                                        <strong>Highlights: </strong>{static_data[0].highlights}
+                                                                    </p>
+                                                                </Card.Text>
+                                                                <Button variant="primary">Go somewhere</Button>
+                                                            </Card.Body>
+                                                        </Card>
+                                                    </div>
                                         </div>
                                     </div>
                                 </div>
