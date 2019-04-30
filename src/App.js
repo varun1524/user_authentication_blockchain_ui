@@ -30,6 +30,7 @@ import AccessRequest from "./components/AccessRequest";
 import ViewAccess from "./components/ViewAccess";
 import ViewData from "./components/ViewData";
 import EducationBlockAdd from "./components/EducationBlockAdd";
+import ResetPassword from "./components/ResetPassword";
 
 class App extends Component {
     handlePageChange = ((page)=>{
@@ -154,6 +155,12 @@ class App extends Component {
                                         handlePageChange = {this.handlePageChange}
                                     />)}
                                 />
+                                <Route path= "/resetpassword" render = {() => (
+                                    <ResetPassword
+                                        handlePageChange = {this.handlePageChange}
+                                    />)}
+                                />
+
                             </div>
                         </Router>
                     </Switch>

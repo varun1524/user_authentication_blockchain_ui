@@ -258,7 +258,7 @@ class UserSearch extends Component {
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <div className="col-md-6">
+                                                <div className="col-md-5">
                                                     <div className="form-group">
                                                         <label className="control-label">Search By</label>
                                                         <select className="form-control"
@@ -279,7 +279,7 @@ class UserSearch extends Component {
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-5">
                                                     <div className="form-group">
                                                         <label className="control-label">Parameter</label>
                                                         <input type="text" id="firstName" className="form-control" placeholder="Parameter"
@@ -293,13 +293,22 @@ class UserSearch extends Component {
                                                         <span id="givenNameErr"/>
                                                     </div>
                                                 </div>
+
+                                                <div className="col-md-2">
+                                                    <button type="button" className="btn btn-primary mytop" onClick={()=>{this.handleDataEntry()}}>Search</button>
+                                                </div>
                                             </div>
 
 
-                                            <div className="form-actions right">
-                                                <button type="button" className="btn btn-primary" onClick={()=>{this.handleDataEntry()}}>Search</button>&nbsp;
+                                            {/*<div className="form-actions right">
+                                                <button type="button" className="btn btn-primary" onClick={() => {
+                                                    this.handleDataEntry()
+                                                }}>Search
+                                                </button>
+                                                &nbsp;
 
                                             </div>
+                                            */}
                                             <div className="row">
                                                 <h3 className="form-section">Search Results
                                                 </h3>

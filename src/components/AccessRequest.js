@@ -252,6 +252,48 @@ class AccessRequest extends Component {
                                         <div className="form-body">
 
                                             <div className="row">
+                                                <div className="col-md-5">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Search By</label>
+                                                        <select className="form-control"
+                                                                onChange={(event) => {
+                                                                    this.setState({
+                                                                        ...this.state,
+                                                                        search_by : event.target.value
+                                                                    })
+                                                                }}
+                                                        >
+                                                            <option value="">---Select One---</option>
+                                                            <option value="given_name">Given Name</option>
+                                                            <option value="last_name">Last Name</option>
+                                                            <option value="email">Email id</option>
+                                                            <option value="zip">Zip</option>
+                                                            <option value="city">City</option>
+                                                            <option value="phone">Phone</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-5">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Parameter</label>
+                                                        <input type="text" id="firstName" className="form-control" placeholder="Parameter"
+                                                               onChange={(event) => {
+                                                                   this.setState({
+                                                                       ...this.state,
+                                                                       search_value : event.target.value
+                                                                   })
+                                                               }}
+                                                        />
+                                                        <span id="givenNameErr"/>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-2">
+                                                    <button type="button" className="btn btn-primary mytop" onClick={()=>{this.handleDataEntry()}}>Search</button>
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
                                                 <Table rows={this.state.rows1} />
 
                                             </div>
