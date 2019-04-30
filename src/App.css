@@ -63,7 +63,7 @@ body {
 }
 
 .page-header.navbar.navbar-fixed-top, .page-header.navbar.navbar-static-top {
-  z-index: 9995;
+  z-index: 1011;
 }
 
 .page-header.navbar {
@@ -644,6 +644,22 @@ body, h1, h2, h3, h4, h5, h6 {
 .mytop
 {
   margin-top:22px;
+}
+
+.modal-content {
+  background-clip: padding-box;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  outline: 0 none;
+  position: relative;
+  top:250px;
+}
+
+.modal-backdrop.fade {
+  filter: alpha(opacity=0);
+  opacity: .5 !important;
 }
 
 

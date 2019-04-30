@@ -12,6 +12,8 @@ import history from '../history';
 import {BackendCred} from "../api/Util"
 import {connect} from "react-redux";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
 
 const defaultColumnProperties = {
@@ -151,10 +153,57 @@ function Example({ rows }) {
     );
 }
 
+class MyVerticallyCenteredModal extends React.Component {
+    render() {
+        return (
+            <Modal
+                {...this.props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Edit User Data
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label className="control-label">User Type</label>
+                                <select className="form-control"
+                                        onChange={(event) => {
+                                            this.setState({
+                                                ...this.state,
+                                                user_type : event.target.value
+                                            })
+                                        }}
+                                >
+                                    <option value="0">----SELECT ONE----</option>
+                                    <option value="3">Organization User</option>
+                                    <option value="4">Normal User</option>
+                                </select>
+                                <span id="userTypeErr"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.props.onHide}>Close</Button>
+                    <Button onClick={this.props.onHide}>Submit</Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    }
+}
+
 
 class UserSearch extends Component {
-    constructor() {
-        super();
+    constructor(...args) {
+        super(...args);
+        this.state = { modalShow: false };
         this.state = {
             search_by:"",
             search_value:"",
@@ -224,8 +273,10 @@ class UserSearch extends Component {
     });
 
     render() {
+        let modalClose = () => this.setState({ modalShow: false });
         console.log("[UserSearch] render method");
         return (
+
             <div>
                 <TopMenu/>
                 <div className="">
@@ -298,6 +349,14 @@ class UserSearch extends Component {
                                                     <button type="button" className="btn btn-primary mytop" onClick={()=>{this.handleDataEntry()}}>Search</button>
                                                 </div>
                                             </div>
+                                            <div className="row">
+                                                <Button
+                                                    variant="primary"
+                                                    onClick={() => this.setState({ modalShow: true })}
+                                                >
+                                                    Launch vertically centered modal
+                                                </Button>
+                                            </div>
 
 
                                             {/*<div className="form-actions right">
@@ -313,6 +372,11 @@ class UserSearch extends Component {
                                                 <h3 className="form-section">Search Results
                                                 </h3>
 
+
+                                                <MyVerticallyCenteredModal
+                                                    show={this.state.modalShow}
+                                                    onHide={modalClose}
+                                                />
                                                 <Example className="table-responsive" rows={this.state.rows1} />
                                             </div>
                                         </div>
