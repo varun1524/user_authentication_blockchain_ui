@@ -26,6 +26,8 @@ const columns = [
     { key: "name", name: "Name"},
     { key: "req_type", name:"Requestor"},
     { key: "category", name: "Data Type"},
+    { key: "date", name:"Date"},
+    { key: "status", name:"Status"},
     { key: "action", name: "Action"}
 ].map(c => ({ ...c, ...defaultColumnProperties }));
 
@@ -35,7 +37,7 @@ function accessRequest(id, end_point){
     let endpoint = 'api/v1/' + end_point ;
     let method = 'POST'
     let payload = {
-        "request_id":id
+        "id":id
     };
     BackendCredBody(payload, endpoint, method).then((response) => {
         console.log(response)
@@ -100,6 +102,8 @@ function getRows(rows, filters) {
     return selectors.getRows({ rows, filters });
 }
 
+const ROW_COUNT = 50;
+
 function Table({ rows }) {
     const [filters, setFilters] = useState({});
     const filteredRows = getRows(rows, filters);
@@ -132,8 +136,7 @@ class AccessRequest extends Component {
         let method = 'GET'
         let payload = {}
         BackendCred(payload, endpoint, method).then((response) => {
-            console.log(response.status);
-            console.log(response.data);
+            console.log(response);
             if (response.status === 200) {
                 response.json().then((data) => {
                     if(data.message==="success") {
@@ -152,6 +155,8 @@ class AccessRequest extends Component {
                                 id : obj['id'],
                                 name : obj['name'].replace('Organization,',''),
                                 req_type : per_type,
+                                date : obj['requested_date'].substring(0,10),
+                                status : obj['status'],
                                 category : obj['category']
                             };
                             rows.push(data_to_be_added);

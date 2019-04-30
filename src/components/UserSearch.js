@@ -297,8 +297,7 @@ class UserSearch extends Component {
 
 
                                             <div className="form-actions right">
-                                                <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                <button type="button" className="btn btn-primary" onClick={()=>{this.handleDataEntry()}}>Get List</button>&nbsp;
+                                                <button type="button" className="btn btn-primary" onClick={()=>{this.handleDataEntry()}}>Search</button>&nbsp;
 
                                             </div>
                                             <div className="row">

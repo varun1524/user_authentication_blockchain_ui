@@ -216,8 +216,134 @@ class FlagData extends Component {
     constructor() {
         super();
         this.state = {
-            rows1: []
+            educational: [],
+            medical : [],
+            employment : [],
+            driving : [],
+            criminal : [],
+            residential : []
         }
+    }
+
+    findDataType(record_type_id){
+        var jsonData = this.props.record_types;
+        for(let i in jsonData){
+            var key = i;
+            var val = jsonData[i];
+            if (val === record_type_id){
+                return key;
+            }
+        }
+    }
+
+    fetchdata(){
+        let endpoint = 'api/v1/get_user_record?user_id='+this.props.user.id;
+        let method = 'GET'
+        let payload = {}
+        BackendCred(payload, endpoint, method).then((response) => {
+            console.log(response.status);
+            console.log(response.data);
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    if(data.message==="success") {
+                        //alert("User can view inserted block data")
+                        console.log("View My Data normal user", data)
+                        let rcvd_data = (data.data.block_data);
+                        console.log("rcvd_data : ", rcvd_data)
+                        let employment_rows = [];
+                        let medical_rows = [];
+                        let educational_rows = [];
+                        let driving_rows = [];
+                        let criminal_rows = [];
+                        let residential_rows = [];
+                        for (var i = 0; i < rcvd_data.length; i++){
+                            var obj = rcvd_data[i];
+
+                            // Create different types of arrays
+                            // console.log("[FlagData] ", this.findDataType(obj['block_type']))
+                            if(this.findDataType(obj['block_type'])==="employment"){
+                                let data_to_be_added = {
+                                    block_id : obj['block_id'],
+                                    company : obj.data['company'],
+                                    start_date : obj.data['start_date'],
+                                    end_date : obj.data['end_date'],
+                                    role : obj.data['role'],
+                                    technologies : obj.data['technologies'],
+                                    highlights : obj.data['highlights']
+                                };
+                                employment_rows.push(data_to_be_added);
+                            }
+                            else if(this.findDataType(obj['block_type'])==="educational"){
+                                let data_to_be_added = {
+                                    block_id : obj['block_id'],
+                                    university: obj.data['university'],
+                                    start_date:obj.data['start_date'],
+                                    end_date:obj.data['end_date'],
+                                    degree_type: obj.data['degree_type'],
+                                    gpa:obj.data['gpa'],
+                                    notes:obj.data['notes']
+                                };
+                                educational_rows.push(data_to_be_added);
+                            }else if(this.findDataType(obj['block_type'])==="medical"){
+                                let data_to_be_added = {
+                                    block_id : obj['block_id'],
+                                    test_date: obj.data['test_date'],
+                                    test_type: obj.data['test_type'],
+                                    tests: obj.data['tests'],
+                                    result: obj.data['result']
+                                };
+                                medical_rows.push(data_to_be_added);
+                            }else if(this.findDataType(obj['block_type'])==="driving"){
+                                let data_to_be_added = {
+                                    block_id : obj['block_id'],
+                                    driving_license: obj.data['driving_license'],
+                                    incident_date: obj.data['incident_date'],
+                                    notes: obj.data['notes']
+                                };
+                                driving_rows.push(data_to_be_added);
+                            }else if(this.findDataType(obj['block_type'])==="criminal"){
+                                let data_to_be_added = {
+                                    block_id : obj['block_id'],
+                                    case_type : obj.data['case_type'],
+                                    case_id : obj.data['case_id'],
+                                    case_start_date : obj.data['case_start_date'],
+                                    case_end_date : obj.data['case_end_date'],
+                                    notes: obj.data['notes']
+                                };
+                                criminal_rows.push(data_to_be_added);
+                            }else if(this.findDataType(obj['block_type'])==="residential"){
+                                let data_to_be_added = {
+                                    block_id : obj['block_id'],
+                                    address_line_1 : obj.data['address_line_1'],
+                                    address_line_2 : obj.data['address_line_2'],
+                                    city : obj.data['city'],
+                                    state : obj.data['state'],
+                                    country: obj.data['country'],
+                                    zip : obj.data['zip']
+                                };
+                                residential_rows.push(data_to_be_added);
+                            }
+
+                        }
+                        this.setState({
+                            ...this.state,
+                            employment: employment_rows,
+                            educational: educational_rows,
+                            medical : medical_rows,
+                            driving : driving_rows,
+                            criminal : criminal_rows,
+                            residential : residential_rows
+                        });
+                        console.log("[FlagData] Employment rows: ", employment_rows)
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+                alert("Could not request the access");
+            }
+        });
     }
 
     componentWillMount() {
@@ -241,50 +367,8 @@ class FlagData extends Component {
                             console.log("[Flag Data] data in flag data after get_user_info",JSON.parse(data.data));
                             this.props.user_profile_fetch(JSON.parse(data.data));
                             console.log("[FlagData]fetched reducer",this.props.user)
-                            let endpoint = 'api/v1/get_user_record?user_id='+this.props.user.id;
-                            let method = 'GET'
-                            let payload = {}
-
-
                             console.log("[FlagData] Componentwillmount")
-                            console.log(endpoint)
-                            BackendCred(payload, endpoint, method).then((response) => {
-                                console.log(response.status);
-                                console.log(response.data);
-                                if (response.status === 200) {
-                                    response.json().then((data) => {
-                                        if(data.message==="success") {
-                                            //alert("User can view inserted block data")
-                                            console.log("View My Data normal user", data)
-                                            let rcvd_data = (data.data.block_data);
-                                            console.log("rcvd_data : ", rcvd_data)
-                                            let rows = [];
-                                            for (var i = 0; i < rcvd_data.length; i++){
-                                                var obj = rcvd_data[i].data;
-                                                var data_to_be_added = {
-                                                    company : obj['company'],
-                                                    start_date : obj['start_date'],
-                                                    end_date : obj['end_date'],
-                                                    role : obj['role'],
-                                                    technologies : obj['technologies'],
-                                                    highlights : obj['highlights']
-                                                };
-                                                rows.push(data_to_be_added);
-                                            }
-                                            this.setState({
-                                                ...this.state,
-                                                rows1: rows
-                                            });
-                                            console.log("[FlagData] : ", rows)
-                                        }
-                                    });
-
-                                }
-                                else {
-                                    console.log("Error: ", response);
-                                    alert("Could not request the access");
-                                }
-                            });
+                            this.fetchdata();
                         }
                         else {
                             //alert("not logged in")
@@ -299,51 +383,7 @@ class FlagData extends Component {
             });
         }
         else{
-            let endpoint = 'api/v1/get_user_record?user_id='+this.props.user.id;
-            let method = 'GET'
-            let payload = {}
-
-
-            console.log("[FlagData] Componentwillmount")
-            console.log(endpoint)
-            BackendCred(payload, endpoint, method).then((response) => {
-                console.log("[Response from Blockchain]", response)
-                console.log(response.status);
-                console.log(response.data);
-                if (response.status === 200) {
-                    response.json().then((data) => {
-                        if(data.message==="success") {
-                            //alert("User can view inserted block data")
-                            console.log("View My Data normal user", data)
-                            let rcvd_data = (data.data.block_data);
-                            console.log("rcvd_data : ", rcvd_data)
-                            let rows = [];
-                            for (var i = 0; i < rcvd_data.length; i++){
-                                var obj = rcvd_data[i].data;
-                                var data_to_be_added = {
-                                    company : obj['company'],
-                                    start_date : obj['start_date'],
-                                    end_date : obj['end_date'],
-                                    role : obj['role'],
-                                    technologies : obj['technologies'],
-                                    highlights : obj['highlights']
-                                };
-                                rows.push(data_to_be_added);
-                            }
-                            this.setState({
-                                ...this.state,
-                                rows1: rows
-                            });
-                            console.log("[FlagData] : ", rows)
-                        }
-                    });
-
-                }
-                else {
-                    console.log("Error: ", response);
-                    alert("Could not request the access");
-                }
-            });
+            this.fetchdata()
         }
 
 
@@ -412,9 +452,11 @@ class FlagData extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
-        user: reducer_state.user_reducer
+        user: reducer_state.user_reducer,
+        record_types : reducer_state.record_type_reducer
     };
 }
+
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_profile_fetch: user_profile_fetch}, dispatch)
