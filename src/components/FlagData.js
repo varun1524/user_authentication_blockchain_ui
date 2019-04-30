@@ -260,7 +260,7 @@ class FlagData extends Component {
                             var obj = rcvd_data[i];
 
                             // Create different types of arrays
-                            // console.log("[FlagData] ", this.findDataType(obj['block_type']))
+                            console.log("[FlagData] ", this.findDataType(obj['block_type']))
                             if(this.findDataType(obj['block_type'])==="employment"){
                                 let data_to_be_added = {
                                     block_id : obj['block_id'],
@@ -314,6 +314,7 @@ class FlagData extends Component {
                             }else if(this.findDataType(obj['block_type'])==="residential"){
                                 let data_to_be_added = {
                                     block_id : obj['block_id'],
+                                    start_date : obj.data['start_date'],
                                     address_line_1 : obj.data['address_line_1'],
                                     address_line_2 : obj.data['address_line_2'],
                                     city : obj.data['city'],
@@ -422,20 +423,191 @@ class FlagData extends Component {
                                     <div className="portlet-body form">
                                         <div className="form-body">
                                                     <div className="row">
-                                                        <Card>
-                                                            <Card.Header as="h2">{static_data[0].company}</Card.Header>
-                                                            <Card.Body>
-                                                                <Card.Title as="h3">{static_data[0].role}</Card.Title>
-                                                                <Card.Text>
-                                                                    <p>
-                                                                        <strong>Start Date - End Date: </strong> {static_data[0].start_date} - {static_data[0].end_date} <br/>
-                                                                        <strong>Technologies: </strong>{static_data[0].technologies} <br/>
-                                                                        <strong>Highlights: </strong>{static_data[0].highlights}
-                                                                    </p>
-                                                                </Card.Text>
-                                                                <Button variant="primary">Go somewhere</Button>
-                                                            </Card.Body>
-                                                        </Card>
+
+                                                        {(this.state.employment.length !== 0) ?
+                                                            <div>
+                                                                <h3 className="form-section">Employment</h3>
+                                                                {this.state.employment.map(function (item, i) {
+                                                                    return (
+                                                                        <div>
+                                                                            <Card>
+                                                                                <Card.Header
+                                                                                    as="h2">{item.company}</Card.Header>
+                                                                                <Card.Body>
+                                                                                    <Card.Title
+                                                                                        as="h3">{item.role}</Card.Title>
+                                                                                    <Card.Text>
+                                                                                        <p>
+                                                                                            <strong>Start Date - End
+                                                                                                Date: </strong> {item.start_date} - {item.end_date}
+                                                                                            <br/>
+                                                                                            <strong>Technologies: </strong>{item.technologies}
+                                                                                            <br/>
+                                                                                            <strong>Highlights: </strong>{item.highlights}
+                                                                                        </p>
+                                                                                    </Card.Text>
+                                                                                    <Button variant="primary" onClick={()=>{alert(item.block_id)}}>
+                                                                                        Flg this data</Button>
+                                                                                </Card.Body>
+                                                                            </Card>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div> : ''
+                                                        }
+
+                                                        {(this.state.educational.length !== 0) ?
+                                                            <div>
+                                                                <h3 className="form-section">Education</h3>
+                                                                {this.state.educational.map(function (item, i) {
+                                                                    return (
+
+                                                                            <Card>
+                                                                                <Card.Header
+                                                                                    as="h2">{item.university}</Card.Header>
+                                                                                <Card.Body>
+                                                                                    <Card.Title
+                                                                                        as="h3">{item.degree_type}</Card.Title>
+                                                                                    <Card.Text>
+                                                                                        <p>
+                                                                                            <strong>Start Date - End Date: </strong> {item.start_date} - {item.end_date}
+                                                                                            <br/>
+                                                                                            <strong>GPA: </strong>{item.gpa}
+                                                                                            <br/>
+                                                                                            <strong>Notes: </strong>{item.notes}
+                                                                                        </p>
+                                                                                    </Card.Text>
+                                                                                    <Button variant="primary" onClick={()=>{alert(JSON.stringify(item))}}>
+                                                                                        Flag this data</Button>
+                                                                                </Card.Body>
+                                                                            </Card>
+
+                                                                    )
+                                                                })}
+                                                            </div> : ''
+                                                        }
+
+                                                        {(this.state.medical.length !== 0) ?
+                                                            <div>
+                                                                <h3 className="form-section">Medical</h3>
+                                                                {this.state.medical.map(function (item, i) {
+                                                                    return (
+                                                                        <div>
+                                                                            <Card>
+
+                                                                                <Card.Body>
+
+                                                                                    <Card.Text>
+                                                                                        <p>
+                                                                                            <strong>Test date: </strong> {item.test_date}
+                                                                                            <br/>
+                                                                                            <strong>Test type: </strong>{item.test_type}
+                                                                                            <br/>
+                                                                                            <strong>Tests: </strong>{item.tests}
+                                                                                            <br/>
+                                                                                            <strong>Result: </strong>{item.result}
+                                                                                        </p>
+                                                                                    </Card.Text>
+                                                                                    <Button variant="primary" onClick={()=>{alert(JSON.stringify(item))}}>
+                                                                                        Flag this data</Button>
+                                                                                </Card.Body>
+                                                                            </Card>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div> : ''
+                                                        }
+                                                        {(this.state.driving.length !== 0) ?
+                                                            <div>
+                                                                <h3 className="form-section">Driving Records</h3>
+                                                                {this.state.driving.map(function (item, i) {
+                                                                    return (
+                                                                        <div>
+                                                                            <Card>
+                                                                                <Card.Body>
+                                                                                    <Card.Text>
+                                                                                        <p>
+                                                                                            <strong>Driving License: </strong> {item.driving_license}
+                                                                                            <br/>
+                                                                                            <strong>Incident Date: </strong>{item.incident_date}
+                                                                                            <br/>
+                                                                                            <strong>Notes: </strong>{item.notes}
+                                                                                        </p>
+                                                                                    </Card.Text>
+                                                                                    <Button variant="primary" onClick={()=>{alert(item.block_id)}}>
+                                                                                        Flg this data</Button>
+                                                                                </Card.Body>
+                                                                            </Card>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div> : ''
+                                                        }
+                                                        {(this.state.criminal.length !== 0) ?
+                                                            <div>
+                                                                <h3 className="form-section">Criminal Records</h3>
+                                                                {this.state.criminal.map(function (item, i) {
+                                                                    return (
+                                                                        <div>
+                                                                            <Card>
+
+                                                                                <Card.Body>
+                                                                                    <Card.Text>
+                                                                                        <p>
+                                                                                            <strong>Case Type: </strong> {item.case_type}
+                                                                                            <br/>
+                                                                                            <strong>Case ID: </strong>{item.case_id}
+                                                                                            <br/>
+                                                                                            <strong>Start Date - End
+                                                                                                Date: </strong> {item.case_start_date} - {item.case_end_date}
+                                                                                            <br/>
+                                                                                            <strong>Notes: </strong>{item.notes}
+                                                                                        </p>
+                                                                                    </Card.Text>
+                                                                                    <Button variant="primary" onClick={()=>{alert(item.block_id)}}>
+                                                                                        Flg this data</Button>
+                                                                                </Card.Body>
+                                                                            </Card>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div> : ''
+                                                        }
+
+                                                        {(this.state.residential.length !== 0) ?
+                                                            <div>
+                                                                <h3 className="form-section">Residential History</h3>
+                                                                {this.state.residential.map(function (item, i) {
+                                                                    return (
+                                                                        <div>
+                                                                            <Card>
+                                                                                <Card.Body>
+                                                                                    <Card.Title
+                                                                                        as="h3">{item.country}</Card.Title>
+                                                                                    <Card.Text>
+                                                                                        <p>
+                                                                                            <strong>Start Date </strong> {item.start_date}
+                                                                                            <br/>
+                                                                                            <strong>Address Line 1: </strong>{item.address_line_1}
+                                                                                            <br/>
+                                                                                            <strong>Address Line 2: </strong>{item.address_line_2}
+                                                                                            <br/>
+                                                                                            <strong>City: </strong>{item.city}
+                                                                                            <br/>
+                                                                                            <strong>State: </strong>{item.state}
+                                                                                            <br/>
+                                                                                            <strong>Zip: </strong>{item.zip}
+                                                                                        </p>
+                                                                                    </Card.Text>
+                                                                                    <Button variant="primary" onClick={()=>{alert(item.block_id)}}>
+                                                                                        Flg this data</Button>
+                                                                                </Card.Body>
+                                                                            </Card>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div> : ''
+                                                        }
                                                     </div>
                                         </div>
                                     </div>

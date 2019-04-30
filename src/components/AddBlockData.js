@@ -98,6 +98,7 @@ class AddBlockData extends Component
         }
         else if(data_type==="residential") {
             data = {
+                start_date : this.state.start_date,
                 address_line_1 : this.state.address_line_1,
                 address_line_2 : this.state.address_line_2,
                 city : this.state.city,
