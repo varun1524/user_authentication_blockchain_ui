@@ -16,7 +16,7 @@ class AddNewUser extends Component {
             last_name : "",
             dob : "",
             email : "",
-            user_type: ""
+            user_type: 0
         }
     }
 
@@ -28,6 +28,19 @@ class AddNewUser extends Component {
         }
         else if(this.state.user_type===0){
             document.getElementById('userTypeErr').innerHTML = 'User Type is required';
+        }
+
+        if (this.state.user_type==="Normal User"){
+            this.setState({
+                ...this.state,
+                user_type : 4
+            })
+        }
+        else{
+            this.setState({
+                ...this.state,
+                user_type : 3
+            })
         }
 
         let payload = {

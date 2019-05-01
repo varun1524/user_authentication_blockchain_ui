@@ -32,88 +32,9 @@ const selectors = Data.Selectors;
 
 let org_id;
 
-const InOrganizationActions_NoBlock = (rowdata) => [
-    {
-        icon: "glyphicon glyphicon-link",
-        actions: [
-            {
-                text: "Edit",
-                callback: () => {
-                    //alert("Sends to Edit Page: "+JSON.stringify(rowdata));
-                }
-            },
-            {
-                text: "Delete",
-                callback: () => {
-                    //alert("Removes from Org: "+JSON.stringify(rowdata));
-                }
-            },
-            {
-                text: "Add User Info",
-                callback: () => {
-                    history.push({pathname:'/addblockdata', state:rowdata});
-                }
-            }
-        ]
-    }
-];
-
-const InOrganizationActions_Block = (rowdata) => [
-    {
-        icon: "glyphicon glyphicon-link",
-        actions: [
-            {
-                text: "Edit",
-                callback: () => {
-                    console.log("Sends to Edit Page: "+JSON.stringify(rowdata));
-                }
-            },
-            {
-                text: "Delete",
-                callback: () => {
-                    console.log("Removes from Org: "+JSON.stringify(rowdata));
-                }
-            }
-        ]
-    }
-];
-
-const OutOrganizationActions= (rowdata) => [
-    {
-        icon: "glyphicon glyphicon-link",
-        actions: [
-            {
-                text: "Add to Organization",
-                callback: () => {
-                    console.log("Adds to Organization: "+JSON.stringify(rowdata)) ;
-                }
-            }
-        ]
-    }
-];
-
-function getCellActions(column, row) {
-    console.log("getCellActions: ", row,org_id);
-
-    const InOrgNoBlock = {
-        action: InOrganizationActions_NoBlock(row)
-    };
-    const InOrgBlock = {
-        action: InOrganizationActions_Block(row)
-    };
-    const OutOrg = {
-        action: OutOrganizationActions(row)
-    };
-    if(row.organization_id===org_id)
-    {
-        return InOrgNoBlock[column.key];
-    }
-    else {
-        return OutOrg[column.key];
-    }
 
 
-}
+
 
 const handleFilterChange = filter => filters => {
     const newFilters = { ...filters };
@@ -131,9 +52,96 @@ function getRows(rows, filters) {
 
 const ROW_COUNT = 50;
 
-function Example({ rows }) {
+function Example({ rows, onAction }) {
     const [filters, setFilters] = useState({});
     const filteredRows = getRows(rows, filters);
+
+
+    function getCellActions(column, row) {
+        console.log("getCellActions: ", row,org_id);
+
+        const InOrgNoBlock = {
+            action: InOrganizationActions_NoBlock(row)
+        };
+        const InOrgBlock = {
+            action: InOrganizationActions_Block(row)
+        };
+        const OutOrg = {
+            action: OutOrganizationActions(row)
+        };
+        if(row.organization_id===org_id)
+        {
+            return InOrgNoBlock[column.key];
+        }
+        else {
+            return OutOrg[column.key];
+        }
+
+
+    }
+
+    const InOrganizationActions_NoBlock = (rowdata) => [
+        {
+            icon: "glyphicon glyphicon-link",
+            actions: [
+                {
+                    text: "Edit",
+                    callback: () => {
+                        //alert("Sends to Edit Page: "+JSON.stringify(rowdata));
+                        onAction(rowdata.id);
+                    }
+                },
+                {
+                    text: "Delete",
+                    callback: () => {
+                        //alert("Removes from Org: "+JSON.stringify(rowdata));
+                    }
+                },
+                {
+                    text: "Add User Info",
+                    callback: () => {
+                        history.push({pathname:'/addblockdata', state:rowdata});
+                    }
+                }
+            ]
+        }
+    ];
+
+    const InOrganizationActions_Block = (rowdata) => [
+        {
+            icon: "glyphicon glyphicon-link",
+            actions: [
+                {
+                    text: "Edit",
+                    callback: () => {
+                        console.log("Sends to Edit Page: "+JSON.stringify(rowdata));
+                    }
+                },
+                {
+                    text: "Delete",
+                    callback: () => {
+                        console.log("Removes from Org: "+JSON.stringify(rowdata));
+                    }
+                }
+            ]
+        }
+    ];
+
+    const OutOrganizationActions= (rowdata) => [
+        {
+            icon: "glyphicon glyphicon-link",
+            actions: [
+                {
+                    text: "Add to Organization",
+                    callback: () => {
+                        onAction(rowdata.id);
+                        console.log("Adds to Organization: "+JSON.stringify(rowdata)) ;
+                    }
+                }
+            ]
+        }
+    ];
+
     // rows=rows;
     return (
         <ReactDataGrid
@@ -205,6 +213,34 @@ class UserSearch extends Component {
             search_value:"",
             rows1: []
         }
+    }
+
+    accessRequest = (id) => {
+        // data category from database
+        let endpoint = 'api/v1/add_user_organization' ;
+        let method = 'POST'
+        let payload = {
+            organization_id : org_id,
+            user_id: id,
+            user_role : 4
+        };
+        BackendCredBody(payload, endpoint, method).then((response) => {
+            console.log(response)
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    console.log(data);
+                    if(data.message==="success") {
+                        alert("Action taken successfully");
+                        this.handleDataEntry();
+                    }
+                });
+
+            }
+            else {
+                console.log("Error: ", response);
+                alert("Could not take the action");
+            }
+        });
     }
 
     handleDataEntry = (() => {
@@ -373,7 +409,7 @@ class UserSearch extends Component {
                                                     show={this.state.modalShow}
                                                     onHide={modalClose}
                                                 />
-                                                <Example className="table-responsive" rows={this.state.rows1} />
+                                                <Example className="table-responsive" rows={this.state.rows1} onAction={this.accessRequest}/>
                                             </div>
                                         </div>
                                     </div>
