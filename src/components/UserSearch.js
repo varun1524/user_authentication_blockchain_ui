@@ -9,7 +9,7 @@ import HomeIcon from "@material-ui/icons/Home"
 import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import history from '../history';
-import {BackendCred} from "../api/Util"
+import {BackendCred, BackendCredBody} from "../api/Util"
 import {connect} from "react-redux";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 
@@ -49,11 +49,7 @@ const InOrganizationActions_NoBlock = (rowdata) => [
             {
                 text: "Add User Info",
                 callback: () => {
-                    //alert("Redirect to Add Block: "+JSON.stringify(rowdata));
-                    //this.props.handlePageChange("/addblockdata");
-                    // history.push({pathname:'/addblockdata', state:JSON.stringify(rowdata)});
                     history.push({pathname:'/addblockdata', state:rowdata});
-                    //alert("after")
                 }
             }
         ]
