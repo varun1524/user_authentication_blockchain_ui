@@ -207,11 +207,11 @@ class MyVerticallyCenteredModal extends React.Component {
 class UserSearch extends Component {
     constructor(...args) {
         super(...args);
-        this.state = { modalShow: false };
         this.state = {
             search_by:"",
             search_value:"",
-            rows1: []
+            rows1: [],
+            modalShow: false
         }
     }
 
@@ -306,7 +306,6 @@ class UserSearch extends Component {
 
     render() {
         let modalClose = () => this.setState({ modalShow: false });
-        console.log("[UserSearch] render method");
         return (
 
             <div>
@@ -380,14 +379,6 @@ class UserSearch extends Component {
                                                 <div className="col-md-2">
                                                     <button type="button" className="btn btn-primary mytop" onClick={()=>{this.handleDataEntry()}}>Search</button>
                                                 </div>
-                                            </div>
-                                            <div className="row">
-                                                <Button
-                                                    variant="primary"
-                                                    onClick={() => this.setState({ modalShow: true })}
-                                                >
-                                                    Launch vertically centered modal
-                                                </Button>
                                             </div>
 
 

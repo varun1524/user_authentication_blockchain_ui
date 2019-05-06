@@ -38,7 +38,7 @@ class Page2 extends Component {
 
 
     handleDataEntry = (() => {
-        console.log('Updated state in edit profile page', this.state)
+        //console.log('Updated state in edit profile page', this.state)
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 

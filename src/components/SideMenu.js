@@ -73,7 +73,7 @@ class Menu extends Component {
         {
 
             icon: '',
-            label: 'Block Data',
+            label: 'User Data',
             content: [
                 {
                     icon: 'icon-class-name',
@@ -112,7 +112,7 @@ class Menu extends Component {
         {
 
             icon: '',
-            label: 'Block Data',
+            label: 'User Data',
             content: [
                 {
                     icon: 'icon-class-name',
@@ -149,18 +149,19 @@ class Menu extends Component {
         {
             icon: '',
             label: 'View Requests',
-            content: [
-                {
-                    icon: 'icon-class-name',
-                    label: 'Pending Requests',
-                    to: '/accessrequest',
-                },
-                {
-                    icon: 'icon-class-name',
-                    label: 'OtherRequests',
-                    to: '/viewaccess',
-                },
-            ]
+            to: '/accessrequest',
+            // content: [
+            //     {
+            //         icon: 'icon-class-name',
+            //         label: 'Pending Requests',
+            //         to: '/accessrequest',
+            //     },
+            //     {
+            //         icon: 'icon-class-name',
+            //         label: 'OtherRequests',
+            //         to: '/viewaccess',
+            //     },
+            // ]
         }
     ];
 
@@ -172,40 +173,36 @@ class Menu extends Component {
         //     }
         //     return true;
         // }
-        console.log("component will mount of side menu")
-
         // CAll get_user_info with user_id=current and then we will know who is logged in
         // check whether we have any logged in data in store or not, if not then redirect to login page
         let obj = this.props.user;
-        console.log("reducer object", obj);
         if(!obj.id) {
             // Object is empty -> user is not logged in
             // call get_user_info with user="current"
             let payload = {
                 "user_id" : "current"
             };
-            console.log("-----IN SIDE MENU-----",payload);
-            console.log("User data-->", this.props.user)
+            //console.log("-----IN SIDE MENU-----",payload);
+            //console.log("User data-->", this.props.user)
             getUserProfile(payload).then((response) => {
-                console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
                         console.log(data);
                         if(data.message==="success") {
-                            console.log("data in side menu after get_user_info",JSON.parse(data.data));
+                            //console.log("data in side menu after get_user_info",JSON.parse(data.data));
 
                             this.props.user_profile_fetch(JSON.parse(data.data));
-                            console.log("fetched reducer",this.props.user)
+                            //console.log("fetched reducer",this.props.user)
                             if(this.props.user.user_type === 1){
-                                console.log("Changing menu type to super admin")
+                                //console.log("Changing menu type to super admin")
                                 this.setState({  ...this.state, menu: this.super_admin })
                             }
                             else if(this.props.user.user_type === 2){
-                                console.log("Changing menu type to organization admin")
+                                //console.log("Changing menu type to organization admin")
                                 this.setState({  ...this.state, menu: this.org_admin })
                             }
                             else if(this.props.user.user_type === 3){
-                                console.log("Changing menu type to organization user")
+                                //console.log("Changing menu type to organization user")
                                 this.setState({  ...this.state, menu: this.org_user })
                             }
                             else{
@@ -257,7 +254,7 @@ class Menu extends Component {
 }
 
 function mapStateToProps(reducer_state) {
-    console.log("--Reducer state-----", reducer_state.user_reducer);
+    //console.log("--Reducer state-----", reducer_state.user_reducer);
     return {
         user: reducer_state.user_reducer
     };

@@ -59,7 +59,6 @@ class TopMenu extends Component {
         let method='GET';
         let payload = {}
         BackendCred(payload,endpoint,method).then((response) => {
-            console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
                     if(data.message==="success") {
@@ -109,7 +108,7 @@ class TopMenu extends Component {
 }
 
 function mapStateToProps(reducer_state) {
-    console.log("--Reducer state-----", reducer_state.user_reducer)
+    //console.log("--Reducer state-----", reducer_state.user_reducer)
     return {
         user: reducer_state.user_reducer
     };

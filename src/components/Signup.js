@@ -60,8 +60,8 @@ class Signup extends Component {
     handleSignup = (() => {
         // showAlert("SHowed Successful", "info", this);
         document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.name);
-        console.log('2',this.state);
+        // console.log('1',this.state.name);
+        // console.log('2',this.state);
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
@@ -121,11 +121,9 @@ class Signup extends Component {
                 'founded_date'  : this.state.founded_date+' 12:00:00',
                 'organization_type': this.state.organization_type
             };
-            console.log("-----PAYLOAD-----",payload);
             let endpoint='api/v1/signup_organization';
             let method='POST';
             Backend(payload,endpoint,method).then((response) => {
-                console.log(response.status);
                 if (response.status === 200) {
                     response.json().then((data) => {
 

@@ -25,9 +25,6 @@ class AddNewBranch extends Component {
     handleDataEntry = (() => {
         // showAlert("SHowed Successful", "info", this);
         // document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.email);
-        console.log('2',this.state.password);
-        console.log('3', this.state)
         //Validation
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
@@ -83,10 +80,8 @@ class AddNewBranch extends Component {
         };
 
         doCreateBranch(payload).then((response) => {
-            console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
-                    console.log(data);
                     //alert("Branch details successfully added")
                     this.props.branch_addiiton_success(data);
                     // this.props.history.push("/home");
@@ -113,7 +108,6 @@ class AddNewBranch extends Component {
     });
 
     render() {
-        console.log("[addnewuser] render method");
         return (
             <div>
                 <TopMenu/>

@@ -69,9 +69,6 @@ class AdminUserSearch extends Component {
     }
 
     handleDataEntry = (() => {
-        console.log('1',this.state.search_by);
-        console.log('2',this.state.search_value);
-        console.log('3', this.state);
 
         if(!this.state.search_value){
             window.alert("Please enter search criteria")
@@ -83,10 +80,8 @@ class AdminUserSearch extends Component {
         let endpoint = 'api/v1/get_user_info?'+ search_by + '=' + this.state.search_value
         let method = 'GET'
         BackendCred(payload, endpoint, method).then((response) => {
-            console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
-                    console.log(data);
                     rows=JSON.parse(data.data);
                     this.props.user_addiiton_success(data);
                     this.props.history.push("/home");
@@ -113,7 +108,6 @@ class AdminUserSearch extends Component {
     });
 
     render() {
-        console.log("[UserSearch] render method");
         return (
             <div>
                 <TopMenu/>

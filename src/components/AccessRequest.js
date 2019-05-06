@@ -10,6 +10,7 @@ import ReactDataGrid from "react-data-grid";
 import {Toolbar,Data} from "react-data-grid-addons";
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 import {BackendCred, BackendCredBody} from "../api/Util";
+import {connect} from "react-redux";
 
 const rows = [
     { id: 0, title: "Task 1", complete: 20, status:"Flagged", flagbit:1 },
@@ -31,62 +32,6 @@ const columns = [
     { key: "action", name: "Action"}
 ].map(c => ({ ...c, ...defaultColumnProperties }));
 
-function accessRequest(id, end_point){
-    // alert("Requests all the data: "+JSON.stringify(rowdata));
-    // data category from database
-    let endpoint = 'api/v1/' + end_point ;
-    let method = 'POST'
-    let payload = {
-        "id":id
-    };
-    BackendCredBody(payload, endpoint, method).then((response) => {
-        console.log(response)
-        if (response.status === 200) {
-            response.json().then((data) => {
-                console.log(data);
-                if(data.message==="success") {
-                    alert("Action taken successfully")
-                    window.location.reload();
-                }
-            });
-
-        }
-        else {
-            console.log("Error: ", response);
-            alert("Could not take the action");
-        }
-    });
-}
-
-const Actions = (rowdata) => [
-    {
-        icon: "glyphicon glyphicon-link",
-        actions: [
-            {
-                text: "Accept",
-                callback: () => {
-                    console.log("Accept Request: "+JSON.stringify(rowdata));
-                    accessRequest(rowdata.id, "approve_data_request");
-                }
-            },
-            {
-                text: "Reject",
-                callback: () => {
-                    console.log("Reject Request: "+JSON.stringify(rowdata));
-                    accessRequest(rowdata.id, "deny_data_request")
-                }
-            }
-        ]
-    }
-];
-
-function getCellActions(column, row) {
-    const Action = {
-        action: Actions(row)
-    };
-    return Action[column.key];
-}
-
 
 const handleFilterChange = filter => filters => {
     const newFilters = { ...filters };
@@ -104,7 +49,42 @@ function getRows(rows, filters) {
 
 const ROW_COUNT = 50;
 
-function Table({ rows }) {
+function Table({ rows, onAction }) {
+
+    const Actions = (rowdata) => [
+        {
+            icon: "glyphicon glyphicon-link",
+            actions: [
+                {
+                    text: "Accept",
+                    callback: () => {
+                        console.log("Accept Request: "+JSON.stringify(rowdata));
+                        onAction(rowdata.id, "approve_data_request");
+                    }
+                },
+                {
+                    text: "Reject",
+                    callback: () => {
+                        console.log("Reject Request: "+JSON.stringify(rowdata));
+                        onAction(rowdata.id, "deny_data_request")
+                    }
+                }
+            ]
+        }
+    ];
+
+    function getCellActions(column, row) {
+        const Action = {
+            action: Actions(row)
+        };
+
+        console.log(row.status !== "Approved" && row.status !== "Rejected")
+        if(row.status !== "Approved" && row.status !== "Rejected"){
+            return Action[column.key];
+        }
+
+    }
+
     const [filters, setFilters] = useState({});
     const filteredRows = getRows(rows, filters);
     return (
@@ -124,19 +104,51 @@ function Table({ rows }) {
 
 class AccessRequest extends Component {
 
-    constructor() {
-        super();
+    constructor(...args) {
+        super(...args);
         this.state = {
-            rows1 :[]
+            rows1 :[],
+            from_date : '',
+            to_date : '',
+            data_type : ''
         }
     }
 
-    componentWillMount() {
+    accessRequest = (id, end_point) => {
+        // alert("Requests all the data: "+JSON.stringify(rowdata));
+        // data category from database
+        let endpoint = 'api/v1/' + end_point ;
+        let method = 'POST'
+        let payload = {
+            "id":id
+        };
+        BackendCredBody(payload, endpoint, method).then((response) => {
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    console.log("[AccessRequest]", data);
+                    if(data.message==="success") {
+                        alert("Action taken successfully")
+                        this.fetchRequests();
+                    }
+                });
+            }
+            else {
+                console.log("Error: ", response);
+                alert("Could not take the action");
+            }
+        });
+    }
+
+    fetchRequests = (() => {
         let endpoint = 'api/v1/get_all_data_request';
         let method = 'GET'
-        let payload = {}
+        let payload = {
+            from_date : this.state.from_date+' 00:00:00',
+            to_date : this.state.to_date+' 00:00:00',
+            record_type : this.props.record_types[this.state.data_type]
+
+        }
         BackendCred(payload, endpoint, method).then((response) => {
-            console.log(response);
             if (response.status === 200) {
                 response.json().then((data) => {
                     if(data.message==="success") {
@@ -175,54 +187,12 @@ class AccessRequest extends Component {
                 console.log("Could not request the access");
             }
         });
-    }
 
-    handleDataEntry = (() => {
-
-        let payload = {
-            'address_line_1' : this.state.address_line_1,
-            'address_line_2' : this.state.address_line_2,
-            'city' : this.state.city,
-            'state' : this.state.state,
-            'country' : this.state.country,
-            'zip': this.state.zip,
-            'phone': this.state.phone
-        };
-
-        doCreateBranch(payload).then((response) => {
-            console.log(response.status);
-            if (response.status === 200) {
-                response.json().then((data) => {
-                    console.log(data);
-                    alert("Branch details successfully added")
-                    this.props.branch_addiiton_success(data);
-                    // this.props.history.push("/home");
-                });
-
-            }
-            else if (response.status === 404) {
-                this.setState({
-                    ...this.state,
-                    message: "Service not found"
-                });
-            }
-            else if (response.status === 401) {
-                this.setState({
-                    ...this.state,
-                    message: "Branch already exists"
-                });
-            }
-            else {
-                console.log("Error: ", response);
-            }
-        });
     });
 
 
 
     render() {
-
-        console.log("[branch] render method");
         return (
             <div>
                 <TopMenu/>
@@ -252,35 +222,49 @@ class AccessRequest extends Component {
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <div className="col-md-5">
+                                                <div className="col-md-3">
                                                     <div className="form-group">
-                                                        <label className="control-label">Search By</label>
+                                                        <label className="control-label">Data Type</label>
                                                         <select className="form-control"
                                                                 onChange={(event) => {
                                                                     this.setState({
                                                                         ...this.state,
-                                                                        search_by : event.target.value
+                                                                        data_type : event.target.value
                                                                     })
                                                                 }}
                                                         >
                                                             <option value="">---Select One---</option>
-                                                            <option value="given_name">Given Name</option>
-                                                            <option value="last_name">Last Name</option>
-                                                            <option value="email">Email id</option>
-                                                            <option value="zip">Zip</option>
-                                                            <option value="city">City</option>
-                                                            <option value="phone">Phone</option>
+                                                            <option value="educational">Educational</option>
+                                                            <option value="medical">Medical</option>
+                                                            <option value="employment">Employment</option>
+                                                            <option value="driving">Driving</option>
+                                                            <option value="criminal">Criminal</option>
+                                                            <option value="residential">Residential</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-5">
+                                                <div className="col-md-3">
                                                     <div className="form-group">
-                                                        <label className="control-label">Parameter</label>
-                                                        <input type="text" id="firstName" className="form-control" placeholder="Parameter"
+                                                        <label className="control-label">Date Range</label>
+                                                        <input type="date" className="form-control" placeholder="mm/dd/yyyy"
                                                                onChange={(event) => {
                                                                    this.setState({
                                                                        ...this.state,
-                                                                       search_value : event.target.value
+                                                                       from_date : event.target.value
+                                                                   })
+                                                               }}
+                                                        />
+                                                        <span id="givenNameErr"/>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <div className="form-group">
+                                                        <label className="control-label">Date Range</label>
+                                                        <input type="date" className="form-control" placeholder="mm/dd/yyyy"
+                                                               onChange={(event) => {
+                                                                   this.setState({
+                                                                       ...this.state,
+                                                                       to_date : event.target.value
                                                                    })
                                                                }}
                                                         />
@@ -288,13 +272,13 @@ class AccessRequest extends Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="col-md-2">
-                                                    <button type="button" className="btn btn-primary mytop" onClick={()=>{this.handleDataEntry()}}>Search</button>
+                                                <div className="col-md-3">
+                                                    <button type="button" className="btn btn-primary mytop" onClick={()=>{this.fetchRequests()}}>Search</button>
                                                 </div>
                                             </div>
 
                                             <div className="row">
-                                                <Table rows={this.state.rows1} />
+                                                <Table rows={this.state.rows1} onAction={this.accessRequest}/>
 
                                             </div>
                                         </div>
@@ -312,6 +296,7 @@ class AccessRequest extends Component {
 
 function mapStateToProps(reducer_state) {
     return {
+        record_types : reducer_state.record_type_reducer,
         organization_user: reducer_state.organization_user
     };
 }
@@ -320,4 +305,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
-export default withRouter(AccessRequest);
+export default withRouter(connect(mapStateToProps, null)(AccessRequest));

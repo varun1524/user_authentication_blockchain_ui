@@ -12,6 +12,8 @@ import history from '../history';
 import KeyboardArrowRight from "@material-ui/core/es/internal/svg-icons/KeyboardArrowRight";
 import {BackendCred, BackendCredBody} from "../api/Util";
 import {connect} from "react-redux";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 
 const defaultColumnProperties = {
@@ -196,9 +198,6 @@ class RequestDataAccess extends Component {
     handleDataEntry = (() => {
         // showAlert("SHowed Successful", "info", this);
         // document.getElementById('emailErr').innerHTML = '';
-        console.log('1',this.state.search_by);
-        console.log('2',this.state.search_value);
-        console.log('3', this.state);
 
         if(!this.state.search_value){
             window.alert("Please enter search criteria")
@@ -210,7 +209,6 @@ class RequestDataAccess extends Component {
         let endpoint = 'api/v1/get_user_info?'+ search_by + '=' + this.state.search_value
         let method = 'GET'
         BackendCred(payload, endpoint, method).then((response) => {
-            console.log(response.status);
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(JSON.parse(data.data));
@@ -287,7 +285,7 @@ class RequestDataAccess extends Component {
                                         <div className="form-body">
 
                                             <div className="row">
-                                                <div className="col-md-6">
+                                                <div className="col-md-5">
                                                     <div className="form-group">
                                                         <label className="control-label">Search By</label>
                                                         <select className="form-control"
@@ -308,7 +306,7 @@ class RequestDataAccess extends Component {
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-5">
                                                     <div className="form-group">
                                                         <label className="control-label">Parameter</label>
                                                         <input type="text" id="firstName" className="form-control" placeholder="Parameter"
@@ -322,14 +320,13 @@ class RequestDataAccess extends Component {
                                                         <span id="givenNameErr"/>
                                                     </div>
                                                 </div>
+                                                <div className="col-md-2">
+                                                    <button type="button" className="btn btn-primary mytop" onClick={()=>{this.handleDataEntry()}}>Search</button>
+                                                </div>
                                             </div>
 
 
-                                            <div className="form-actions right">
-                                                <button type="button" className="btn default">Cancel</button>&nbsp;
-                                                <button type="button" className="btn btn-primary" onClick={()=>{this.handleDataEntry()}}>Get List</button>&nbsp;
 
-                                            </div>
                                             <div className="row">
                                                 <h3 className="form-section">Search Results
                                                 </h3>

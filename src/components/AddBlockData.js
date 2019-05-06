@@ -10,6 +10,7 @@ import {BackendCredBody, BackendGetWithoutSession} from "../api/Util";
 import {connect} from "react-redux";
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
+import {DropdownToggle} from "reactstrap";
 
 class AddBlockData extends Component
 {
@@ -58,7 +59,7 @@ class AddBlockData extends Component
         if (data_type==="employment"){
             data = {
                 role:this.state.role,
-                company:this.state.company,
+                company:this.props.user.given_name,
                 start_date:this.state.start_date,
                 end_date:this.state.end_date,
                 technologies:this.state.technologies,
@@ -66,7 +67,7 @@ class AddBlockData extends Component
             };
         }else if(data_type==="educational"){
             data = {
-                university:this.state.university,
+                university:this.props.user.given_name,
                 start_date:this.state.start_date,
                 end_date:this.state.end_date,
                 degree_type: this.state.degree_type,
@@ -107,10 +108,7 @@ class AddBlockData extends Component
                 zip : this.state.zip
             };
         }
-        //console.log("handleDataEntry: ", this.props.location.state);
-        //console.log("handleDataEntry: ", this.props.location.state['id']);
-        //console.log("handleDataEntry: ", this.props.location.state.id);
-        //alert(this.props.location.state['id']);
+
         let payload = {
             user_id : this.props.location.state.id,
             block_data : {
@@ -210,6 +208,7 @@ class AddBlockData extends Component
                                                             <div className="form-group">
                                                                 <label>Company</label>
                                                                 <input type="text" className="form-control"
+                                                                       value={this.props.user.given_name}
                                                                        id="input_company"
                                                                        onChange={(event) => {
                                                                            this.setState({
@@ -217,6 +216,7 @@ class AddBlockData extends Component
                                                                                company : event.target.value
                                                                            })
                                                                        }}
+                                                                       disabled
                                                                 /> </div>
                                                         </div>
                                                     </div>
@@ -308,12 +308,14 @@ class AddBlockData extends Component
                                                             <div className="form-group">
                                                                 <label>University</label>
                                                                 <input type="text" className="form-control"
+                                                                       value={this.props.user.given_name}
                                                                        onChange={(event) => {
                                                                            this.setState({
                                                                                ...this.state,
                                                                                university : event.target.value
                                                                            })
                                                                        }}
+                                                                       disabled
                                                                 /> </div>
                                                         </div>
                                                         <div className="col-md-6">
