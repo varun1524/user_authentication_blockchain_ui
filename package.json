@@ -148,6 +148,5 @@
         "presets": [
             "react-app"
         ]
-    },
-    "proxy": "http://"+process.env.PYTHON_HOST+":5000/"
+    }
 }
