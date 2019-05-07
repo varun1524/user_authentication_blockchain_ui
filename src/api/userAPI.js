@@ -1,3 +1,5 @@
+import fetch from 'fetch-with-proxy';
+
 const headers = {
     'Accept': 'application/json'
 };
