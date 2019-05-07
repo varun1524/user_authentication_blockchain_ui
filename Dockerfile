@@ -14,6 +14,6 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-
+ENV DANGEROUSLY_DISABLE_HOST_CHECK true
 EXPOSE 3000
 CMD [ "npm", "start" ]
