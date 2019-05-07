@@ -1,28 +1,19 @@
-FROM node:latest
+FROM node
+  
+# Create app directory
+WORKDIR /usr/src/app
 
-WORKDIR /app
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-ADD package.json /app
-RUN ls
 RUN npm install
-RUN npm install http-server -g
+# If you are building your code for production
+# RUN npm ci --only=production
 
-ADD . /app
-RUN pwd && ls .
-EXPOSE 3000 80 443
-RUN cd /app && npm run build
-RUN pwd
+# Bundle app source
+COPY . .
 
-# TODO : Generate SSL Certificate
-#ADD ./ssl/cert.pem   /app
-#ADD ./ssl/key.pem /app
-#ADD ./ssl/cert.pem  /app/dist
-#ADD ./ssl/key.pem  /app/dist
-
-RUN ls /app/dist && pwd
-CMD http-server -p 3000
-#-S -C cert.pem -o
-#-P http://0.0.0.0:8080
-# http-server -p 3000 -o -S
-# http-server -S -C cert.pem -o
-#CMD npm run dev
+EXPOSE 8080
+CMD [ "npm", "start" ]
