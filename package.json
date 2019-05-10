@@ -149,5 +149,5 @@
             "react-app"
         ]
     },
-    "proxy": "http://localhost:5000/"
+    "proxy": "http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000"
 }
