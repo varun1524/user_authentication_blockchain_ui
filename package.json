@@ -148,5 +148,6 @@
         "presets": [
             "react-app"
         ]
-    }
+    },
+    "proxy": "http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/"
 }
