@@ -1,11 +1,11 @@
-import fetch from 'fetch-with-proxy';
+import fetch1 from 'fetch-with-proxy';
 
 const headers = {
     'Accept': 'application/json'
 };
 
 export const Backend = (payload,endpoint,method) =>
-    fetch(''+endpoint, {
+    fetch1('http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000' + endpoint, {
         method: ''+method,
         headers: {
             ...headers,
@@ -21,7 +21,7 @@ export const Backend = (payload,endpoint,method) =>
     });
 
 export const BackendGetWithoutSession = (endpoint,method) =>
-    fetch(''+endpoint, {
+    fetch('http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000'+endpoint, {
         method: ''+method,
         headers: {
             ...headers,
@@ -36,7 +36,7 @@ export const BackendGetWithoutSession = (endpoint,method) =>
     });
 
 export const BackendCred = (payload,endpoint,method) =>
-    fetch(''+endpoint, {
+    fetch('http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000'+endpoint, {
         method: ''+method,
         headers: {
             ...headers,
@@ -51,7 +51,7 @@ export const BackendCred = (payload,endpoint,method) =>
     });
 
 export const BackendCredBody = (payload,endpoint,method) =>
-    fetch(''+endpoint, {
+    fetch('http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000'+endpoint, {
         method: ''+method,
         headers: {
             ...headers,
