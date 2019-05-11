@@ -55,20 +55,21 @@ class Menu extends Component {
         {
 
             icon: '',
-            label: 'Organization',
-            content: [
-                {
-                    icon: 'icon-class-name',
-                    label: 'Branch',
-                    to: '/organizationbranch',
-                },
-                {
-                    icon: 'icon-class-name',
-                    label: 'Organization Profile',
-                    to: '/organizationprofile',
-                }
-
-            ],
+            label: 'Profile',
+            to: '/organizationprofile'
+            // content: [
+            //     {
+            //         icon: 'icon-class-name',
+            //         label: 'Branch',
+            //         to: '/organizationbranch',
+            //     },
+            //     {
+            //         icon: 'icon-class-name',
+            //         label: 'Organization Profile',
+            //         to: '/organizationprofile',
+            //     }
+            //
+            // ],
         },
         {
 

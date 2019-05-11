@@ -51,7 +51,7 @@ export const BackendCred = (payload,endpoint,method) =>
     });
 
 export const BackendCredBody = (payload,endpoint,method) =>
-    fetch('/'+endpoint, {
+    fetch(''+endpoint, {
         method: ''+method,
         headers: {
             ...headers,
