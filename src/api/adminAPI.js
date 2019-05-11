@@ -5,7 +5,7 @@ const headers = {
 };
 
 export const adminSearchUser = (payload) =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/api/v1/get_user_info`, {
+    fetch(`api/v1/get_user_info`, {
         method: 'POST',
         headers: {
             ...headers,

@@ -305,4 +305,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({branch_addiiton_success: branch_addiiton_success}, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, null)(AccessRequest));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AccessRequest));

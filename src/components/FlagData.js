@@ -372,13 +372,13 @@ class FlagData extends Component {
                             this.fetchdata();
                         }
                         else {
-                            //alert("not logged in")
+                            console.log("not logged in, flag data 1st else")
                             history.push('/')
                         }
                     });
                 }
                 else {
-                    //alert("not logged in")
+                    console.log("not logged in, 2ns else in flag data")
                     history.push('/')
                 }
             });

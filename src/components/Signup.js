@@ -25,7 +25,7 @@ class Signup extends Component {
             phone: "",
             headquarter : "",
             founded_date  :"",
-            organization_type: ""
+            organization_type: "1"
         }
     }
 

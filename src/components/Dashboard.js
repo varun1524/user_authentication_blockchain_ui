@@ -24,13 +24,13 @@ class Dashboard extends Component {
                         this.props.user_profile_fetch(JSON.parse(data.data));
                     }
                     else {
-                        //alert("not logged in")
+                        console.log("not logged in, dashboard 1st else")
                         history.push('/')
                     }
                 });
             }
             else {
-                //alert("not logged in")
+                console.log("not logged in, dashboard 2nd else")
                 history.push('/')
             }
         });

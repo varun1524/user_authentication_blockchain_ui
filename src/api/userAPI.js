@@ -5,7 +5,7 @@ const headers = {
 };
 
 export const validateSession = () =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/user/validateSession`, {
+    fetch(`/user/validateSession`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -21,7 +21,7 @@ export const validateSession = () =>
     });
 
 export const doLogout = () =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/user/logout`, {
+    fetch(`/user/logout`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -37,7 +37,7 @@ export const doLogout = () =>
     });
 
 export const getUserProfile = (payload) =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/api/v1/get_user_info?user_id=current`, {
+    fetch(`/api/v1/get_user_info?user_id=current`, {
         method: 'GET',
         headers: {
             ...headers,
@@ -53,7 +53,7 @@ export const getUserProfile = (payload) =>
     });
 
 export const doSignUp = (payload) =>
-    fetch (`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/api/v1/signup_organization`,
+    fetch (`/api/v1/signup_organization`,
         {
             method: 'POST',
             headers: {
@@ -70,7 +70,7 @@ export const doSignUp = (payload) =>
     });
 
 export const doLogin = (payload) =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/api/v1/login`, {
+    fetch(`/api/v1/login`, {
         method: 'POST',
         headers: {
             ...headers,

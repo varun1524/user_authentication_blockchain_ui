@@ -189,33 +189,35 @@ class Menu extends Component {
                     response.json().then((data) => {
                         console.log(data);
                         if(data.message==="success") {
-                            //console.log("data in side menu after get_user_info",JSON.parse(data.data));
+                            console.log("data in side menu after get_user_info",JSON.parse(data.data));
 
                             this.props.user_profile_fetch(JSON.parse(data.data));
-                            //console.log("fetched reducer",this.props.user)
+                            console.log("fetched reducer",this.props.user)
                             if(this.props.user.user_type === 1){
-                                //console.log("Changing menu type to super admin")
+                                console.log("Changing menu type to super admin")
                                 this.setState({  ...this.state, menu: this.super_admin })
                             }
                             else if(this.props.user.user_type === 2){
-                                //console.log("Changing menu type to organization admin")
+                                console.log("Changing menu type to organization admin")
                                 this.setState({  ...this.state, menu: this.org_admin })
                             }
                             else if(this.props.user.user_type === 3){
-                                //console.log("Changing menu type to organization user")
+                                console.log("Changing menu type to organization user")
                                 this.setState({  ...this.state, menu: this.org_user })
                             }
                             else{
-                                //console.log("Changing menu type to normal user")
+                                console.log("Changing menu type to normal user")
                                 this.setState({  ...this.state, menu: this.user })
                             }
                         }
                         else {
+                            console.log("1st else")
                             history.push('/')
                         }
                     });
                 }
                 else {
+                    console.log("2nd else")
                     history.push('/')
                 }
             });

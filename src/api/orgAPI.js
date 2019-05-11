@@ -5,7 +5,7 @@ const headers = {
 };
 
 export const doCreateUser = (payload) =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/api/v1/create_user`, {
+    fetch(`/api/v1/create_user`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -22,7 +22,7 @@ export const doCreateUser = (payload) =>
     });
 
 export const doSearchUser = (payload) =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/api/v1/ger_user_info`, {
+    fetch(`/api/v1/ger_user_info`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -39,7 +39,7 @@ export const doSearchUser = (payload) =>
     });
 
 export const doCreateBranch = (payload) =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/orgAdmin/createBranch`, {
+    fetch(`/orgAdmin/createBranch`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -58,7 +58,7 @@ export const doCreateBranch = (payload) =>
 
 
 export const doInsertBlockData = (payload) =>
-    fetch(`http://pythonbackendelb-1027326963.us-west-2.elb.amazonaws.com:5000/api/v1/add_user_record`, {
+    fetch(`/api/v1/add_user_record`, {
         method: 'POST',
         headers: {
             ...headers,
