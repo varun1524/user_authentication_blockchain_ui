@@ -1,11 +1,11 @@
-import fetch1 from 'fetch-with-proxy';
+import fetch from 'fetch-with-proxy';
 
 const headers = {
     'Accept': 'application/json'
 };
 
 export const Backend = (payload,endpoint,method) =>
-    fetch1('' + endpoint, {
+    fetch('' + endpoint, {
         method: ''+method,
         headers: {
             ...headers,
@@ -49,6 +49,7 @@ export const BackendCred = (payload,endpoint,method) =>
         console.log("This is error");
         return error;
     });
+
 
 export const BackendCredBody = (payload,endpoint,method) =>
     fetch(''+endpoint, {
